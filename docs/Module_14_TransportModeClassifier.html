@@ -1,0 +1,2396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library imports &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Penetration Analysis" href="Module_15_PenetrationAnalysis.html" />
+    <link rel="prev" title="Library imports" href="Module_13_CommuterActivityClassifier.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Advanced Public Transportation System Implementation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html">Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Observations-from-accelerometer-data">Observations from accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Feature-Extraction">Feature Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-Activation-of-GPS">Opportunistic Activation of GPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-procedure-for-commuter-activity-detection">Opportunistic procedure for commuter activity detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#References:">References:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Features-Extraction">Features Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Feature-extraction">Feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Classification">Classification</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Processing:-For-entire-trip">Processing: For entire trip</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Feature-Extraction">Feature Extraction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Decomposition of accelerometer data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Features-Extraction">Features Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#For-saving-Mongo-data-in-numpy">For saving Mongo data in numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Execution-of-Data-extraction,-accl.-component,-and-feature-computation-for-.Raw-and-SegmentOtherThanStoppages">Execution of Data extraction, accl. component, and feature computation for <code class="docutils literal notranslate"><span class="pre">.Raw</span></code> and <code class="docutils literal notranslate"><span class="pre">SegmentOtherThanStoppages</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Variables">Variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Code">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html">Penetration Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Library-Imports-and-penetration-variable">Library Imports and penetration variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-1">Penetration Considering Feature set-1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-4">Penetration Considering Feature set-4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html">Battery Consumption Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#Code">Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#References">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Advanced Public Transportation System Implementation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Library imports</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Module_14_TransportModeClassifier.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<p>In this unit, we describe the procedure for training the transport mode detector. Further, we present the classification result for transport mode detector.</p>
+<section id="Library-imports">
+<h1>Library imports<a class="headerlink" href="#Library-imports" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Import and initialize MongoClient&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span>     <span class="n">MongoClient</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">con</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">()</span>
+
+<span class="kn">import</span> <span class="nn">pprint</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Import Libs&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Import project specific library&#39;&#39;&#39;</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;LibCode&#39;</span><span class="p">))</span>
+<span class="kn">import</span> <span class="nn">ReadAcclGPSRecord</span>
+<span class="kn">import</span> <span class="nn">SegmentsOtherThanStoppageSegments</span>
+<span class="kn">import</span> <span class="nn">EarthaxisAcceleration</span>
+<span class="kn">import</span> <span class="nn">EarthaxisAccelerationOnRawRecords</span>
+<span class="kn">import</span> <span class="nn">ComputeFeaturesTransportMode</span>
+<span class="kn">import</span> <span class="nn">FeaturesExtraction</span>
+<span class="kn">import</span> <span class="nn">TransportModeFeatureHelper</span>
+<span class="kn">import</span> <span class="nn">TMC_Helper</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;For updating the lib changes effects&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">ReadAcclGPSRecord</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">SegmentsOtherThanStoppageSegments</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EarthaxisAcceleration</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">EarthaxisAccelerationOnRawRecords</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">ComputeFeaturesTransportMode</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">FeaturesExtraction</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">TransportModeFeatureHelper</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">TMC_Helper</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;module &#39;TMC_Helper&#39; from &#39;/home/pruthvish/JRF/GitVersion_APTS_Software_Np/code/LibCode/TMC_Helper.py&#39;&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Save-in-MongoDB">
+<h1>Save in MongoDB<a class="headerlink" href="#Save-in-MongoDB" title="Permalink to this heading"></a></h1>
+<p>The transport mode detector is trained and validated on the trip records collected by data collection volunteers on their journey for various modes of transport. The accelerometer record is stored in the <code class="docutils literal notranslate"><span class="pre">RouteName</span> <span class="pre">=</span> <span class="pre">ISCON_PDPU_For_Transport_Mode</span></code> database of MongoDB.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ID_State_Position_Direction_RouteStart_RouteEnd_Date__Time</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">ID_Mode_Direction_RouteStart_RouteEnd_Date__Time</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ReadAndSaveData</span><span class="p">(</span><span class="n">TransportModeDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The route name and dataset directory name</span>
+
+<span class="sd">    output: None</span>
+
+<span class="sd">    function: It fetches the data records placed in the specified data set directory</span>
+<span class="sd">    and save them in the MongoDB database</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="sd">&#39;&#39;&#39;E.g., BM, CM, Bike, Car&#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">fileName</span> <span class="ow">in</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TransportModeDir</span><span class="p">,</span><span class="n">RouteName</span><span class="p">))]:</span>
+        <span class="n">FileNameSplitted</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="n">DeviceID</span> <span class="o">=</span> <span class="n">FileNameSplitted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">Mode</span> <span class="o">=</span> <span class="n">FileNameSplitted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ReadAcclGPSRecord</span><span class="o">.</span><span class="n">SaveInMongoFunction</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span>
+                                              <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TransportModeDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">,</span> <span class="n">fileName</span><span class="p">),</span>
+                                              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DeviceID</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">Mode</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<p>Aforementioned, in earlier unit, the <code class="docutils literal notranslate"><span class="pre">horizontal</span> <span class="pre">and</span> <span class="pre">vertical</span> <span class="pre">components</span></code> of accelerometer records for the bus, bike and car trips corresponding to the <code class="docutils literal notranslate"><span class="pre">stoppage</span> <span class="pre">segments</span></code> resembles similar pattern. Therefore, such stoppage segments are discraded during the transport mode detection using <code class="docutils literal notranslate"><span class="pre">stopage</span> <span class="pre">triggers</span></code>. Thus, the transport mode detector is trained and validated on the <code class="docutils literal notranslate"><span class="pre">horizontal</span> <span class="pre">and</span> <span class="pre">vertical</span> <span class="pre">components</span></code> of accelerometer records of segments other than stoppage segment based on the
+<code class="docutils literal notranslate"><span class="pre">accelerometer</span> <span class="pre">triggers</span></code>.</p>
+<p>Further, we have trained the <code class="docutils literal notranslate"><span class="pre">transport</span> <span class="pre">mode</span> <span class="pre">detector</span></code> for the <code class="docutils literal notranslate"><span class="pre">horizontal</span> <span class="pre">and</span> <span class="pre">vertical</span> <span class="pre">components</span></code> of accelerometer records of entire trip (including the stoppage segments). Subsequently, the performance of the former and latter approach are compared.</p>
+</section>
+<section id="Processing:-For-entire-trip">
+<h1>Processing: For entire trip<a class="headerlink" href="#Processing:-For-entire-trip" title="Permalink to this heading"></a></h1>
+<p>This section describes the procedure for training the classifier on the <code class="docutils literal notranslate"><span class="pre">entire</span> <span class="pre">trip</span> <span class="pre">record</span></code> (including the stoppage semgents).</p>
+<section id="Decomposition-of-accelerometer-data">
+<h2>Decomposition of accelerometer data<a class="headerlink" href="#Decomposition-of-accelerometer-data" title="Permalink to this heading"></a></h2>
+<p>The accelerometer record data is decomposed to <code class="docutils literal notranslate"><span class="pre">horizontal</span> <span class="pre">and</span> <span class="pre">vertical</span> <span class="pre">components</span></code> with the <code class="docutils literal notranslate"><span class="pre">IntervalLength</span></code> of <code class="docutils literal notranslate"><span class="pre">140</span> <span class="pre">points.</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ComputeEarthAxisComponentRaw</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">IntervalLength</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The route name, interval length for computing accelerometer components</span>
+<span class="sd">    and record type variable to specify the segment type of the records.</span>
+
+<span class="sd">    output: None</span>
+
+<span class="sd">    function: It extracts the raw accelerometer records from the MongoDB database</span>
+<span class="sd">    for the entire trip records and executes the code to compute the horizontal and</span>
+<span class="sd">    vertical components based on the method proposed in Jigsaw paper.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">SingleTripsInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">LR</span><span class="p">[</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">LR</span> <span class="ow">in</span>
+                       <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripsInfo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;ConvertedToEarthAxis&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})]</span>
+    <span class="k">for</span> <span class="n">SingleTripInfo</span> <span class="ow">in</span> <span class="n">SingleTripsInfo</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">SingleTripInfo</span><span class="p">)</span>
+        <span class="n">AcclMagRecord</span> <span class="o">=</span> <span class="p">[</span><span class="n">collection</span> <span class="k">for</span> <span class="n">collection</span> <span class="ow">in</span>
+                         <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">SingleTripInfo</span><span class="o">+</span><span class="s1">&#39;.AcclMagData.Raw&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">([(</span><span class="s1">&#39;GPSIndex&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)])]</span>
+
+        <span class="n">EarthaxisAccelerationOnRawRecords</span><span class="o">.</span><span class="n">ProcessEarthaxisHVComponentUsingJigSawMethod</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span>
+                                                                                       <span class="n">SingleTripInfo</span><span class="p">,</span>
+                                                                                       <span class="n">AcclMagRecord</span><span class="p">,</span>
+                                                                                       <span class="n">IntervalLength</span><span class="p">,</span><span class="n">RecordType</span><span class="p">)</span>
+        <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripsInfo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update_one</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">:</span><span class="n">SingleTripInfo</span><span class="p">},{</span><span class="s1">&#39;$set&#39;</span><span class="p">:{</span><span class="s1">&#39;ConvertedToEarthAxisRaw&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}})</span>
+
+    <span class="sd">&#39;&#39;&#39;Index&#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">SingleTripsInfo</span><span class="p">)):</span>
+        <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">SingleTripsInfo</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.EAccHVComponent.Raw&quot;</span><span class="o">+</span><span class="s2">&quot;&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">create_index</span><span class="p">(</span><span class="s1">&#39;GPSIndex&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Feature-Extraction">
+<h2>Feature Extraction<a class="headerlink" href="#Feature-Extraction" title="Permalink to this heading"></a></h2>
+<p>The feature <code class="docutils literal notranslate"><span class="pre">set-1</span> <span class="pre">to</span> <span class="pre">set-4</span></code> are computed using the orientation independent horizontal and vertical components of accelerometer records for the window of <code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">samples</span> <span class="pre">and</span> <span class="pre">50%</span> <span class="pre">overlap</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ComputeFeatures_Raw</span><span class="p">(</span><span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">WindowList</span><span class="p">,</span> <span class="n">WindowIndex</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The ProjectDataUsed variable specify whether the project dataset should to use project</span>
+<span class="sd">    dataset or the user collected dataset. The other variables specify the window size for feature</span>
+<span class="sd">    computation, record type (Raw or Segment other than stoppage segment), and route name.</span>
+
+<span class="sd">    output: None</span>
+
+<span class="sd">    function: It extracts the appropriate accelerometer components from the MongoDB database based</span>
+<span class="sd">    on the provided input and computes the features on the windowed accelerometer component. The</span>
+<span class="sd">    computed features are stored in the MongoDB database.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">ProjectDataUsed</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">PDCar</span><span class="p">,</span> <span class="n">PDBike</span><span class="p">,</span> <span class="n">BMSingleTripsInfoList</span><span class="p">,</span> <span class="n">CMSingleTripsInfoList</span> <span class="o">=</span> <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetTripsForTransportModes</span><span class="p">()</span>
+
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetFeaturesForGivenTripType</span> <span class="p">(</span><span class="n">BMSingleTripsInfoList</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                                                            <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span><span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetFeaturesForGivenTripType</span> <span class="p">(</span><span class="n">CMSingleTripsInfoList</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span>
+                                                                <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetFeaturesForGivenTripType</span> <span class="p">(</span><span class="n">PDCar</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span>
+                                                                <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetFeaturesForGivenTripType</span> <span class="p">(</span><span class="n">PDBike</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span>
+                                                                <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Trips</span> <span class="o">=</span> <span class="n">SingleTripsInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">LR</span><span class="p">[</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">LR</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripsInfo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;ConvertedToEarthAxisRaw&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})]</span>
+
+        <span class="n">BusTrips</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trip</span> <span class="k">for</span> <span class="n">Trip</span> <span class="ow">in</span> <span class="n">Trips</span> <span class="k">if</span> <span class="n">Trip</span><span class="o">.</span><span class="n">split</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Bus&#39;</span><span class="p">]</span>
+        <span class="n">CarTrips</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trip</span> <span class="k">for</span> <span class="n">Trip</span> <span class="ow">in</span> <span class="n">Trips</span> <span class="k">if</span> <span class="n">Trip</span><span class="o">.</span><span class="n">split</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Car&#39;</span><span class="p">]</span>
+        <span class="n">BikeTrips</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trip</span> <span class="k">for</span> <span class="n">Trip</span> <span class="ow">in</span> <span class="n">Trips</span> <span class="k">if</span> <span class="n">Trip</span><span class="o">.</span><span class="n">split</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Bike&#39;</span><span class="p">]</span>
+
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetFeaturesForGivenTripType</span> <span class="p">(</span><span class="n">BusTrips</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                                                                <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span><span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetFeaturesForGivenTripType</span> <span class="p">(</span><span class="n">CarTrips</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+                                                                <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span><span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetFeaturesForGivenTripType</span> <span class="p">(</span><span class="n">BikeTrips</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                                                                <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span><span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Processing:-For-Records-other-than-Stoppage-Segment">
+<h1>Processing: For Records other than Stoppage Segment<a class="headerlink" href="#Processing:-For-Records-other-than-Stoppage-Segment" title="Permalink to this heading"></a></h1>
+<p>This section describes the procedure for training the classifier on the <code class="docutils literal notranslate"><span class="pre">segments</span> <span class="pre">other</span> <span class="pre">than</span> <span class="pre">stoppage</span> <span class="pre">segment</span></code>.</p>
+<section id="id1">
+<h2>Decomposition of accelerometer data<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<p>The accelerometer record data is decomposed to <code class="docutils literal notranslate"><span class="pre">horizontal</span> <span class="pre">and</span> <span class="pre">vertical</span> <span class="pre">components</span></code> with the <code class="docutils literal notranslate"><span class="pre">IntervalLength</span></code> of <code class="docutils literal notranslate"><span class="pre">140</span> <span class="pre">points.</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ExtractSegment_EarthAxis_OtherThanStoppages</span><span class="p">(</span><span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">,</span> <span class="n">Speed_H</span> <span class="o">=</span> <span class="mf">5.6</span><span class="p">,</span> <span class="n">Speed_L</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The route name, interval length for computing accelerometer components,</span>
+<span class="sd">    speed range for computing segment other than stoppage segments and record type</span>
+<span class="sd">    variable to specify the segment type of the records.</span>
+
+<span class="sd">    output: None</span>
+
+<span class="sd">    function: It extracts the raw accelerometer records from the MongoDB database</span>
+<span class="sd">    for the computing segment other than stoppage segments and executes the code to</span>
+<span class="sd">    compute the horizontal and vertical components based on the method proposed in</span>
+<span class="sd">    Jigsaw paper.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="sd">&#39;&#39;&#39;Extract segment other than stoppage segments&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">ProjectDataUsed</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">BMSingleTripsInfoList</span><span class="p">,</span><span class="n">CMSingleTripsInfoList</span><span class="p">,</span><span class="n">PDSingleTripsInfoList</span> <span class="o">=</span> <span class="n">SegmentsOtherThanStoppageSegments</span><span class="o">.</span><span class="n">GetTripsBasedOnType</span><span class="p">(</span><span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">SegmentsOtherThanStoppageSegments</span><span class="o">.</span><span class="n">GetBMAndPDSegments</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span><span class="n">BMSingleTripsInfoList</span><span class="p">,</span><span class="n">Speed_H</span><span class="p">,</span> <span class="n">Speed_L</span><span class="p">)</span>
+        <span class="n">SegmentsOtherThanStoppageSegments</span><span class="o">.</span><span class="n">GetBMAndPDSegments</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span><span class="n">PDSingleTripsInfoList</span><span class="p">,</span><span class="n">Speed_H</span><span class="p">,</span> <span class="n">Speed_L</span><span class="p">)</span>
+        <span class="n">SegmentsOtherThanStoppageSegments</span><span class="o">.</span><span class="n">GetCMSegments</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span><span class="n">CMSingleTripsInfoList</span><span class="p">,</span><span class="n">BMSingleTripsInfoList</span><span class="p">)</span>
+        <span class="n">SegmentsOtherThanStoppageSegments</span><span class="o">.</span><span class="n">GetGPSAndAcclReadOfSegment</span><span class="p">(</span><span class="n">RouteName</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">SingleTripsInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">LR</span><span class="p">[</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">LR</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripsInfo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;SegmentExtracted&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})]</span>
+        <span class="n">SegmentsOtherThanStoppageSegments</span><span class="o">.</span><span class="n">GetBMAndPDSegments</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span><span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">Speed_H</span><span class="p">,</span> <span class="n">Speed_L</span><span class="p">)</span>
+        <span class="n">SegmentsOtherThanStoppageSegments</span><span class="o">.</span><span class="n">GetGPSAndAcclReadOfSegment</span><span class="p">(</span><span class="n">RouteName</span><span class="p">)</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    for SingleTripInfo in SingleTripsInfo:</span>
+<span class="sd">        con[RouteName][&#39;TripsInfo&#39;].update_one(</span>
+<span class="sd">            {&#39;SingleTripInfo&#39;:SingleTripInfo},{&#39;$set&#39;:{&#39;ConvertedToEarthAxis&#39;:False}})</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">EarthaxisAcceleration</span><span class="o">.</span><span class="n">ConvertToEarthaxisAcc</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span><span class="n">RecordType</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Features-Extraction">
+<h2>Features Extraction<a class="headerlink" href="#Features-Extraction" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ComputeFeatures_SegmentOtherThanStoppages</span><span class="p">(</span><span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">WindowList</span><span class="p">,</span> <span class="n">WindowIndex</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The ProjectDataUsed variable specify whether the project dataset should to use project</span>
+<span class="sd">    dataset or the user collected dataset. The other variables specify the window size for feature</span>
+<span class="sd">    computation, record type (Raw or Segment other than stoppage segment), and route name.</span>
+
+<span class="sd">    output: None</span>
+
+<span class="sd">    function: It extracts the appropriate accelerometer components from the MongoDB database based</span>
+<span class="sd">    on the provided input and computes the features on the windowed accelerometer component. The</span>
+<span class="sd">    computed features are stored in the MongoDB database.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="sd">&#39;&#39;&#39;Recent Attempt&#39;&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">ProjectDataUsed</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">PDCar</span><span class="p">,</span> <span class="n">PDBike</span><span class="p">,</span> <span class="n">BMSingleTripsInfoList</span><span class="p">,</span> <span class="n">CMSingleTripsInfoList</span> <span class="o">=</span> <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">GetTripsForTransportModes</span><span class="p">()</span>
+
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">ExtractFeaturesOfGivenTypeOfTrip</span><span class="p">(</span><span class="n">BMSingleTripsInfoList</span><span class="p">,</span><span class="s2">&quot;Bus&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                                                                    <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span><span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">ExtractFeaturesOfGivenTypeOfTrip</span><span class="p">(</span><span class="n">CMSingleTripsInfoList</span><span class="p">,</span><span class="s2">&quot;Bus&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                                                                    <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span><span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">ExtractFeaturesOfGivenTypeOfTrip</span><span class="p">(</span><span class="n">PDCar</span><span class="p">,</span><span class="s2">&quot;Car&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span>
+                                                                    <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">ExtractFeaturesOfGivenTypeOfTrip</span><span class="p">(</span><span class="n">PDBike</span><span class="p">,</span><span class="s2">&quot;Bike&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span>
+                                                                    <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Trips</span> <span class="o">=</span> <span class="p">[</span><span class="n">LR</span><span class="p">[</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">LR</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripsInfo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
+            <span class="p">{</span><span class="s1">&#39;ConvertedToEarthAxis&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})]</span>
+
+        <span class="n">BusTrips</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trip</span> <span class="k">for</span> <span class="n">Trip</span> <span class="ow">in</span> <span class="n">Trips</span> <span class="k">if</span> <span class="n">Trip</span><span class="o">.</span><span class="n">split</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Bus&#39;</span><span class="p">]</span>
+        <span class="n">CarTrips</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trip</span> <span class="k">for</span> <span class="n">Trip</span> <span class="ow">in</span> <span class="n">Trips</span> <span class="k">if</span> <span class="n">Trip</span><span class="o">.</span><span class="n">split</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Car&#39;</span><span class="p">]</span>
+        <span class="n">BikeTrips</span> <span class="o">=</span> <span class="p">[</span><span class="n">Trip</span> <span class="k">for</span> <span class="n">Trip</span> <span class="ow">in</span> <span class="n">Trips</span> <span class="k">if</span> <span class="n">Trip</span><span class="o">.</span><span class="n">split</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Bike&#39;</span><span class="p">]</span>
+
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">ExtractFeaturesOfGivenTypeOfTrip</span><span class="p">(</span><span class="n">BusTrips</span><span class="p">,</span><span class="s2">&quot;Bus&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+                                                                    <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span><span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">ExtractFeaturesOfGivenTypeOfTrip</span><span class="p">(</span><span class="n">CarTrips</span><span class="p">,</span><span class="s2">&quot;Car&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span>
+                                                                    <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="n">TransportModeFeatureHelper</span><span class="o">.</span><span class="n">ExtractFeaturesOfGivenTypeOfTrip</span><span class="p">(</span><span class="n">BikeTrips</span><span class="p">,</span><span class="s2">&quot;Bike&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">],</span>
+                                                                    <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The feature <code class="docutils literal notranslate"><span class="pre">set-1</span> <span class="pre">to</span> <span class="pre">set-4</span></code> are computed using the orientation independent horizontal and vertical components of accelerometer records for the window of <code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">samples</span> <span class="pre">and</span> <span class="pre">50%</span> <span class="pre">overlap</span></code>.</p>
+</section>
+<section id="For-saving-Mongo-data-in-numpy">
+<h2>For saving Mongo data in numpy<a class="headerlink" href="#For-saving-Mongo-data-in-numpy" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">LoadInMongoFromNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The route name and numpy directory path</span>
+<span class="sd">    output: The MongoDB database collections from the Numpy files</span>
+<span class="sd">    function: It creates the MongoDB database of TripsInfo collections</span>
+<span class="sd">    and features collections from the Numpy files.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">CollectionName</span> <span class="o">=</span> <span class="s1">&#39;TripsInfo&#39;</span>
+    <span class="n">TripsInfoRecords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">CollectionName</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saving data in mongoDB&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">CollectionName</span><span class="p">)</span>
+    <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">CollectionName</span><span class="p">]</span><span class="o">.</span><span class="n">insert_many</span><span class="p">(</span><span class="n">TripsInfoRecords</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="n">CollectionNames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1">#print(CollectionNames)</span>
+
+    <span class="n">CollectionNames_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">CollectionNames</span> <span class="k">if</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">.&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">]</span> <span class="c1"># To address the error</span>
+    <span class="n">CollectionNames_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">CollectionNames</span> <span class="k">if</span> <span class="s1">&#39;Feature&#39;</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">]</span>
+
+    <span class="c1">#print(&#39;Saving data in mongoDB&#39;)</span>
+    <span class="k">for</span> <span class="n">Collection</span> <span class="ow">in</span> <span class="n">CollectionNames_2</span><span class="p">:</span>
+        <span class="n">RecordsList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">Collection</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1">#print(Collection)</span>
+        <span class="c1">#pprint.pprint(RecordsList[0:3])</span>
+
+        <span class="n">CollectionName</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">CollectionName</span><span class="p">)</span>
+        <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">CollectionName</span><span class="p">]</span><span class="o">.</span><span class="n">insert_many</span><span class="p">(</span><span class="n">RecordsList</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+
+
+<span class="k">def</span> <span class="nf">SaveInNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The route name and numpy directory path</span>
+<span class="sd">    output: Numpy files of the MongoDB database</span>
+<span class="sd">    function: It stores the Numpy files for the MongoDB database in the specified directory path</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">CollectionNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">Collection</span> <span class="k">for</span> <span class="n">Collection</span> <span class="ow">in</span>
+                        <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">]</span><span class="o">.</span><span class="n">list_collection_names</span><span class="p">()</span> <span class="k">if</span> <span class="n">Collection</span><span class="o">!=</span><span class="s1">&#39;system.indexes&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">CollectionName</span> <span class="ow">in</span> <span class="n">CollectionNames</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CollectionName&#39;</span><span class="p">,</span> <span class="n">CollectionName</span><span class="p">)</span>
+        <span class="n">RecordsList</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">CollectionName</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">([(</span><span class="s1">&#39;_id&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)])]</span>
+
+        <span class="k">for</span> <span class="n">RecordDict</span> <span class="ow">in</span> <span class="n">RecordsList</span><span class="p">:</span>
+            <span class="k">del</span><span class="p">[</span><span class="n">RecordDict</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]]</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">))</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">))</span>
+
+
+        <span class="c1">#np.save(f&#39;{Path}/{Database}/{CollectionName}.npy&#39;, RecordsList)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">CollectionName</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">),</span> <span class="n">RecordsList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Execution-of-Data-extraction,-accl.-component,-and-feature-computation-for-.Raw-and-SegmentOtherThanStoppages">
+<h2>Execution of Data extraction, accl. component, and feature computation for <code class="docutils literal notranslate"><span class="pre">.Raw</span></code> and <code class="docutils literal notranslate"><span class="pre">SegmentOtherThanStoppages</span></code><a class="headerlink" href="#Execution-of-Data-extraction,-accl.-component,-and-feature-computation-for-.Raw-and-SegmentOtherThanStoppages" title="Permalink to this heading"></a></h2>
+<section id="Parameters">
+<h3>Parameters<a class="headerlink" href="#Parameters" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="n">OneLevelUpPath</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IntervalLength</span> <span class="o">=</span> <span class="mi">160</span>
+
+<span class="sd">&#39;&#39;&#39;Trips and Window size for Feature extraction&#39;&#39;&#39;</span>
+<span class="c1">#BMSingleTripsInfoList,CMSingleTripsInfoList,PDSingleTripsInfoList = TransportModeFeatureHelper.GetTripsBasedOnType(RouteName)</span>
+<span class="n">WindowList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">256</span><span class="p">,</span><span class="mi">512</span><span class="p">]</span>
+<span class="n">WindowIndex</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">WindowSize</span> <span class="o">=</span> <span class="n">WindowList</span><span class="p">[</span><span class="n">WindowIndex</span><span class="p">]</span>
+
+<span class="sd">&#39;&#39;&#39;For segment other than stoppages&#39;&#39;&#39;</span>
+<span class="n">Speed_H</span> <span class="o">=</span> <span class="mf">5.6</span>
+<span class="n">Speed_L</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="sd">&#39;&#39;&#39;Variables for Classification&#39;&#39;&#39;</span>
+<span class="n">ResultPathDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;Transport&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ResultPathDir</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">ResultPathDir</span><span class="p">)</span>
+
+
+<span class="n">TrainedModelPathDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;TrainedModel&#39;</span><span class="p">,</span><span class="s1">&#39;Transport&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Path for Np&#39;&#39;&#39;</span>
+<span class="n">NpPathDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="s1">&#39;NpData&#39;</span><span class="p">)</span>
+
+<span class="sd">&#39;&#39;&#39;Path for Model&#39;&#39;&#39;</span>
+<span class="n">ClassifierList</span> <span class="o">=</span> <span class="p">[</span><span class="n">GaussianNB</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                  <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span>
+                  <span class="n">SVC</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+                 <span class="p">]</span>
+
+<span class="n">ClassifierNameList</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NB&#39;</span><span class="p">,</span> <span class="s1">&#39;LogisticRegression&#39;</span><span class="p">,</span> <span class="s1">&#39;RF&#39;</span><span class="p">,</span> <span class="s1">&#39;DT&#39;</span><span class="p">,</span> <span class="s1">&#39;SVC&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="Variables">
+<h2>Variables<a class="headerlink" href="#Variables" title="Permalink to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ProjectDataUsed</span></code>: determines whether the project data or the user’s own data is used for execution.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UsedPreTrained</span></code>: determines whether the pretrained and precomputed dataset or raw data is used for execution.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UseMongoDB</span></code>: determines whether the MonngoDB database or Numpy file is used for execution.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReducedKFolds</span></code>: If false: one fold is used, else ten-fold is used</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">ProjectDataUsed = True</span>
+<span class="sd">UsedPreTrained = True</span>
+<span class="sd">ReducedKFolds = False</span>
+<span class="sd">UseMongoDB = True</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1">#&#39;&#39;&#39;</span>
+<span class="n">ProjectDataUsed</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">UsedPreTrained</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">ReducedKFolds</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">UseMongoDB</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1">#&#39;&#39;&#39;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">ProjectDataUsed = True</span>
+<span class="sd">UsedPreTrained = False</span>
+<span class="sd">ReducedKFolds = False</span>
+<span class="sd">UseMongoDB = False</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#TransportModeDir = &#39;/home/pruthvish/JRF/GitVersion_PMC/Data/TransportMode/&#39;</span>
+<span class="k">if</span> <span class="n">ProjectDataUsed</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+    <span class="n">TransportModeDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;TransportMode&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">TransportModeDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;UserData&#39;</span><span class="p">,</span> <span class="s1">&#39;TransportMode&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">RouteNamesList</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ISCON_PDPU_For_Transport_Mode&#39;</span><span class="p">]</span>
+<span class="c1">#RouteNamesList = [f for f in os.listdir(TransportModeDir)]</span>
+</pre></div>
+</div>
+</div>
+<section id="Code">
+<h3>Code<a class="headerlink" href="#Code" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">RouteName</span> <span class="ow">in</span> <span class="n">RouteNamesList</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">UsedPreTrained</span><span class="o">==</span><span class="kc">False</span> <span class="ow">and</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="c1">#&#39;&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reading data and saving in MongoDB&#39;</span><span class="p">)</span>
+        <span class="n">ReadAndSaveData</span><span class="p">(</span><span class="n">TransportModeDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+
+        <span class="n">RecordType</span> <span class="o">=</span> <span class="s1">&#39;.Raw&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing preprocessing for </span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1"> segments&#39;</span><span class="p">)</span>
+        <span class="n">ComputeEarthAxisComponentRaw</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">IntervalLength</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing features for </span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1"> segments&#39;</span><span class="p">)</span>
+        <span class="n">ComputeFeatures_Raw</span><span class="p">(</span><span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">WindowList</span><span class="p">,</span> <span class="n">WindowIndex</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+        <span class="c1">#&#39;&#39;&#39;</span>
+
+        <span class="n">RecordType</span> <span class="o">=</span> <span class="s1">&#39;.SegmentOtherThanStoppage&#39;</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing preprocessing for </span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1"> segments&#39;</span><span class="p">)</span>
+        <span class="n">ExtractSegment_EarthAxis_OtherThanStoppages</span><span class="p">(</span><span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">,</span> <span class="n">Speed_H</span> <span class="o">=</span> <span class="mf">5.6</span><span class="p">,</span> <span class="n">Speed_L</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing features for </span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1"> segments&#39;</span><span class="p">)</span>
+        <span class="n">ComputeFeatures_SegmentOtherThanStoppages</span><span class="p">(</span><span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">WindowList</span><span class="p">,</span> <span class="n">WindowIndex</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saving MongoData in Np files&#39;</span><span class="p">)</span>
+        <span class="n">SaveInNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+
+        <span class="n">RouteNamesListInDB</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">list_database_names</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">RouteName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RouteNamesListInDB</span><span class="p">:</span>
+            <span class="sd">&#39;&#39;&#39;Load the data for RouteName, if RouteName is not in RouteNamesList&#39;&#39;&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading MongoData from Np files&#39;</span><span class="p">)</span>
+            <span class="n">LoadInMongoFromNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="Classification">
+<h1>Classification<a class="headerlink" href="#Classification" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">GetFeaturesForClass</span><span class="p">(</span><span class="n">RouteNameTestList</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span>
+                        <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">ProjectDataUsed</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">TMC_Helper</span><span class="o">.</span><span class="n">GetData</span><span class="p">(</span><span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">First_InputFlag</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">RouteNameTest</span> <span class="ow">in</span> <span class="n">RouteNameTestList</span><span class="p">:</span>
+                <span class="n">X_Route</span><span class="p">,</span> <span class="n">y_Route</span> <span class="o">=</span> <span class="n">TMC_Helper</span><span class="o">.</span><span class="n">GetData_User</span><span class="p">(</span><span class="n">RouteNameTest</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span>
+                                                           <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">First_InputFlag</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+                    <span class="n">X</span> <span class="o">=</span> <span class="n">X_Route</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">y_Route</span>
+                    <span class="n">First_InputFlag</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">X_Route</span><span class="p">))</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">y_Route</span><span class="p">))</span>
+                    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">                    X += X_Route</span>
+<span class="sd">                    y += y_Route</span>
+<span class="sd">                    &#39;&#39;&#39;</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;X.shape&#39;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y.shape&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+
+        <span class="sd">&#39;&#39;&#39;Save in NpData&#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span><span class="s1">&#39;Transport&#39;</span><span class="p">))</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span><span class="s1">&#39;Transport&#39;</span><span class="p">))</span>
+
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/Transport/X_</span><span class="si">{</span><span class="n">FeatureType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">SelectedFeaturesFlag</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/Transport/y_</span><span class="si">{</span><span class="n">FeatureType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">SelectedFeaturesFlag</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/Transport/X_</span><span class="si">{</span><span class="n">FeatureType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">SelectedFeaturesFlag</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span>
+                    <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/Transport/y_</span><span class="si">{</span><span class="n">FeatureType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordType</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">SelectedFeaturesFlag</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span>
+                    <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ApplyClassification</span><span class="p">(</span><span class="n">Modes</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">,</span>
+                        <span class="n">Classifier</span><span class="p">,</span> <span class="n">ClassifierName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">RouteNameTestList</span><span class="p">,</span>
+                        <span class="n">UsedPreTrained</span><span class="p">,</span> <span class="n">ClassifierName_ForModelSave</span><span class="p">,</span> <span class="n">TrainedModelPathDir</span><span class="p">,</span> <span class="n">ReducedKFolds</span><span class="p">,</span>
+                        <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                       <span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input:</span>
+<span class="sd">        Modes: The number of classes</span>
+
+<span class="sd">        FeatureType and RecordType: feature type and record type information</span>
+
+<span class="sd">        SelectedFeatures and SelectedFeaturesFlag: selected features list and flag to</span>
+<span class="sd">        determine if selected features are list is used</span>
+
+<span class="sd">        Classifier and ClassifierName: classifier object variable and classifier name</span>
+
+<span class="sd">        ResultPathDir: path of result directory</span>
+
+<span class="sd">        ProjectDataUsed: flag to determine whether the project dataset or user dataset is used</span>
+
+<span class="sd">        RouteNameTestList: The route names list to be considered during classification</span>
+
+<span class="sd">        UsedPreTrained: Flag to determine whether the pretrained classifier should be used</span>
+<span class="sd">        or the classifier is to be trained</span>
+
+<span class="sd">        ClassifierName_ForModelSave: the name of classifier for saving a model</span>
+
+<span class="sd">        TrainedModelPathDir: path of trainedModel directory</span>
+
+<span class="sd">    output: None</span>
+
+<span class="sd">    function: It trains and validates the classifier the ten-fold cross-validation with stratified</span>
+<span class="sd">    sampling of each class. The performance metrics of the classifier is stores as a txt file in the</span>
+<span class="sd">    result directory</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">MetricsDict</span> <span class="o">=</span> <span class="n">TMC_Helper</span><span class="o">.</span><span class="n">InitializeMetricsDict</span><span class="p">(</span><span class="n">Modes</span><span class="p">)</span>
+
+
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">GetFeaturesForClass</span><span class="p">(</span><span class="n">RouteNameTestList</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span>
+                               <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">)</span>
+
+
+    <span class="n">MetricsDict</span> <span class="o">=</span> <span class="n">TMC_Helper</span><span class="o">.</span><span class="n">TrainAndPredict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">Classifier</span><span class="p">,</span> <span class="n">MetricsDict</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span>
+                                             <span class="n">ClassifierName</span><span class="p">,</span> <span class="n">UsedPreTrained</span><span class="p">,</span>
+                                             <span class="n">ClassifierName_ForModelSave</span><span class="p">,</span> <span class="n">TrainedModelPathDir</span><span class="p">,</span> <span class="n">ReducedKFolds</span><span class="p">)</span>
+
+    <span class="n">TMC_Helper</span><span class="o">.</span><span class="n">PrintMetricsDict</span><span class="p">(</span><span class="n">ClassifierName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span>
+                                <span class="n">SelectedFeaturesFlag</span><span class="p">,</span> <span class="n">MetricsDict</span><span class="p">)</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    filename = os.path.join(ResultPathDir,f&#39;{ClassifierName}_TrainedModel.sav&#39;)</span>
+<span class="sd">    f&#39;ResultPathDir{ClassifierName}&#39;</span>
+<span class="sd">    pickle.dump(model, open(, &#39;wb&#39;))</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Modes</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">Classifier</span><span class="p">,</span> <span class="n">ClassifierName</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ClassifierList</span><span class="p">,</span> <span class="n">ClassifierNameList</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">RecordType</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.Raw&#39;</span><span class="p">,</span> <span class="s1">&#39;.SegmentOtherThanStoppage&#39;</span><span class="p">]:</span>
+
+        <span class="n">RecordTypeName</span> <span class="o">=</span> <span class="n">RecordType</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="sd">&#39;&#39;&#39;Feature set-1&#39;&#39;&#39;</span>
+        <span class="n">FeatureType</span> <span class="o">=</span> <span class="s1">&#39;.HARFeature&#39;</span>
+        <span class="n">SelectedFeaturesFlag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">SelectedFeatures</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">ClassifierName_ForModelSave</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ClassifierName</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordTypeName</span><span class="si">}</span><span class="s1">_Set1&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Feature set-1&#39;</span><span class="p">)</span>
+        <span class="n">ApplyClassification</span><span class="p">(</span><span class="n">Modes</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">,</span>
+                            <span class="n">Classifier</span><span class="p">,</span> <span class="n">ClassifierName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">RouteNamesList</span><span class="p">,</span>
+                            <span class="n">UsedPreTrained</span><span class="p">,</span> <span class="n">ClassifierName_ForModelSave</span><span class="p">,</span> <span class="n">TrainedModelPathDir</span><span class="p">,</span> <span class="n">ReducedKFolds</span><span class="p">,</span>
+                            <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                           <span class="p">)</span>
+
+        <span class="sd">&#39;&#39;&#39;Feature set-2&#39;&#39;&#39;</span>
+        <span class="n">FeatureType</span> <span class="o">=</span> <span class="s1">&#39;.HARFeature&#39;</span>
+        <span class="n">SelectedFeaturesFlag</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">SelectedFeatures</span> <span class="o">=</span> <span class="n">TMC_Helper</span><span class="o">.</span><span class="n">SelectedFeaturesForFeatureType</span><span class="p">(</span><span class="n">FeatureType</span><span class="p">)</span>
+        <span class="n">ClassifierName_ForModelSave</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ClassifierName</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordTypeName</span><span class="si">}</span><span class="s1">_Set2&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Feature set-2&#39;</span><span class="p">)</span>
+        <span class="n">ApplyClassification</span><span class="p">(</span><span class="n">Modes</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">,</span>
+                            <span class="n">Classifier</span><span class="p">,</span> <span class="n">ClassifierName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">RouteNamesList</span><span class="p">,</span>
+                            <span class="n">UsedPreTrained</span><span class="p">,</span> <span class="n">ClassifierName_ForModelSave</span><span class="p">,</span> <span class="n">TrainedModelPathDir</span><span class="p">,</span> <span class="n">ReducedKFolds</span><span class="p">,</span>
+                            <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                           <span class="p">)</span>
+
+        <span class="sd">&#39;&#39;&#39;Feature set-3&#39;&#39;&#39;</span>
+        <span class="n">FeatureType</span> <span class="o">=</span> <span class="s1">&#39;.TransportFeatures&#39;</span>
+        <span class="n">SelectedFeatures</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">SelectedFeaturesFlag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">ClassifierName_ForModelSave</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ClassifierName</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordTypeName</span><span class="si">}</span><span class="s1">_Set3&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Feature set-3&#39;</span><span class="p">)</span>
+        <span class="n">ApplyClassification</span><span class="p">(</span><span class="n">Modes</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">,</span>
+                            <span class="n">Classifier</span><span class="p">,</span> <span class="n">ClassifierName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">RouteNamesList</span><span class="p">,</span>
+                            <span class="n">UsedPreTrained</span><span class="p">,</span> <span class="n">ClassifierName_ForModelSave</span><span class="p">,</span> <span class="n">TrainedModelPathDir</span><span class="p">,</span> <span class="n">ReducedKFolds</span><span class="p">,</span>
+                            <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+
+                           <span class="p">)</span>
+
+
+        <span class="sd">&#39;&#39;&#39;Feature set-4&#39;&#39;&#39;</span>
+        <span class="n">FeatureType</span> <span class="o">=</span> <span class="s1">&#39;.TransportFeatures&#39;</span>
+        <span class="n">SelectedFeatures</span> <span class="o">=</span> <span class="n">TMC_Helper</span><span class="o">.</span><span class="n">SelectedFeaturesForFeatureType</span><span class="p">(</span><span class="n">FeatureType</span><span class="p">)</span>
+        <span class="n">SelectedFeaturesFlag</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">ClassifierName_ForModelSave</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ClassifierName</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">RecordTypeName</span><span class="si">}</span><span class="s1">_Set4&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Feature set-4&#39;</span><span class="p">)</span>
+        <span class="n">ApplyClassification</span><span class="p">(</span><span class="n">Modes</span><span class="p">,</span> <span class="n">FeatureType</span><span class="p">,</span> <span class="n">RecordType</span><span class="p">,</span> <span class="n">SelectedFeatures</span><span class="p">,</span> <span class="n">SelectedFeaturesFlag</span><span class="p">,</span>
+                            <span class="n">Classifier</span><span class="p">,</span> <span class="n">ClassifierName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ProjectDataUsed</span><span class="p">,</span> <span class="n">RouteNamesList</span><span class="p">,</span>
+                            <span class="n">UsedPreTrained</span><span class="p">,</span> <span class="n">ClassifierName_ForModelSave</span><span class="p">,</span> <span class="n">TrainedModelPathDir</span><span class="p">,</span> <span class="n">ReducedKFolds</span><span class="p">,</span>
+                            <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                           <span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Classifier, ClassifierName&#39;</span><span class="p">,</span> <span class="n">Classifier</span><span class="p">,</span> <span class="n">ClassifierName</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName GaussianNB() NB
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName GaussianNB() NB
+Feature set-1
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Feature set-2
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Feature set-3
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Feature set-4
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Classifier, ClassifierName LogisticRegression(random_state=0) LogisticRegression
+Feature set-1
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Feature set-2
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Feature set-3
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Feature set-4
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+/home/pruthvish/JRF/RoadNetwork/RoadNetwork_VirtualEnv/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:444: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Classifier, ClassifierName LogisticRegression(random_state=0) LogisticRegression
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName RandomForestClassifier(max_depth=20) RF
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName RandomForestClassifier(max_depth=20) RF
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName DecisionTreeClassifier() DT
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName DecisionTreeClassifier() DT
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName SVC(gamma=&#39;auto&#39;) SVC
+Feature set-1
+Feature set-2
+Feature set-3
+Feature set-4
+Classifier, ClassifierName SVC(gamma=&#39;auto&#39;) SVC
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Read the value for one of the machine learning algorithm&#39;&#39;&#39;</span>
+<span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ResultPathDir</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ClassifierName</span><span class="si">}</span><span class="s1">.txt&#39;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Results for .Raw, .HARFeature, and selected features flag: False
+ConfusionMatrix
+[[1245.  134.  212.]
+ [   2. 1754.   11.]
+ [ 135.   11. 1865.]]
+
+PrecissionValue
+[0.90086831 0.92364402 0.89319923]
+
+RecallValue
+[0.78252671 0.9926429  0.9273993 ]
+
+F1ScoreValue
+[0.83753784 0.95690125 0.90997804]
+
+AccuracyValue
+0.9059415161110076
+
+Results for .Raw, .HARFeature, and selected features flag: True
+ConfusionMatrix
+[[1266.  135.  190.]
+ [   4. 1753.   10.]
+ [ 165.    8. 1838.]]
+
+PrecissionValue
+[0.88222997 0.92457806 0.90186457]
+
+RecallValue
+[0.79572596 0.99207697 0.91397315]
+
+F1ScoreValue
+[0.83674818 0.95713896 0.90787849]
+
+AccuracyValue
+0.9046377351462097
+
+Results for .Raw, .TransportFeatures, and selected features flag: False
+ConfusionMatrix
+[[ 972.   48.  744.]
+ [  34. 1722.   11.]
+ [ 145.   90. 1776.]]
+
+PrecissionValue
+[0.84448306 0.92580645 0.70169893]
+
+RecallValue
+[0.55102041 0.97453311 0.88314272]
+
+F1ScoreValue
+[0.66689537 0.94954508 0.78203435]
+
+AccuracyValue
+0.8065680259833995
+
+Results for .Raw, .TransportFeatures, and selected features flag: True
+ConfusionMatrix
+[[ 804.   38.  922.]
+ [  47. 1711.    9.]
+ [ 149.  156. 1706.]]
+
+PrecissionValue
+[0.804      0.89816273 0.64694729]
+
+RecallValue
+[0.45578231 0.96830787 0.84833416]
+
+F1ScoreValue
+[0.58176556 0.93191721 0.73407917]
+
+AccuracyValue
+0.7616383976903645
+
+Results for .SegmentOtherThanStoppage, .HARFeature, and selected features flag: False
+ConfusionMatrix
+[[ 890.  101.  106.]
+ [   0. 1103.    0.]
+ [  62.   11. 1298.]]
+
+PrecissionValue
+[0.93487395 0.90781893 0.92450142]
+
+RecallValue
+[0.81130356 1.         0.94675419]
+
+F1ScoreValue
+[0.86871645 0.95168248 0.9354955 ]
+
+AccuracyValue
+0.9215905908709046
+
+Results for .SegmentOtherThanStoppage, .HARFeature, and selected features flag: True
+ConfusionMatrix
+[[ 906.   95.   96.]
+ [   2. 1101.    0.]
+ [  80.    6. 1285.]]
+
+PrecissionValue
+[0.91700405 0.91597338 0.93048516]
+
+RecallValue
+[0.82588879 0.99818676 0.93727206]
+
+F1ScoreValue
+[0.86906475 0.95531453 0.93386628]
+
+AccuracyValue
+0.921870624474937
+
+Results for .SegmentOtherThanStoppage, .TransportFeatures, and selected features flag: False
+ConfusionMatrix
+[[1016.   27.  386.]
+ [  18. 1085.    0.]
+ [  75.   50. 1246.]]
+
+PrecissionValue
+[0.91614067 0.93373494 0.76348039]
+
+RecallValue
+[0.7109867  0.98368087 0.90882567]
+
+F1ScoreValue
+[0.80063042 0.9580574  0.82983683]
+
+AccuracyValue
+0.8575454778375609
+
+Results for .SegmentOtherThanStoppage, .TransportFeatures, and selected features flag: True
+ConfusionMatrix
+[[8.660e+02 1.900e+01 5.440e+02]
+ [2.000e+01 1.082e+03 1.000e+00]
+ [8.200e+01 1.000e+02 1.189e+03]]
+
+PrecissionValue
+[0.8946281  0.9009159  0.68569781]
+
+RecallValue
+[0.60601819 0.98096102 0.86725018]
+
+F1ScoreValue
+[0.72256988 0.93923611 0.76586151]
+
+AccuracyValue
+0.8037407122726108
+
+Results for .Raw, .HARFeature, and selected features flag: False
+ConfusionMatrix
+[[13828.   631.  1450.]
+ [  182. 17323.   161.]
+ [ 1160.    71. 18879.]]
+
+PrecissionValue
+[0.91238767 0.96298108 0.92102649]
+
+RecallValue
+[0.86919816 0.9805811  0.93878667]
+
+F1ScoreValue
+[0.88872828 0.97126292 0.92961454]
+
+AccuracyValue
+0.9319146538374101
+
+Results for .Raw, .HARFeature, and selected features flag: True
+ConfusionMatrix
+[[13589.   834.  1486.]
+ [  302. 17217.   147.]
+ [ 1236.    78. 18796.]]
+
+PrecissionValue
+[0.89291679 0.95272465 0.92115839]
+
+RecallValue
+[0.85417624 0.97457938 0.93465937]
+
+F1ScoreValue
+[0.87151749 0.9628286  0.92768453]
+
+AccuracyValue
+0.9239416251989189
+
+Results for .Raw, .TransportFeatures, and selected features flag: False
+ConfusionMatrix
+[[13022.  1750.  2867.]
+ [  517. 16790.   359.]
+ [ 2188.   251. 17671.]]
+
+PrecissionValue
+[0.82722946 0.90459791 0.85106875]
+
+RecallValue
+[0.73825431 0.95040827 0.87871706]
+
+F1ScoreValue
+[0.77792551 0.92393041 0.86108222]
+
+AccuracyValue
+0.8568614066942724
+
+Results for .Raw, .TransportFeatures, and selected features flag: True
+ConfusionMatrix
+[[12229.  2193.  3217.]
+ [  600. 16445.   621.]
+ [ 2250.   429. 17431.]]
+
+PrecissionValue
+[0.79991198 0.8815744  0.82587539]
+
+RecallValue
+[0.69330008 0.93087294 0.8667827 ]
+
+F1ScoreValue
+[0.73875239 0.90077916 0.84225473]
+
+AccuracyValue
+0.8319938223710899
+
+Results for .SegmentOtherThanStoppage, .HARFeature, and selected features flag: False
+ConfusionMatrix
+[[10095.   407.   462.]
+ [  122. 10845.    61.]
+ [  288.    30. 13392.]]
+
+PrecissionValue
+[0.95898816 0.96451347 0.9635305 ]
+
+RecallValue
+[0.92073131 0.9834088  0.97680525]
+
+F1ScoreValue
+[0.93826527 0.97313057 0.96989152]
+
+AccuracyValue
+0.9616269717071931
+
+Results for .SegmentOtherThanStoppage, .HARFeature, and selected features flag: True
+ConfusionMatrix
+[[ 9938.   545.   481.]
+ [  201. 10776.    51.]
+ [  350.    33. 13327.]]
+
+PrecissionValue
+[0.94409667 0.95383342 0.96325681]
+
+RecallValue
+[0.90640624 0.97715264 0.97206419]
+
+F1ScoreValue
+[0.92294116 0.96434943 0.96729499]
+
+AccuracyValue
+0.9534757425793055
+
+Results for .SegmentOtherThanStoppage, .TransportFeatures, and selected features flag: False
+ConfusionMatrix
+[[12392.   856.  1037.]
+ [  420. 10401.   207.]
+ [  908.   132. 12670.]]
+
+PrecissionValue
+[0.90384932 0.92272971 0.91508678]
+
+RecallValue
+[0.86748784 0.94314796 0.92414296]
+
+F1ScoreValue
+[0.883384   0.92996899 0.91711708]
+
+AccuracyValue
+0.9087719588540824
+
+Results for .SegmentOtherThanStoppage, .TransportFeatures, and selected features flag: True
+ConfusionMatrix
+[[12022.   991.  1272.]
+ [  509. 10174.   345.]
+ [  956.   192. 12562.]]
+
+PrecissionValue
+[0.89010439 0.90968391 0.892507  ]
+
+RecallValue
+[0.84158943 0.92256714 0.9162655 ]
+
+F1ScoreValue
+[0.8618747  0.91159459 0.90135403]
+
+AccuracyValue
+0.8907051023191428
+
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Module_13_CommuterActivityClassifier.html" class="btn btn-neutral float-left" title="Library imports" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_15_PenetrationAnalysis.html" class="btn btn-neutral float-right" title="Penetration Analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Pruthvish Rajput, Manish Chaturvedi, and Vivek Patel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

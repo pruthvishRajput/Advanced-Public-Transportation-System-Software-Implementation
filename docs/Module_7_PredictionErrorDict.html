@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Description &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Description" href="Module_8_PredictionError.html" />
+    <link rel="prev" title="Weight and estimate computation" href="Module_6_ArrivalTimePrediction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Advanced Public Transportation System Implementation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Considered-Trips-for-prediction">Considered Trips for prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html">Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Observations-from-accelerometer-data">Observations from accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Feature-Extraction">Feature Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-Activation-of-GPS">Opportunistic Activation of GPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-procedure-for-commuter-activity-detection">Opportunistic procedure for commuter activity detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#References:">References:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Features-Extraction">Features Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Feature-extraction">Feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Processing:-For-entire-trip">Processing: For entire trip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html">Penetration Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Library-Imports-and-penetration-variable">Library Imports and penetration variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-1">Penetration Considering Feature set-1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-4">Penetration Considering Feature set-4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html">Battery Consumption Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#Code">Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#References">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Advanced Public Transportation System Implementation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Description</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Module_7_PredictionErrorDict.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="Description">
+<h1>Description<a class="headerlink" href="#Description" title="Permalink to this heading"></a></h1>
+<p>In this module, the prediction error dictionary is formed based on the arrival time predictions computed in the previous module.</p>
+<p>The dictionary contains the actual time of arrival, predicted arrival time, error in arrival time prediction for all the bus-stops of the routes.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span> <span class="n">MongoClient</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">con</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">RouteName</span><span class="o">=</span><span class="s1">&#39;Git_ISCON_PDPU&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">TActual</span><span class="p">(</span><span class="n">TripIndex</span><span class="p">,</span> <span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+            <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">,</span> <span class="n">PredictionDictLists</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Input: Trip index, trips list, bus-stop count, trip start hour, trip direction (or bound)</span>
+<span class="sd">    route name, directory paths, the flag `UseMongoDB` to determine whether MongoDB database or</span>
+<span class="sd">    numpy files are used, and dictionary of prediction and actual values.</span>
+<span class="sd">    Output: The actual time for different bus-stop for the provided trip</span>
+<span class="sd">    Function: It extracts the actual time at different bus-stops for the provided trip.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">TActualNpArray</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">BusStopsCount</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">BusStopsCount</span><span class="p">):</span>
+
+        <span class="n">AcutalValueList</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;TActual&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">PredictionDictLists</span>
+                           <span class="k">if</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">AcutalValueList</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">TActualNpArray</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">AcutalValueList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1">#print(&#39;AcutalValueList&#39;, AcutalValueList)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;AcutalValueList Error&#39;</span><span class="p">,</span> <span class="n">AcutalValueList</span><span class="p">)</span>
+                <span class="c1">#input()</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">TActualNpArray</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ErrorMatrix</span><span class="p">(</span><span class="n">TripIndex</span><span class="p">,</span> <span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Input: Trip index, trips list, bus-stop count, trip start hour, trip direction (or bound)</span>
+<span class="sd">    route name, directory paths, the flag `UseMongoDB` to determine whether MongoDB database or</span>
+<span class="sd">    numpy files are used.</span>
+<span class="sd">    Output: The dictionary of prediction error for different bus-stop for the provided trip.</span>
+<span class="sd">    Function: It extracts the prediction value and computes the dictionary of prediction error for</span>
+<span class="sd">    different bus-stop for the provided trip.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">SingleTripInfo</span> <span class="o">=</span> <span class="n">SingleTripsInfo</span><span class="p">[</span><span class="n">TripIndex</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">PredictionDictLists</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span>
+                               <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">SingleTripsInfo</span><span class="p">[</span><span class="n">TripIndex</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.PredictionResult_Dist_th_50&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">PredictionDictLists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ResultPathDir_Np</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">SingleTripInfo</span><span class="si">}</span><span class="s1">.PredictionResult_Dist_th_50.npy&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">TActualNpArray</span> <span class="o">=</span> <span class="n">TActual</span><span class="p">(</span><span class="n">TripIndex</span><span class="p">,</span> <span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                             <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">,</span> <span class="n">PredictionDictLists</span><span class="p">)</span>
+
+
+
+    <span class="n">ErrorNpMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">BusStopsCount</span><span class="p">,</span><span class="n">BusStopsCount</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">BusStopsCount</span><span class="p">):</span>
+        <span class="n">PredictionDictList</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">PredictionDictLists</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">PredictionDictList</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionAvailable&#39;</span><span class="p">]</span> <span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">PredIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionTupleList&#39;</span><span class="p">])):</span>
+                    <span class="n">BusStopPredictionIndex</span> <span class="o">=</span> <span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">TActualNpArray</span><span class="p">[</span><span class="n">BusStopPredictionIndex</span><span class="p">]</span><span class="o">!=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+
+                        <span class="sd">&#39;&#39;&#39;For margin considering in prediction error calculation&#39;&#39;&#39;</span>
+                        <span class="n">ErrorList</span> <span class="o">=</span><span class="p">[]</span>
+                        <span class="n">ErrorList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">TActualNpArray</span><span class="p">[</span><span class="n">BusStopPredictionIndex</span><span class="p">]</span><span class="o">-</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+                        <span class="c1"># The prediction and margin are generated at same time and stored subsequently. Hence PredictionIndex must get access</span>
+                        <span class="c1"># for the same ID</span>
+
+                        <span class="k">if</span> <span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionMarginTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                            <span class="n">PredictionL</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionMarginTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="n">PredictionH</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionMarginTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">Prediction</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">PredictionL</span><span class="p">,</span><span class="n">PredictionH</span><span class="p">,</span><span class="mi">1000</span><span class="p">):</span>
+                                <span class="n">ErrorList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">TActualNpArray</span><span class="p">[</span><span class="n">BusStopPredictionIndex</span><span class="p">]</span><span class="o">-</span><span class="n">Prediction</span><span class="p">))</span>
+                            <span class="c1">#ErrorList.append(abs(TActualNpArray[BusStopPredictionIndex]-()))</span>
+                            <span class="c1">#ErrorList.append(abs(TActualNpArray[BusStopPredictionIndex]-(PredictionDictList[0][&#39;PredictionTupleList&#39;][PredIndex][1]+PredictionDictList[0][&#39;PredictionMarginTupleList&#39;][PredIndex][1])))</span>
+
+                        <span class="n">ErrorConsideringMargin</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">ErrorList</span><span class="p">)</span>
+                        <span class="n">ErrorNpMatrix</span><span class="p">[</span><span class="n">PredictionDictList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;PredictionTupleList&#39;</span><span class="p">][</span><span class="n">PredIndex</span><span class="p">][</span><span class="mi">0</span><span class="p">]][</span><span class="n">index</span><span class="p">]</span><span class="o">=</span><span class="n">ErrorConsideringMargin</span>
+                        <span class="sd">&#39;&#39;&#39;For margin considering in prediction error calculation&#39;&#39;&#39;</span>
+
+                        <span class="c1">#ErrorNpMatrix[PredictionDictList[0][&#39;PredictionTupleList&#39;][PredIndex][0]][index]=abs(TActualNpArray[BusStopPredictionIndex]-PredictionDictList[0][&#39;PredictionTupleList&#39;][PredIndex][1])</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">ErrorNpMatrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">InitializeErrorMatrixList</span><span class="p">(</span><span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                              <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Input: Trips list, bus-stop count, trip start hour, trip direction (or bound)</span>
+<span class="sd">    route name, directory paths, the flag `UseMongoDB` to determine whether MongoDB database or</span>
+<span class="sd">    numpy files are used, and dictionary of prediction and actual values.</span>
+<span class="sd">    Output: The dictionary of prediction error for different bus-stop for all the trips.</span>
+<span class="sd">    Function: It forms the dictionary of prediction error for different bus-stop for all the trips.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">ErrorMatrixList</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">TripIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">SingleTripsInfo</span><span class="p">)):</span>
+        <span class="n">ErrorMatrixList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ErrorMatrix</span><span class="p">(</span><span class="n">TripIndex</span><span class="p">,</span> <span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                                           <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">))</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">ErrorMatrixList</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">GetErrorMatrixList</span><span class="p">(</span><span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                       <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                      <span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Input: Trips list, bus-stop count, trip start hour, trip direction (or bound)</span>
+<span class="sd">    route name, directory paths, the flag `UseMongoDB` to determine whether MongoDB database or</span>
+<span class="sd">    numpy files are used.</span>
+<span class="sd">    Output: None</span>
+<span class="sd">    Function: It extracts the prediction value and computes the dictionary of prediction error for</span>
+<span class="sd">    different bus-stop and stores either in MongoDB or in Numpy file.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">ErrorMatrixList</span> <span class="o">=</span> <span class="n">InitializeErrorMatrixList</span><span class="p">(</span><span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                                                <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">)</span>
+
+    <span class="n">ErrorDictList</span> <span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">PredictionForIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">BusStopsCount</span><span class="p">):</span>
+        <span class="n">ErrorDict</span> <span class="o">=</span><span class="p">{}</span>
+        <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">PredictionForIndex</span>
+        <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;PredictionByIndexList&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[]</span>
+        <span class="n">PredictionAvailable</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="sd">&#39;&#39;&#39;List for Error for given BusStop by all stops in all trips&#39;&#39;&#39;</span>
+        <span class="n">ErrorListForID</span> <span class="o">=</span><span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">PredictionByIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">BusStopsCount</span><span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39;List for Error for given BusStop by given stop in all trips&#39;&#39;&#39;</span>
+            <span class="n">ErrorList</span> <span class="o">=</span><span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">ErrorIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ErrorMatrixList</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">ErrorMatrixList</span><span class="p">[</span><span class="n">ErrorIndex</span><span class="p">][</span><span class="n">PredictionForIndex</span><span class="p">][</span><span class="n">PredictionByIndex</span><span class="p">]</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+                    <span class="n">ErrorList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ErrorMatrixList</span><span class="p">[</span><span class="n">ErrorIndex</span><span class="p">][</span><span class="n">PredictionForIndex</span><span class="p">][</span><span class="n">PredictionByIndex</span><span class="p">])</span>
+
+                    <span class="n">ErrorListForID</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ErrorMatrixList</span><span class="p">[</span><span class="n">ErrorIndex</span><span class="p">][</span><span class="n">PredictionForIndex</span><span class="p">][</span><span class="n">PredictionByIndex</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ErrorList</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">PredictionAvailable</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">ErrorListNP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ErrorList</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PredictionFor: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">PredictionForIndex</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PredictionByIndex: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">ErrorList</span><span class="p">)</span>
+                <span class="c1">#input()</span>
+                <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;PredictionByIndexList&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="p">)</span>
+                <span class="n">ErrorDict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="p">)]</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ErrorListNP</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ErrorListNP</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ErrorListForID</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">ErrorListForIDNP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ErrorListForID</span><span class="p">)</span>
+
+            <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;PredictionErrorAggregateMean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ErrorListForIDNP</span><span class="p">)</span>
+            <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;PredictionErrorAggregateSTD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ErrorListForIDNP</span><span class="p">)</span>
+            <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;PredictionErrorAggregateMax&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">ErrorListForIDNP</span><span class="p">)</span>
+
+            <span class="n">ErrorListForID</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="n">NinetyPercentileValueIndex</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ErrorListForID</span><span class="p">)</span><span class="o">*</span><span class="mf">0.9</span><span class="p">)</span>
+
+            <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;PredictionErrorAggregateNinetyPercentileValue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ErrorListForID</span> <span class="p">[</span><span class="n">NinetyPercentileValueIndex</span><span class="p">]</span>
+
+        <span class="n">ErrorDict</span><span class="p">[</span><span class="s1">&#39;PredictionAvailable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PredictionAvailable</span>
+        <span class="n">ErrorDictList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ErrorDict</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ErrorDictList&#39;</span><span class="p">,</span> <span class="n">ErrorDictList</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="c1">#con[RouteName].drop_collection(f&#39;PredictionErrorForSubStopsV2.{TripStartHour}.{Bound}&#39;)</span>
+        <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;PredictionErrorForSubStopsV2.</span><span class="si">{</span><span class="n">TripStartHour</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert_many</span><span class="p">(</span><span class="n">ErrorDictList</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ResultPathDir_Np</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/PredictionErrorForSubStopsV2.</span><span class="si">{</span><span class="n">TripStartHour</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span>
+                <span class="n">ErrorDictList</span>
+               <span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">ErrorDictList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Considered-Trips-for-prediction">
+<h2>Considered Trips for prediction<a class="headerlink" href="#Considered-Trips-for-prediction" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="sd">&#39;&#39;&#39;For directory management&#39;&#39;&#39;</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+
+<span class="n">OneLevelUpPath</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">NpPathDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="s1">&#39;NpData&#39;</span><span class="p">)</span>
+<span class="n">ResultPathDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;PredictionError&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">ResultPathDir_Np</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;NpData&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#&#39;&#39;&#39;</span>
+<span class="n">ProjectDataUsed</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">UsedPreTrained</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">UseMongoDB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1">#&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">ProjectDataUsed = True</span>
+<span class="sd">UsedPreTrained = True</span>
+<span class="sd">UseMongoDB = False</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;\nProjectDataUsed = True\nUsedPreTrained = True\nUseMongoDB = False\n&#39;
+</pre></div></div>
+</div>
+<p>’‘’SingleTripsInfo is initialized with list of selected trips’’’</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SingleTripsInfo</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;19_01_2018__07_38_47&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;22_12_2017__07_38_21&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;20_12_2017__07_38_14&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;29_12_2017__07_37_27&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;29_01_2018__07_39_47&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;30_01_2018__07_42_30&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;02_02_2018__07_38_50&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;12_02_2018__07_40_14&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;16_02_2018__07_45_41&#39;</span><span class="p">,</span>
+<span class="c1"># &#39;14_03_2018__07_35_46&#39;,</span>
+<span class="c1"># &#39;20_03_2018__07_28_45&#39;,</span>
+<span class="c1"># &#39;22_03_2018__07_38_43&#39;,</span>
+ <span class="s1">&#39;14_02_2018__07_41_04&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;22_02_2018__07_42_45&#39;</span><span class="p">,</span>
+<span class="c1"># &#39;03_04_2018__07_38_31&#39;,</span>
+ <span class="c1">#Added morning</span>
+<span class="s1">&#39;18_01_2018__07_38_10&#39;</span><span class="p">,</span>
+<span class="s1">&#39;08_01_2018__07_41_43&#39;</span><span class="p">,</span>
+<span class="s1">&#39;09_01_2018__07_40_01&#39;</span><span class="p">,]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+    <span class="n">TripInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripInfo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">:</span><span class="n">SingleTripsInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">]})]</span>
+    <span class="n">TripStartHour</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;TripStartHour&#39;</span><span class="p">]</span>
+    <span class="n">Bound</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Bound&#39;</span><span class="p">]</span>
+
+    <span class="n">BusStopsList</span> <span class="o">=</span> <span class="p">[</span><span class="n">BusStop</span> <span class="k">for</span> <span class="n">BusStop</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;BusStops.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">Bound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">([(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)])]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">TripsInfo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/TripInfo.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">TripInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">TripsInfo</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">SingleTripsInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">TripStartHour</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;TripStartHour&#39;</span><span class="p">]</span>
+    <span class="n">Bound</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Bound&#39;</span><span class="p">]</span>
+
+    <span class="n">BusStopsList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/BusStops.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">Bound.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;StartHour, Bound, BusStopsCount&#39;</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span> <span class="nb">len</span> <span class="p">(</span><span class="n">BusStopsList</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+StartHour, Bound, BusStopsCount 07 North 15
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BusStopsCount</span> <span class="o">=</span> <span class="nb">len</span> <span class="p">(</span><span class="n">BusStopsList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ErrorDictList</span> <span class="o">=</span> <span class="n">GetErrorMatrixList</span><span class="p">(</span><span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                                   <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                                  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PredictionFor: 1
+PredictionByIndex: 1
+[64000.0]
+PredictionFor: 2
+PredictionByIndex: 1
+[19000.0]
+PredictionFor: 2
+PredictionByIndex: 2
+[11832.0, 218.0, 93.0, 179950.0, 70561.0, 10193.0, 247.0, 170.0, 48.0, 7085.0, 79683.87084960938, 471.0, 15583.0]
+PredictionFor: 3
+PredictionByIndex: 1
+[54740.0]
+PredictionFor: 3
+PredictionByIndex: 2
+[37837.0, 6634.0, 224.0, 162015.0, 90996.0, 71078.0, 2435.0, 22.0, 41013.0, 160817.0, 2227.0, 26766.0]
+PredictionFor: 3
+PredictionByIndex: 3
+[463.0, 99.0, 106.0, 180.0, 48114.0, 276.0, 9289.0, 21521.0, 20378.0, 17.0, 63041.0, 478.0, 9736.0]
+PredictionFor: 4
+PredictionByIndex: 1
+[79218.0]
+PredictionFor: 4
+PredictionByIndex: 2
+[50514.0, 199.0, 62.0, 130155.0, 91767.0, 118610.0, 38108.0, 9569.0, 30431.0, 57344.0, 190273.0, 12657.0, 14134.0]
+PredictionFor: 4
+PredictionByIndex: 3
+[336.0, 316.0, 26130.0, 883.0, 128484.0, 26777.0, 46844.0, 60505.0, 62503.0, 467.0, 82762.0, 81.0, 36640.0]
+PredictionFor: 4
+PredictionByIndex: 4
+[461.0, 419.0, 2823.0, 383.0, 183.0, 357.0, 6051.0, 286.0, 3549.0, 477.0, 37.0, 20618.0, 168.0, 113.0]
+PredictionFor: 5
+PredictionByIndex: 1
+[77610.0]
+PredictionFor: 5
+PredictionByIndex: 2
+[37349.0, 21.0, 256.0, 93256.0, 63096.0, 160901.0, 76974.0, 8365.0, 84448.0, 38762.0, 193822.0, 4762.0, 2074.0]
+PredictionFor: 5
+PredictionByIndex: 3
+[22895.0, 3823.0, 30730.0, 475.0, 195397.0, 67112.0, 79859.0, 102418.0, 120738.0, 225.0, 73167.0, 101.0, 48413.0]
+PredictionFor: 5
+PredictionByIndex: 4
+[30470.0, 118.0, 108.0, 15854.0, 408.0, 954.0, 17339.0, 136.0, 677.0, 18895.0, 441.0, 97793.0, 492.0, 398.0]
+PredictionFor: 5
+PredictionByIndex: 5
+[2921.0, 225.0, 414.0, 572.0, 446.0, 27.0, 449.0, 255.0, 436.0, 5098.0, 9985.0, 4471.0, 61.0, 372.0]
+PredictionFor: 6
+PredictionByIndex: 1
+[18345.0]
+PredictionFor: 6
+PredictionByIndex: 2
+[140761.0, 241.0, 351.0, 14450.0, 145634.0, 211326.0, 17731.0, 285.0, 123603.0, 42645.0, 137282.0, 419.0, 127.0]
+PredictionFor: 6
+PredictionByIndex: 3
+[278.0, 52214.0, 31039.0, 42.0, 263638.0, 52.0, 126309.0, 44514.0, 161693.0, 372.0, 11365.0, 81.0, 57258.0]
+PredictionFor: 6
+PredictionByIndex: 4
+[466.0, 78222.0, 499.0, 36884.0, 32008.0, 41483.0, 54482.0, 16181.0, 85.0, 44977.0, 466.0, 166382.0, 243.0, 351.0]
+PredictionFor: 6
+PredictionByIndex: 5
+[22.0, 59606.0, 71.0, 17679.0, 8373.0, 42644.0, 9603.0, 22590.0, 96.0, 27810.0, 282.0, 48665.0, 238.0, 258.0]
+PredictionFor: 6
+PredictionByIndex: 6
+[22402.0, 86160.0, 258.0, 83.0, 19185.0, 73834.0, 14427.0, 36934.0, 51.0, 5.0, 296.0, 12374.0, 89.0, 458.0]
+PredictionFor: 7
+PredictionByIndex: 1
+[28962.0]
+PredictionFor: 7
+PredictionByIndex: 2
+[151427.0, 6176.0, 37173.0, 10712.0, 144440.0, 241984.0, 43007.0, 3225.0, 162982.0, 46879.0, 148091.0, 11627.0, 474.0]
+PredictionFor: 7
+PredictionByIndex: 3
+[13774.0, 60969.0, 58580.0, 33704.0, 312856.0, 13336.0, 155218.0, 70387.0, 201851.0, 6903.0, 21435.0, 246.0, 82734.0]
+PredictionFor: 7
+PredictionByIndex: 4
+[4538.0, 88420.0, 19855.0, 77089.0, 68081.0, 39690.0, 79292.0, 30528.0, 20539.0, 78700.0, 5943.0, 209529.0, 4218.0, 3315.0]
+PredictionFor: 7
+PredictionByIndex: 5
+[41942.0, 68271.0, 3104.0, 56161.0, 42395.0, 40957.0, 30456.0, 37514.0, 9447.0, 60077.0, 20382.0, 81141.0, 332.0, 58.0]
+PredictionFor: 7
+PredictionByIndex: 6
+[76590.0, 97352.0, 2881.0, 22205.0, 54756.0, 74362.0, 35979.0, 51714.0, 293.0, 26006.0, 401.0, 39515.0, 475.0, 5409.0]
+PredictionFor: 7
+PredictionByIndex: 7
+[6896.0, 25373.0, 360.0, 496.0, 382.0, 32347.0, 459.0, 5212.0, 3163.0, 282.0, 7743.0, 351.0, 158.0, 368.0537109375]
+PredictionFor: 8
+PredictionByIndex: 1
+[4605.0]
+PredictionFor: 8
+PredictionByIndex: 2
+[115584.0, 33066.0, 26671.0, 478.0, 109102.0, 266543.0, 83133.0, 304.0, 204773.0, 19267.0, 124654.0, 30158.0, 98.0]
+PredictionFor: 8
+PredictionByIndex: 3
+[136.0, 24529.0, 86312.0, 23143.0, 341786.0, 34091.0, 178430.0, 110985.0, 244218.0, 19866.0, 115.0, 13005.0, 92699.0]
+PredictionFor: 8
+PredictionByIndex: 4
+[486.0, 52185.0, 45949.0, 68431.0, 87001.0, 4679.0, 99351.0, 381.0, 42311.0, 116301.0, 18864.0, 230821.0, 214.0, 8825.0]
+PredictionFor: 8
+PredictionByIndex: 5
+[8351.0, 31757.0, 301.0, 46170.0, 59753.0, 6031.0, 47469.0, 60.0, 31910.0, 96598.0, 34211.0, 94199.0, 22.0, 472.0]
+PredictionFor: 8
+PredictionByIndex: 6
+[46601.0, 62783.0, 29176.0, 8840.0, 73294.0, 42869.0, 53531.0, 3722.0, 20778.0, 59367.0, 13.0, 48457.0, 6487.0, 11674.0]
+PredictionFor: 8
+PredictionByIndex: 7
+[131.0, 88494.0, 11966.0, 393.0, 442.0, 85685.0, 139.0, 62598.0, 25696.0, 14186.0, 25718.0, 337.0, 8567.0, 165.0]
+PredictionFor: 8
+PredictionByIndex: 8
+[48256.0, 399.0, 3339.0, 1744.0, 185.0, 72.0, 133.0, 17907.0, 333.0, 6740.0, 350.0, 80.0, 591.0, 81.0]
+PredictionFor: 9
+PredictionByIndex: 1
+[30951.0]
+PredictionFor: 9
+PredictionByIndex: 2
+[9940.0, 108.0, 29504.0, 233.0, 9742.0, 281785.0, 95578.0, 486.0, 230406.0, 228.0, 151305.0, 184.0, 295105.0]
+PredictionFor: 9
+PredictionByIndex: 3
+[122.0, 346.0, 426.0, 25955.0, 344951.0, 20606.0, 193217.0, 123588.0, 270045.0, 361.0, 20837.0, 433.0, 393423.0]
+PredictionFor: 9
+PredictionByIndex: 4
+[90.0, 409.0, 495.0, 71892.0, 86792.0, 430.0, 113071.0, 83.0, 390.0, 140530.0, 346.0, 97748.0, 76.0, 309417.0]
+PredictionFor: 9
+PredictionByIndex: 5
+[229.0, 452.0, 134.0, 49176.0, 59018.0, 189.0, 60160.0, 490.0, 223.0, 120465.0, 0.0, 405.0, 220.0, 291743.0]
+PredictionFor: 9
+PredictionByIndex: 6
+[217.0, 431.0, 179.87548828125, 10696.0, 72957.0, 190.0, 66404.0, 340.0, 240.0, 82175.0, 310.0, 303.0, 291.0, 312514.0]
+PredictionFor: 9
+PredictionByIndex: 7
+[187.0, 94098.0, 335.0, 387.0, 368.0, 83219.0, 356.0, 80809.0, 33.0, 33822.0, 93.0, 15185.0, 476.0, 284179.0]
+PredictionFor: 9
+PredictionByIndex: 8
+[38762.0, 193.0, 248.0, 45.0, 345.0, 159.0, 8750.0, 27685.0, 107.0, 24981.0, 384.0, 245.0, 16.0, 285073.0]
+PredictionFor: 9
+PredictionByIndex: 9
+[341.0, 87.0, 481.0, 201.0, 403.0, 16.0, 109.0, 93.0, 54.0, 248.0, 269.0, 10898.0, 73.0, 271003.0]
+PredictionFor: 10
+PredictionByIndex: 1
+[134833.0]
+PredictionFor: 10
+PredictionByIndex: 2
+[43714.0, 27914.0, 94104.0, 62585.0, 70976.0, 371178.0, 179703.0, 371.0, 331599.0, 54211.0, 255365.0, 247.0, 321789.0]
+PredictionFor: 10
+PredictionByIndex: 3
+[49144.0, 5205.0, 81614.0, 90544.0, 424922.0, 77070.0, 282340.0, 207808.0, 371350.0, 342.0, 125487.0, 2059.0, 420404.0]
+PredictionFor: 10
+PredictionByIndex: 4
+[59017.0, 104.0, 40368.0, 136870.0, 164736.0, 269.0, 201560.0, 70162.0, 17449.0, 240898.0, 366.0, 116374.0, 32958.0, 335752.0]
+PredictionFor: 10
+PredictionByIndex: 5
+[17832.0, 18.0, 345.0, 113881.0, 136645.0, 129.0, 148037.0, 62477.0, 7424.0, 220621.0, 2476.0, 435.0, 27599.0, 318895.0]
+PredictionFor: 10
+PredictionByIndex: 6
+[351.0, 397.0, 23703.0, 74710.0, 150823.0, 5830.0, 154389.0, 46033.0, 239.0, 181710.0, 6126.0, 35465.0, 8190.0, 338991.0]
+PredictionFor: 10
+PredictionByIndex: 7
+[74725.0, 186344.0, 4506.0, 35041.0, 59718.0, 146347.0, 72442.0, 168398.0, 1248.0, 131497.0, 240.0, 119104.0, 5865.0, 309613.0]
+PredictionFor: 10
+PredictionByIndex: 8
+[138572.0, 68684.0, 431.0, 11266.0, 50926.0, 13615.0, 95553.0, 110207.0, 2980.0, 121838.0, 19454.0, 103875.0, 16295.0, 310587.0]
+PredictionFor: 10
+PredictionByIndex: 9
+[32594.0, 37599.0, 7586.0, 46016.0, 41915.0, 5264.0, 65769.0, 51207.0, 20262.0, 80427.0, 21921.0, 115043.0, 50182.0, 296686.0]
+PredictionFor: 10
+PredictionByIndex: 10
+[2161.0, 309.0, 36790.0, 319.0, 13.0, 384.0, 203.0, 340.0, 289.0, 2799.0, 117.0, 3961.0, 194.0, 98319.0]
+PredictionFor: 11
+PredictionByIndex: 1
+[125948.0]
+PredictionFor: 11
+PredictionByIndex: 2
+[31782.0, 14539.0, 87642.0, 86330.0, 127412.0, 394612.0, 211878.0, 97.0, 361833.0, 40866.0, 246529.0, 495.0, 318415.0]
+PredictionFor: 11
+PredictionByIndex: 3
+[74729.0, 31223.0, 68286.0, 84078.0, 448975.0, 38805.0, 305702.0, 240007.0, 401614.0, 16078.0, 116539.0, 173.0, 417129.0]
+PredictionFor: 11
+PredictionByIndex: 4
+[84625.0, 2850.0, 26949.0, 130509.0, 188248.0, 23184.0, 224756.0, 102060.0, 32028.0, 270921.0, 15052.0, 135942.0, 30795.0, 332263.0]
+PredictionFor: 11
+PredictionByIndex: 5
+[43308.0, 24040.0, 4255.0, 107447.0, 160073.0, 24587.0, 171072.0, 94352.0, 22041.0, 250590.0, 30944.0, 432.0, 25419.0, 315345.0]
+PredictionFor: 11
+PredictionByIndex: 6
+[2930.0, 260.0, 10295.0, 68089.0, 174315.0, 62460.0, 177452.0, 77831.0, 10324.0, 211519.0, 95.0, 26549.0, 5919.0, 335548.0]
+PredictionFor: 11
+PredictionByIndex: 7
+[101072.0, 214670.0, 105.0, 27993.0, 82271.0, 109714.0, 94664.0, 201484.0, 15869.0, 160830.0, 23940.0, 111048.0, 3568.0, 306827.0]
+PredictionFor: 11
+PredictionByIndex: 8
+[166471.0, 94258.0, 278.0, 3648.0, 73274.0, 878.0, 118304.0, 141960.0, 2458.0, 150962.0, 7155.0, 95467.0, 14248.0, 307827.0]
+PredictionFor: 11
+PredictionByIndex: 9
+[56578.0, 62015.0, 32928.0, 39719.0, 63926.0, 9517.0, 87427.0, 80796.0, 20397.0, 108095.0, 9717.0, 107049.0, 49432.0, 293321.0]
+PredictionFor: 11
+PredictionByIndex: 10
+[22724.0, 10911.0, 29630.0, 16244.0, 562.0, 54575.0, 6320.0, 10159.0, 16971.0, 22144.0, 444.0, 175.599365234375, 6728.0, 170239.0]
+PredictionFor: 11
+PredictionByIndex: 11
+[205.0, 499.0, 25531.0, 2094.0, 87.0, 33910.0, 473.0, 477.0, 165.0, 5.0, 16251.0, 22000.0, 442.0, 46.912353515625]
+PredictionFor: 12
+PredictionByIndex: 1
+[119957.0]
+PredictionFor: 12
+PredictionByIndex: 2
+[21014.0, 8611.0, 99155.0, 94427.0, 152552.0, 417000.0, 236758.0, 4527.0, 381184.0, 53033.0, 240559.0, 429.0, 325911.0]
+PredictionFor: 12
+PredictionByIndex: 3
+[57914.0, 51028.0, 62379.0, 95590.0, 457206.0, 19736.0, 328060.0, 264898.0, 420977.0, 11946.0, 110520.0, 4758.0, 424668.0]
+PredictionFor: 12
+PredictionByIndex: 4
+[67820.0, 22627.0, 21003.0, 142069.0, 196244.0, 48331.0, 247040.0, 126825.0, 29618.0, 290181.0, 10918.0, 148236.0, 35756.0, 339708.0]
+PredictionFor: 12
+PredictionByIndex: 5
+[26442.0, 43847.0, 16282.0, 118973.0, 168032.0, 49735.0, 193287.0, 119106.0, 19648.0, 269826.0, 26834.0, 6669.0, 30373.0, 322764.0]
+PredictionFor: 12
+PredictionByIndex: 6
+[25.0, 10999.0, 4353.0, 79532.0, 182302.0, 87680.0, 199679.0, 102552.0, 7907.0, 230687.0, 5127.0, 20545.0, 10832.0, 343014.0]
+PredictionFor: 12
+PredictionByIndex: 7
+[84609.0, 235463.0, 136.0, 39246.0, 89850.0, 91325.0, 116527.0, 226751.0, 13478.0, 179792.0, 19935.0, 105424.0, 8471.0, 314140.0]
+PredictionFor: 12
+PredictionByIndex: 8
+[150726.0, 113873.0, 4414.0, 14646.0, 80764.0, 26458.0, 140397.0, 166662.0, 14335.0, 169834.0, 19794.0, 89687.0, 19260.0, 315152.0]
+PredictionFor: 12
+PredictionByIndex: 9
+[39022.0, 81134.0, 45727.0, 51307.0, 71269.0, 35217.0, 109047.0, 104582.0, 32565.0, 126341.0, 22399.0, 101452.0, 55011.0, 300379.0]
+PredictionFor: 12
+PredictionByIndex: 10
+[3583.0, 27806.0, 26898.0, 16508.0, 5096.0, 81016.0, 24422.0, 30945.0, 16819.0, 36805.0, 279.0, 2404.0, 13985.0, 198486.0]
+PredictionFor: 12
+PredictionByIndex: 11
+[17537.0, 7612.0, 48334.0, 1161.0, 404.0, 58450.0, 3696.0, 18584.0, 172.0, 714.0, 16622.0, 45390.0, 4341.0, 476.0]
+PredictionFor: 12
+PredictionByIndex: 12
+[23788.0, 498.0, 316.0, 2665.0, 416.0, 112.0, 2.0, 208.0, 20.0, 140.0, 7204.0, 80.0, 107.0, 409.0]
+PredictionFor: 13
+PredictionByIndex: 1
+[119606.0]
+PredictionFor: 13
+PredictionByIndex: 2
+[4946.0, 2944.0, 88008.0, 104601.0, 151846.0, 422161.0, 261691.0, 425.0, 401859.0, 46958.0, 240217.0, 245.0, 342250.0]
+PredictionFor: 13
+PredictionByIndex: 3
+[86299.0, 64112.0, 56721.0, 84442.0, 467438.0, 16474.0, 333207.0, 289835.0, 441658.0, 15035.0, 110157.0, 17088.0, 441025.0]
+PredictionFor: 13
+PredictionByIndex: 4
+[96210.0, 35699.0, 15327.0, 130941.0, 206374.0, 47627.0, 252157.0, 151708.0, 51730.0, 310818.0, 14008.0, 146719.0, 48098.0, 356025.0]
+PredictionFor: 13
+PredictionByIndex: 5
+[54803.0, 56932.0, 19992.0, 107831.0, 178146.0, 49033.0, 198374.0, 143985.0, 41767.0, 290453.0, 29933.0, 5068.0, 42712.0, 339069.0]
+PredictionFor: 13
+PredictionByIndex: 6
+[14293.0, 24054.0, 320.0, 68354.0, 192428.0, 87009.0, 204771.0, 127417.0, 30016.0, 251285.0, 76.0, 20187.0, 23154.0, 359340.0]
+PredictionFor: 13
+PredictionByIndex: 7
+[113159.0, 248967.0, 152.0, 27985.0, 99801.0, 88364.0, 121464.0, 251845.0, 35598.0, 200303.0, 23080.0, 105231.0, 20788.0, 330401.0]
+PredictionFor: 13
+PredictionByIndex: 8
+[179614.0, 126876.0, 8171.0, 3275.0, 90676.0, 25946.0, 145431.0, 191519.0, 427.0, 190306.0, 13923.0, 89428.0, 31624.0, 331418.0]
+PredictionFor: 13
+PredictionByIndex: 9
+[67058.0, 93926.0, 49771.0, 40192.0, 81118.0, 34758.0, 113879.0, 129055.0, 9784.0, 146547.0, 16547.0, 101272.0, 67621.0, 316530.0]
+PredictionFor: 13
+PredictionByIndex: 10
+[30875.0, 39651.0, 21617.0, 27290.0, 13734.0, 81327.0, 27749.0, 54159.0, 39915.0, 55488.0, 213.0, 2951.0, 38.0, 191581.0]
+PredictionFor: 13
+PredictionByIndex: 11
+[126.0, 18273.0, 56717.0, 9992.0, 4518.0, 57478.0, 5793.0, 41094.0, 5301.0, 17293.0, 20660.0, 48685.0, 195.0, 14327.0]
+PredictionFor: 13
+PredictionByIndex: 12
+[177.0, 5544.0, 131.0, 454.0, 91.0, 92.0, 1557.0, 18963.0, 319.0, 9767.0, 5706.0, 493.0, 8164.0, 14404.0]
+PredictionFor: 13
+PredictionByIndex: 13
+[29975.0, 241.0, 479.0, 2326.0, 139.0, 329.0, 102.0, 6165.0, 15420.0, 3963.0, 458.0, 169.0, 1646.0, 4556.0]
+PredictionFor: 14
+PredictionByIndex: 1
+[110010.0]
+PredictionFor: 14
+PredictionByIndex: 2
+[357.0, 471.0, 57027.0, 121672.0, 128255.0, 459220.0, 272322.0, 6545.0, 418809.0, 66779.0, 230628.0, 223.0, 339132.0]
+PredictionFor: 14
+PredictionByIndex: 3
+[85382.0, 66426.0, 47311.0, 53460.0, 484547.0, 38087.0, 370257.0, 300470.0, 458611.0, 225.0, 100553.0, 14112.0, 437921.0]
+PredictionFor: 14
+PredictionByIndex: 4
+[95296.0, 38004.0, 5906.0, 99972.0, 223416.0, 24039.0, 289187.0, 162306.0, 60705.0, 327742.0, 197.0, 153404.0, 45131.0, 352893.0]
+PredictionFor: 14
+PredictionByIndex: 5
+[53868.0, 59246.0, 25437.0, 76853.0, 195178.0, 25445.0, 235384.0, 154580.0, 50747.0, 307371.0, 8129.0, 11697.0, 39743.0, 335929.0]
+PredictionFor: 14
+PredictionByIndex: 6
+[13328.0, 26348.0, 260.0, 37353.0, 209467.0, 63443.0, 241786.0, 138003.0, 38989.0, 268183.0, 18914.0, 10588.0, 20173.0, 356213.0]
+PredictionFor: 14
+PredictionByIndex: 7
+[112362.0, 251567.0, 3295.0, 70.0, 116722.0, 110184.0, 158377.0, 262587.0, 44578.0, 217143.0, 1307.0, 95744.0, 17804.0, 327229.0]
+PredictionFor: 14
+PredictionByIndex: 8
+[179060.0, 129135.0, 13648.0, 2852.0, 107572.0, 2490.0, 182408.0, 202100.0, 408.0, 207120.0, 33885.0, 79894.0, 28672.0, 328250.0]
+PredictionFor: 14
+PredictionByIndex: 9
+[65889.0, 96041.0, 55442.0, 9231.0, 97971.0, 11338.0, 150725.0, 139373.0, 35.0, 163184.0, 36522.0, 91793.0, 64837.0, 313282.0]
+PredictionFor: 14
+PredictionByIndex: 10
+[29169.0, 41122.0, 14140.0, 56342.0, 29777.0, 58437.0, 63617.0, 63617.0, 49564.0, 71107.0, 1734.0, 11042.0, 957.0, 199642.0]
+PredictionFor: 14
+PredictionByIndex: 11
+[482.0, 18939.0, 65328.0, 39422.0, 20211.0, 32704.0, 40860.0, 50070.0, 14603.0, 31508.0, 196.0, 58647.0, 323.0, 11227.0]
+PredictionFor: 14
+PredictionByIndex: 12
+[455.0, 5112.0, 62.0, 9604.0, 6707.0, 24764.0, 36272.0, 26056.0, 8082.0, 23345.0, 28694.0, 88.0, 6514.0, 11311.0]
+PredictionFor: 14
+PredictionByIndex: 13
+[37402.0, 256.0, 141.0, 32426.0, 14087.0, 25055.0, 18742.0, 10429.0, 26603.0, 16280.0, 272.0, 20.0, 473.0, 450.0]
+PredictionFor: 14
+PredictionByIndex: 14
+[8127.0, 218.0, 426.0, 10430.0, 145.0, 10987.0, 21405.0, 90.0, 135.0, 487.0, 11014.0, 86.0, 341.0, 163.0]
+ErrorDictList [{&#39;id&#39;: 0, &#39;PredictionByIndexList&#39;: [], &#39;PredictionAvailable&#39;: False}, {&#39;id&#39;: 1, &#39;PredictionByIndexList&#39;: [1], &#39;1&#39;: (64000.0, 0.0), &#39;PredictionErrorAggregateMean&#39;: 64000.0, &#39;PredictionErrorAggregateSTD&#39;: 0.0, &#39;PredictionErrorAggregateMax&#39;: 64000.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 64000.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 2, &#39;PredictionByIndexList&#39;: [1, 2], &#39;1&#39;: (19000.0, 0.0), &#39;2&#39;: (28933.451603816105, 50660.85366764), &#39;PredictionErrorAggregateMean&#39;: 28223.91934640067, &#39;PredictionErrorAggregateSTD&#39;: 48885.00543021303, &#39;PredictionErrorAggregateMax&#39;: 179950.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 79683.87084960938, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 3, &#39;PredictionByIndexList&#39;: [1, 2, 3], &#39;1&#39;: (54740.0, 0.0), &#39;2&#39;: (50172.0, 57097.60624725582), &#39;3&#39;: (13361.384615384615, 19667.120529680855), &#39;PredictionErrorAggregateMean&#39;: 31942.384615384617, &#39;PredictionErrorAggregateSTD&#39;: 45211.399576856995, &#39;PredictionErrorAggregateMax&#39;: 162015.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 90996.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 4, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4], &#39;1&#39;: (79218.0, 0.0), &#39;2&#39;: (57217.153846153844, 56666.40619632677), &#39;3&#39;: (36363.692307692305, 37899.54642794273), &#39;4&#39;: (2566.0714285714284, 5285.712108590285), &#39;PredictionErrorAggregateMean&#39;: 32480.341463414636, &#39;PredictionErrorAggregateSTD&#39;: 45174.852337205055, &#39;PredictionErrorAggregateMax&#39;: 190273.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 91767.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 5, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5], &#39;1&#39;: (77610.0, 0.0), &#39;2&#39;: (58775.846153846156, 60303.721150454025), &#39;3&#39;: (57334.846153846156, 55866.960085609644), &#39;4&#39;: (13148.785714285714, 25330.119045962914), &#39;5&#39;: (1838.0, 2780.8551100079167), &#39;PredictionErrorAggregateMean&#39;: 32670.254545454547, &#39;PredictionErrorAggregateSTD&#39;: 49427.99599167852, &#39;PredictionErrorAggregateMax&#39;: 195397.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 97793.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 6, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6], &#39;1&#39;: (18345.0, 0.0), &#39;2&#39;: (64219.61538461538, 72607.3860234602), &#39;3&#39;: (57604.230769230766, 77233.63881521478), &#39;4&#39;: (33766.357142857145, 44077.05280302915), &#39;5&#39;: (16995.5, 19738.65563069438), &#39;6&#39;: (19039.714285714286, 27249.541077206555), &#39;PredictionErrorAggregateMean&#39;: 37380.82608695652, &#39;PredictionErrorAggregateSTD&#39;: 55805.31367794999, &#39;PredictionErrorAggregateMax&#39;: 263638.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 137282.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 7, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7], &#39;1&#39;: (28962.0, 0.0), &#39;2&#39;: (77553.61538461539, 77649.03158991793), &#39;3&#39;: (79384.07692307692, 88470.03029662865), &#39;4&#39;: (52124.07142857143, 53552.57920087815), &#39;5&#39;: (35159.78571428572, 25049.065050070294), &#39;6&#39;: (34852.71428571428, 31171.264377922937), &#39;7&#39;: (5970.718122209822, 9771.6742278228), &#39;PredictionErrorAggregateMean&#39;: 46538.00064711973, &#39;PredictionErrorAggregateSTD&#39;: 59924.37896078157, &#39;PredictionErrorAggregateMax&#39;: 312856.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 144440.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 8, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8], &#39;1&#39;: (4605.0, 0.0), &#39;2&#39;: (77987.0, 80722.64595038228), &#39;3&#39;: (89947.30769230769, 101657.21154515352), &#39;4&#39;: (55414.21428571428, 61538.268255473784), &#39;5&#39;: (32664.571428571428, 32211.310351033724), &#39;6&#39;: (33399.42857142857, 23900.43415539405), &#39;7&#39;: (23179.785714285714, 30832.995561755342), &#39;8&#39;: (5729.285714285715, 12677.838270150067), &#39;PredictionErrorAggregateMean&#39;: 44259.51546391752, &#39;PredictionErrorAggregateSTD&#39;: 63076.733730476495, &#39;PredictionErrorAggregateMax&#39;: 341786.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 110985.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 9, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9], &#39;1&#39;: (30951.0, 0.0), &#39;2&#39;: (84969.53846153847, 110527.37958784788), &#39;3&#39;: (107254.61538461539, 139032.60689135452), &#39;4&#39;: (58697.78571428572, 85479.09660109773), &#39;5&#39;: (41636.0, 77863.17894963484), &#39;6&#39;: (39089.13396344866, 81448.34115692912), &#39;7&#39;: (42396.21428571428, 75251.38614402355), &#39;8&#39;: (27642.35714285714, 72476.22546700317), &#39;9&#39;: (20305.428571428572, 69585.38809950824), &#39;PredictionErrorAggregateMean&#39;: 51771.18806746199, &#39;PredictionErrorAggregateSTD&#39;: 94589.66505516005, &#39;PredictionErrorAggregateMax&#39;: 393423.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 230406.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 10, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], &#39;1&#39;: (134833.0, 0.0), &#39;2&#39;: (139519.6923076923, 129842.54114378137), &#39;3&#39;: (164483.76923076922, 153266.4025721498), &#39;4&#39;: (101205.92857142857, 99581.69035051738), &#39;5&#39;: (75486.71428571429, 96062.68558708986), &#39;6&#39;: (73354.07142857143, 95933.24916275623), &#39;7&#39;: (93934.85714285714, 86183.50227099081), &#39;8&#39;: (76020.21428571429, 80154.41622908566), &#39;9&#39;: (62319.357142857145, 70784.79727678328), &#39;10&#39;: (10442.714285714286, 26079.899598373162), &#39;PredictionErrorAggregateMean&#39;: 87884.576, &#39;PredictionErrorAggregateSTD&#39;: 106257.94792321288, &#39;PredictionErrorAggregateMax&#39;: 424922.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 282340.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 11, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], &#39;1&#39;: (125948.0, 0.0), &#39;2&#39;: (147879.23076923078, 136908.3907689618), &#39;3&#39;: (172564.46153846153, 160394.3943738565), &#39;4&#39;: (114298.71428571429, 101211.84655635396), &#39;5&#39;: (90993.21428571429, 95177.66761106648), &#39;6&#39;: (83113.28571428571, 99302.70068721953), &#39;7&#39;: (103861.07142857143, 87669.77645400322), &#39;8&#39;: (84084.85714285714, 86216.65795031984), &#39;9&#39;: (72922.64285714286, 68527.68167224432), &#39;10&#39;: (26273.32852608817, 42291.74374878493), &#39;11&#39;: (7298.993739536831, 11368.252256776143), &#39;PredictionErrorAggregateMean&#39;: 89579.5792209982, &#39;PredictionErrorAggregateSTD&#39;: 107050.72979494999, &#39;PredictionErrorAggregateMax&#39;: 448975.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 270921.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 12, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], &#39;1&#39;: (119957.0, 0.0), &#39;2&#39;: (156550.76923076922, 143069.25185654988), &#39;3&#39;: (177667.6923076923, 167744.46479937393), &#39;4&#39;: (123312.57142857143, 105108.34604398474), &#39;5&#39;: (100844.14285714286, 98553.11835383651), &#39;6&#39;: (91802.42857142857, 103954.45888788738), &#39;7&#39;: (108939.07142857143, 93417.51645738784), &#39;8&#39;: (94714.42857142857, 85446.14611614757), &#39;9&#39;: (83960.85714285714, 67799.86668956252), &#39;10&#39;: (34646.57142857143, 49537.75189073234), &#39;11&#39;: (15963.785714285714, 19396.174951257683), &#39;12&#39;: (2568.9285714285716, 6171.704597415133), &#39;PredictionErrorAggregateMean&#39;: 89276.70588235294, &#39;PredictionErrorAggregateSTD&#39;: 108789.05472818512, &#39;PredictionErrorAggregateMax&#39;: 457206.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 264898.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 13, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], &#39;1&#39;: (119606.0, 0.0), &#39;2&#39;: (159088.53846153847, 151402.4957652311), &#39;3&#39;: (186422.38461538462, 172343.793630209), &#39;4&#39;: (133102.92857142858, 107375.35929989065), &#39;5&#39;: (111292.71428571429, 101034.7271758072), &#39;6&#39;: (100193.14285714286, 107501.91538483472), &#39;7&#39;: (119081.28571428571, 98411.43136737475), &#39;8&#39;: (102045.28571428571, 94347.99215020695), &#39;9&#39;: (90575.57142857143, 74081.8176764373), &#39;10&#39;: (41899.142857142855, 47094.1609329606), &#39;11&#39;: (21460.85714285714, 19961.64506124233), &#39;12&#39;: (4704.428571428572, 5889.503237774396), &#39;13&#39;: (4712.0, 8056.447923424885), &#39;PredictionErrorAggregateMean&#39;: 88731.68263473053, &#39;PredictionErrorAggregateSTD&#39;: 111020.62507200327, &#39;PredictionErrorAggregateMax&#39;: 467438.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 261691.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 14, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], &#39;1&#39;: (110010.0, 0.0), &#39;2&#39;: (161649.23076923078, 158831.0803454915), &#39;3&#39;: (189027.84615384616, 181512.1936797577), &#39;4&#39;: (134157.0, 116572.92738024554), &#39;5&#39;: (112829.07142857143, 108385.9098120259), &#39;6&#39;: (103074.85714285714, 113433.01882536995), &#39;7&#39;: (122783.5, 103635.16200715855), &#39;8&#39;: (106963.85714285714, 97632.79400082825), &#39;9&#39;: (92547.35714285714, 79021.73239740278), &#39;10&#39;: (49304.78571428572, 47640.10438572373), &#39;11&#39;: (27465.714285714286, 20780.9742121028), &#39;12&#39;: (13361.857142857143, 11575.453621824952), &#39;13&#39;: (13045.42857142857, 12893.40203755552), &#39;14&#39;: (4575.285714285715, 6451.067646173788), &#39;PredictionErrorAggregateMean&#39;: 86134.44198895028, &#39;PredictionErrorAggregateSTD&#39;: 112683.48869515813, &#39;PredictionErrorAggregateMax&#39;: 484547.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 268183.0, &#39;PredictionAvailable&#39;: True}]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">ErrorDictList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[{&#39;PredictionAvailable&#39;: False,
+  &#39;PredictionByIndexList&#39;: [],
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be43f&#39;),
+  &#39;id&#39;: 0},
+ {&#39;1&#39;: (64000.0, 0.0),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1],
+  &#39;PredictionErrorAggregateMax&#39;: 64000.0,
+  &#39;PredictionErrorAggregateMean&#39;: 64000.0,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 64000.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 0.0,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be440&#39;),
+  &#39;id&#39;: 1},
+ {&#39;1&#39;: (19000.0, 0.0),
+  &#39;2&#39;: (28933.451603816105, 50660.85366764),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2],
+  &#39;PredictionErrorAggregateMax&#39;: 179950.0,
+  &#39;PredictionErrorAggregateMean&#39;: 28223.91934640067,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 79683.87084960938,
+  &#39;PredictionErrorAggregateSTD&#39;: 48885.00543021303,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be441&#39;),
+  &#39;id&#39;: 2},
+ {&#39;1&#39;: (54740.0, 0.0),
+  &#39;2&#39;: (50172.0, 57097.60624725582),
+  &#39;3&#39;: (13361.384615384615, 19667.120529680855),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3],
+  &#39;PredictionErrorAggregateMax&#39;: 162015.0,
+  &#39;PredictionErrorAggregateMean&#39;: 31942.384615384617,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 90996.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 45211.399576856995,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be442&#39;),
+  &#39;id&#39;: 3},
+ {&#39;1&#39;: (79218.0, 0.0),
+  &#39;2&#39;: (57217.153846153844, 56666.40619632677),
+  &#39;3&#39;: (36363.692307692305, 37899.54642794273),
+  &#39;4&#39;: (2566.0714285714284, 5285.712108590285),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4],
+  &#39;PredictionErrorAggregateMax&#39;: 190273.0,
+  &#39;PredictionErrorAggregateMean&#39;: 32480.341463414636,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 91767.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 45174.852337205055,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be443&#39;),
+  &#39;id&#39;: 4},
+ {&#39;1&#39;: (77610.0, 0.0),
+  &#39;2&#39;: (58775.846153846156, 60303.721150454025),
+  &#39;3&#39;: (57334.846153846156, 55866.960085609644),
+  &#39;4&#39;: (13148.785714285714, 25330.119045962914),
+  &#39;5&#39;: (1838.0, 2780.8551100079167),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5],
+  &#39;PredictionErrorAggregateMax&#39;: 195397.0,
+  &#39;PredictionErrorAggregateMean&#39;: 32670.254545454547,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 97793.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 49427.99599167852,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be444&#39;),
+  &#39;id&#39;: 5},
+ {&#39;1&#39;: (18345.0, 0.0),
+  &#39;2&#39;: (64219.61538461538, 72607.3860234602),
+  &#39;3&#39;: (57604.230769230766, 77233.63881521478),
+  &#39;4&#39;: (33766.357142857145, 44077.05280302915),
+  &#39;5&#39;: (16995.5, 19738.65563069438),
+  &#39;6&#39;: (19039.714285714286, 27249.541077206555),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6],
+  &#39;PredictionErrorAggregateMax&#39;: 263638.0,
+  &#39;PredictionErrorAggregateMean&#39;: 37380.82608695652,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 137282.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 55805.31367794999,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be445&#39;),
+  &#39;id&#39;: 6},
+ {&#39;1&#39;: (28962.0, 0.0),
+  &#39;2&#39;: (77553.61538461539, 77649.03158991793),
+  &#39;3&#39;: (79384.07692307692, 88470.03029662865),
+  &#39;4&#39;: (52124.07142857143, 53552.57920087815),
+  &#39;5&#39;: (35159.78571428572, 25049.065050070294),
+  &#39;6&#39;: (34852.71428571428, 31171.264377922937),
+  &#39;7&#39;: (5970.718122209822, 9771.6742278228),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7],
+  &#39;PredictionErrorAggregateMax&#39;: 312856.0,
+  &#39;PredictionErrorAggregateMean&#39;: 46538.00064711973,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 144440.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 59924.37896078157,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be446&#39;),
+  &#39;id&#39;: 7},
+ {&#39;1&#39;: (4605.0, 0.0),
+  &#39;2&#39;: (77987.0, 80722.64595038228),
+  &#39;3&#39;: (89947.30769230769, 101657.21154515352),
+  &#39;4&#39;: (55414.21428571428, 61538.268255473784),
+  &#39;5&#39;: (32664.571428571428, 32211.310351033724),
+  &#39;6&#39;: (33399.42857142857, 23900.43415539405),
+  &#39;7&#39;: (23179.785714285714, 30832.995561755342),
+  &#39;8&#39;: (5729.285714285715, 12677.838270150067),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8],
+  &#39;PredictionErrorAggregateMax&#39;: 341786.0,
+  &#39;PredictionErrorAggregateMean&#39;: 44259.51546391752,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 110985.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 63076.733730476495,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be447&#39;),
+  &#39;id&#39;: 8},
+ {&#39;1&#39;: (30951.0, 0.0),
+  &#39;2&#39;: (84969.53846153847, 110527.37958784788),
+  &#39;3&#39;: (107254.61538461539, 139032.60689135452),
+  &#39;4&#39;: (58697.78571428572, 85479.09660109773),
+  &#39;5&#39;: (41636.0, 77863.17894963484),
+  &#39;6&#39;: (39089.13396344866, 81448.34115692912),
+  &#39;7&#39;: (42396.21428571428, 75251.38614402355),
+  &#39;8&#39;: (27642.35714285714, 72476.22546700317),
+  &#39;9&#39;: (20305.428571428572, 69585.38809950824),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  &#39;PredictionErrorAggregateMax&#39;: 393423.0,
+  &#39;PredictionErrorAggregateMean&#39;: 51771.18806746199,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 230406.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 94589.66505516005,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be448&#39;),
+  &#39;id&#39;: 9},
+ {&#39;1&#39;: (134833.0, 0.0),
+  &#39;10&#39;: (10442.714285714286, 26079.899598373162),
+  &#39;2&#39;: (139519.6923076923, 129842.54114378137),
+  &#39;3&#39;: (164483.76923076922, 153266.4025721498),
+  &#39;4&#39;: (101205.92857142857, 99581.69035051738),
+  &#39;5&#39;: (75486.71428571429, 96062.68558708986),
+  &#39;6&#39;: (73354.07142857143, 95933.24916275623),
+  &#39;7&#39;: (93934.85714285714, 86183.50227099081),
+  &#39;8&#39;: (76020.21428571429, 80154.41622908566),
+  &#39;9&#39;: (62319.357142857145, 70784.79727678328),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  &#39;PredictionErrorAggregateMax&#39;: 424922.0,
+  &#39;PredictionErrorAggregateMean&#39;: 87884.576,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 282340.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 106257.94792321288,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be449&#39;),
+  &#39;id&#39;: 10},
+ {&#39;1&#39;: (125948.0, 0.0),
+  &#39;10&#39;: (26273.32852608817, 42291.74374878493),
+  &#39;11&#39;: (7298.993739536831, 11368.252256776143),
+  &#39;2&#39;: (147879.23076923078, 136908.3907689618),
+  &#39;3&#39;: (172564.46153846153, 160394.3943738565),
+  &#39;4&#39;: (114298.71428571429, 101211.84655635396),
+  &#39;5&#39;: (90993.21428571429, 95177.66761106648),
+  &#39;6&#39;: (83113.28571428571, 99302.70068721953),
+  &#39;7&#39;: (103861.07142857143, 87669.77645400322),
+  &#39;8&#39;: (84084.85714285714, 86216.65795031984),
+  &#39;9&#39;: (72922.64285714286, 68527.68167224432),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  &#39;PredictionErrorAggregateMax&#39;: 448975.0,
+  &#39;PredictionErrorAggregateMean&#39;: 89579.5792209982,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 270921.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 107050.72979494999,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be44a&#39;),
+  &#39;id&#39;: 11},
+ {&#39;1&#39;: (119957.0, 0.0),
+  &#39;10&#39;: (34646.57142857143, 49537.75189073234),
+  &#39;11&#39;: (15963.785714285714, 19396.174951257683),
+  &#39;12&#39;: (2568.9285714285716, 6171.704597415133),
+  &#39;2&#39;: (156550.76923076922, 143069.25185654988),
+  &#39;3&#39;: (177667.6923076923, 167744.46479937393),
+  &#39;4&#39;: (123312.57142857143, 105108.34604398474),
+  &#39;5&#39;: (100844.14285714286, 98553.11835383651),
+  &#39;6&#39;: (91802.42857142857, 103954.45888788738),
+  &#39;7&#39;: (108939.07142857143, 93417.51645738784),
+  &#39;8&#39;: (94714.42857142857, 85446.14611614757),
+  &#39;9&#39;: (83960.85714285714, 67799.86668956252),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  &#39;PredictionErrorAggregateMax&#39;: 457206.0,
+  &#39;PredictionErrorAggregateMean&#39;: 89276.70588235294,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 264898.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 108789.05472818512,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be44b&#39;),
+  &#39;id&#39;: 12},
+ {&#39;1&#39;: (119606.0, 0.0),
+  &#39;10&#39;: (41899.142857142855, 47094.1609329606),
+  &#39;11&#39;: (21460.85714285714, 19961.64506124233),
+  &#39;12&#39;: (4704.428571428572, 5889.503237774396),
+  &#39;13&#39;: (4712.0, 8056.447923424885),
+  &#39;2&#39;: (159088.53846153847, 151402.4957652311),
+  &#39;3&#39;: (186422.38461538462, 172343.793630209),
+  &#39;4&#39;: (133102.92857142858, 107375.35929989065),
+  &#39;5&#39;: (111292.71428571429, 101034.7271758072),
+  &#39;6&#39;: (100193.14285714286, 107501.91538483472),
+  &#39;7&#39;: (119081.28571428571, 98411.43136737475),
+  &#39;8&#39;: (102045.28571428571, 94347.99215020695),
+  &#39;9&#39;: (90575.57142857143, 74081.8176764373),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 467438.0,
+  &#39;PredictionErrorAggregateMean&#39;: 88731.68263473053,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 261691.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 111020.62507200327,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be44c&#39;),
+  &#39;id&#39;: 13},
+ {&#39;1&#39;: (110010.0, 0.0),
+  &#39;10&#39;: (49304.78571428572, 47640.10438572373),
+  &#39;11&#39;: (27465.714285714286, 20780.9742121028),
+  &#39;12&#39;: (13361.857142857143, 11575.453621824952),
+  &#39;13&#39;: (13045.42857142857, 12893.40203755552),
+  &#39;14&#39;: (4575.285714285715, 6451.067646173788),
+  &#39;2&#39;: (161649.23076923078, 158831.0803454915),
+  &#39;3&#39;: (189027.84615384616, 181512.1936797577),
+  &#39;4&#39;: (134157.0, 116572.92738024554),
+  &#39;5&#39;: (112829.07142857143, 108385.9098120259),
+  &#39;6&#39;: (103074.85714285714, 113433.01882536995),
+  &#39;7&#39;: (122783.5, 103635.16200715855),
+  &#39;8&#39;: (106963.85714285714, 97632.79400082825),
+  &#39;9&#39;: (92547.35714285714, 79021.73239740278),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+  &#39;PredictionErrorAggregateMax&#39;: 484547.0,
+  &#39;PredictionErrorAggregateMean&#39;: 86134.44198895028,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 268183.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 112683.48869515813,
+  &#39;_id&#39;: ObjectId(&#39;6340cc5d6c4c1752704be44d&#39;),
+  &#39;id&#39;: 14}]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#SingleTripsInfo=[Trip[&#39;SingleTripInfo&#39;] for Trip in con[RouteName][&#39;TripInfo&#39;].find({&#39;BusStopRecordExtracted&#39;:True,&#39;Bound&#39;:&#39;South&#39;,&#39;TripStartHour&#39;:&#39;18&#39;})]</span>
+
+<span class="n">SingleTripsInfo</span><span class="o">=</span><span class="p">[</span>
+ <span class="s1">&#39;22_12_2017__18_38_34&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;20_12_2017__18_31_19&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;08_01_2018__18_37_49&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;14_02_2018__18_30_22&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;15_02_2018__18_33_19&#39;</span><span class="p">,</span>
+ <span class="c1">#&#39;03_04_2018__18_32_45&#39;,</span>
+
+ <span class="s1">&#39;20_02_2018__18_31_07&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;21_02_2018__18_28_29&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;28_03_2018__18_30_02&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;04_04_2018__18_34_54&#39;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+    <span class="n">TripInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripInfo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">:</span><span class="n">SingleTripsInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">]})]</span>
+    <span class="n">TripStartHour</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;TripStartHour&#39;</span><span class="p">]</span>
+    <span class="n">Bound</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Bound&#39;</span><span class="p">]</span>
+
+    <span class="n">BusStopsList</span> <span class="o">=</span> <span class="p">[</span><span class="n">BusStop</span> <span class="k">for</span> <span class="n">BusStop</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;BusStops.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">Bound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">([(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)])]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">TripsInfo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/TripInfo.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">TripInfo</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">TripsInfo</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;SingleTripInfo&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">SingleTripsInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">TripStartHour</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;TripStartHour&#39;</span><span class="p">]</span>
+    <span class="n">Bound</span> <span class="o">=</span> <span class="n">TripInfo</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Bound&#39;</span><span class="p">]</span>
+
+    <span class="n">BusStopsList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/BusStops.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">Bound.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;StartHour, Bound, BusStopsCount&#39;</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span> <span class="nb">len</span> <span class="p">(</span><span class="n">BusStopsList</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+StartHour, Bound, BusStopsCount 18 South 15
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BusStopsCount</span> <span class="o">=</span> <span class="nb">len</span> <span class="p">(</span><span class="n">BusStopsList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ErrorDictList</span> <span class="o">=</span> <span class="n">GetErrorMatrixList</span><span class="p">(</span><span class="n">SingleTripsInfo</span><span class="p">,</span> <span class="n">BusStopsCount</span><span class="p">,</span> <span class="n">TripStartHour</span><span class="p">,</span> <span class="n">Bound</span><span class="p">,</span>
+                                   <span class="n">RouteName</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                                  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PredictionFor: 0
+PredictionByIndex: 0
+[21258.0, 30909.0, 254.0, 234.0, 293.0, 36698.0, 396.0, 417.0]
+PredictionFor: 0
+PredictionByIndex: 1
+[75255.0, 483.0, 401.0, 268.0, 105755.0, 414.0, 266414.0, 152.0]
+PredictionFor: 0
+PredictionByIndex: 2
+[66085.0, 16998.0, 55560.0, 95069.0, 57.0, 477.0, 396685.0, 396.0]
+PredictionFor: 0
+PredictionByIndex: 3
+[75.0, 920.0, 15231.0, 207286.0, 110858.0, 229231.0, 642050.0, 133927.0]
+PredictionFor: 0
+PredictionByIndex: 4
+[263146.0, 468332.0, 172391.0, 148202.0, 479.0, 112.0, 476583.0, 141861.0]
+PredictionFor: 0
+PredictionByIndex: 5
+[273638.0, 440290.0, 152.0, 239712.0, 147997.0, 130372.0, 458989.0, 38508.0]
+PredictionFor: 0
+PredictionByIndex: 6
+[361030.0, 565375.0, 63531.0, 41752.0, 119589.0, 224136.0, 459988.0, 202034.0]
+PredictionFor: 0
+PredictionByIndex: 7
+[348657.0, 713138.0, 184077.0, 192146.0, 271371.0, 140991.0, 504399.0, 66202.0]
+PredictionFor: 0
+PredictionByIndex: 8
+[325941.0, 639080.0, 280341.0, 216059.0, 276567.0, 157120.0, 438127.0, 186219.0]
+PredictionFor: 0
+PredictionByIndex: 9
+[197288.0, 744992.0, 417025.0, 226181.0, 246930.0, 374685.0, 241507.0]
+PredictionFor: 0
+PredictionByIndex: 10
+[266222.0, 664361.0, 300830.0, 361180.0, 440000.0, 142081.0, 287916.0]
+PredictionFor: 0
+PredictionByIndex: 11
+[268109.0, 760038.0, 423003.0, 342643.0, 372505.0, 134380.0, 360469.0, 327313.0]
+PredictionFor: 0
+PredictionByIndex: 12
+[250149.0, 754137.0, 403834.0, 290386.0, 425273.0, 68326.0, 337948.0, 334841.0]
+PredictionFor: 0
+PredictionByIndex: 13
+[743243.0, 444842.0, 319398.0, 394671.0, 353350.0]
+PredictionFor: 1
+PredictionByIndex: 1
+[1607.0, 5438.0, 4622.0, 1551.0, 12162.0, 34125.0, 24333.0, 142564.0, 419.0]
+PredictionFor: 1
+PredictionByIndex: 2
+[193.0, 238.0, 48483.0, 79664.0, 98609.0, 18951.0, 34836.0, 233415.0, 398.0]
+PredictionFor: 1
+PredictionByIndex: 3
+[2143.0, 272.0, 260797.0, 12904.0, 197828.0, 68519.0, 155024.0, 707913.0, 108638.0]
+PredictionFor: 1
+PredictionByIndex: 4
+[341990.0, 398904.0, 96689.0, 165291.0, 140484.0, 27.0, 50178.0, 544616.0, 116321.0]
+PredictionFor: 1
+PredictionByIndex: 5
+[352326.0, 371290.0, 408997.0, 2889.0, 230480.0, 106636.0, 222538.0, 527143.0, 14800.0]
+PredictionFor: 1
+PredictionByIndex: 6
+[438796.0, 495046.0, 334177.0, 102054.0, 34884.0, 78622.0, 316222.0, 528138.0, 176265.0]
+PredictionFor: 1
+PredictionByIndex: 7
+[426460.0, 642397.0, 483176.0, 223218.0, 184750.0, 349315.0, 232325.0, 572492.0, 40918.0]
+PredictionFor: 1
+PredictionByIndex: 8
+[403787.0, 568474.0, 445414.0, 319287.0, 208607.0, 354643.0, 248423.0, 506274.0, 160649.0]
+PredictionFor: 1
+PredictionByIndex: 9
+[275271.0, 674278.0, 659122.0, 455828.0, 218716.0, 339138.0, 442841.0, 215863.0]
+PredictionFor: 1
+PredictionByIndex: 10
+[344166.0, 593693.0, 693083.0, 339696.0, 353622.0, 517965.0, 233349.0, 262240.0]
+PredictionFor: 1
+PredictionByIndex: 11
+[346053.0, 689343.0, 778944.0, 461837.0, 335092.0, 450491.0, 225649.0, 428626.0, 301624.0]
+PredictionFor: 1
+PredictionByIndex: 12
+[328095.0, 683443.0, 763723.0, 442670.0, 282843.0, 503251.0, 159597.0, 406107.0, 309151.0]
+PredictionFor: 1
+PredictionByIndex: 13
+[672549.0, 483677.0, 311853.0, 472652.0, 421509.0]
+PredictionFor: 2
+PredictionByIndex: 2
+[30.0, 463.0, 4427.0, 11121.0, 20855.0, 34005.0, 498.0, 118.0, 147.0]
+PredictionFor: 2
+PredictionByIndex: 3
+[29476.0, 499.0, 172532.0, 69362.0, 98409.0, 40758.0, 172555.0, 738707.0, 88627.0]
+PredictionFor: 2
+PredictionByIndex: 4
+[353620.0, 411783.0, 16266.0, 214533.0, 43965.0, 8862.0, 31794.0, 577957.0, 95932.0]
+PredictionFor: 2
+PredictionByIndex: 5
+[363694.0, 384812.0, 320410.0, 52.0, 131439.0, 80387.0, 200762.0, 560682.0, 190.0]
+PredictionFor: 2
+PredictionByIndex: 6
+[448619.0, 506572.0, 247014.0, 60381.0, 2216.0, 52982.0, 292809.0, 561669.0, 155528.0]
+PredictionFor: 2
+PredictionByIndex: 7
+[436345.0, 653303.0, 395197.0, 179968.0, 88768.0, 392826.0, 209289.0, 605931.0, 20916.0]
+PredictionFor: 2
+PredictionByIndex: 8
+[413746.0, 579583.0, 357570.0, 275742.0, 112533.0, 397358.0, 226339.0, 539802.0, 140213.0]
+PredictionFor: 2
+PredictionByIndex: 9
+[285458.0, 685224.0, 570838.0, 412068.0, 122620.0, 315909.0, 476383.0, 195317.0]
+PredictionFor: 2
+PredictionByIndex: 10
+[354288.0, 604708.0, 604763.0, 296028.0, 257372.0, 561508.0, 211211.0, 241644.0]
+PredictionFor: 2
+PredictionByIndex: 11
+[356174.0, 700319.0, 690582.0, 418123.0, 238852.0, 494067.0, 203515.0, 462171.0, 281008.0]
+PredictionFor: 2
+PredictionByIndex: 12
+[338220.0, 694419.0, 675364.0, 398959.0, 186616.0, 546815.0, 137464.0, 439653.0, 288533.0]
+PredictionFor: 2
+PredictionByIndex: 13
+[683527.0, 439963.0, 215623.0, 516218.0, 455054.0]
+PredictionFor: 3
+PredictionByIndex: 3
+[133.0, 8.0, 17.0, 233.0, 429.0, 480.0, 59.0, 620797.0, 129.0]
+PredictionFor: 3
+PredictionByIndex: 4
+[190331.0, 247428.0, 474.0, 56077.0, 459.0, 149.0, 479.0, 461372.0, 101.0]
+PredictionFor: 3
+PredictionByIndex: 5
+[199636.0, 222362.0, 125924.0, 16.0, 315.0, 8.0, 86786.0, 444282.0, 247.0]
+PredictionFor: 3
+PredictionByIndex: 6
+[280043.0, 338212.0, 56668.0, 79.0, 351.0, 176.0, 181114.0, 445262.0, 292.0]
+PredictionFor: 3
+PredictionByIndex: 7
+[267948.0, 483111.0, 202479.0, 31800.0, 197.0, 216559.0, 97677.0, 489438.0, 184.0]
+PredictionFor: 3
+PredictionByIndex: 8
+[245564.0, 409993.0, 165244.0, 128703.0, 303.0, 221619.0, 114591.0, 423391.0, 250.0]
+PredictionFor: 3
+PredictionByIndex: 9
+[117946.0, 515151.0, 377233.0, 265394.0, 328.0, 203745.0, 359986.0, 29039.0]
+PredictionFor: 3
+PredictionByIndex: 10
+[186585.0, 434839.0, 411053.0, 148630.0, 56635.0, 385325.0, 99309.0, 75224.0]
+PredictionFor: 3
+PredictionByIndex: 11
+[188468.0, 530331.0, 496748.0, 270584.0, 38145.0, 317968.0, 91622.0, 345776.0, 114530.0]
+PredictionFor: 3
+PredictionByIndex: 12
+[170525.0, 524435.0, 481540.0, 251430.0, 53.0, 370687.0, 25577.0, 323261.0, 122051.0]
+PredictionFor: 3
+PredictionByIndex: 13
+[513545.0, 292426.0, 14946.0, 340096.0, 338661.0]
+PredictionFor: 4
+PredictionByIndex: 4
+[131549.0, 245146.0, 10462.0, 344.0, 64.0, 495.0, 66164.0, 290.0, 124.0]
+PredictionFor: 4
+PredictionByIndex: 5
+[139672.0, 222756.0, 457.0, 468.0, 282.0, 351.0, 231809.0, 14983.0, 369.0]
+PredictionFor: 4
+PredictionByIndex: 6
+[213122.0, 330304.0, 85.0, 33558.0, 262.0, 400.0, 321810.0, 14098.0, 91.0]
+PredictionFor: 4
+PredictionByIndex: 7
+[201304.0, 472628.0, 77950.0, 152643.0, 286.0, 318068.0, 240055.0, 41.0, 32.0]
+PredictionFor: 4
+PredictionByIndex: 8
+[179250.0, 400355.0, 41367.0, 249119.0, 204.0, 323996.0, 255758.0, 36011.0, 55.0]
+PredictionFor: 4
+PredictionByIndex: 9
+[52663.0, 504834.0, 251232.0, 384771.0, 277.0, 345265.0, 99245.0, 322.0]
+PredictionFor: 4
+PredictionByIndex: 10
+[121007.0, 424811.0, 284876.0, 269457.0, 18329.0, 486972.0, 240236.0, 272.0]
+PredictionFor: 4
+PredictionByIndex: 11
+[122887.0, 520135.0, 370366.0, 391183.0, 115.0, 419755.0, 232563.0, 113422.0, 37482.0]
+PredictionFor: 4
+PredictionByIndex: 12
+[104960.0, 514244.0, 355174.0, 372044.0, 253.0, 472424.0, 166526.0, 135913.0, 44994.0]
+PredictionFor: 4
+PredictionByIndex: 13
+[503357.0, 413028.0, 266.0, 441844.0, 120519.0]
+PredictionFor: 5
+PredictionByIndex: 5
+[202.0, 242.0, 97547.0, 51826.0, 261.0, 5506.0, 26370.0, 254.0, 3942.0]
+PredictionFor: 5
+PredictionByIndex: 6
+[2993.0, 14335.0, 56197.0, 116122.0, 30313.0, 297.0, 90921.0, 320.0, 1744.0]
+PredictionFor: 5
+PredictionByIndex: 7
+[196.0, 145194.0, 186015.0, 225479.0, 4522.0, 345900.0, 15008.0, 305.0, 19489.0]
+PredictionFor: 5
+PredictionByIndex: 8
+[361.0, 76684.0, 151421.0, 316501.0, 26283.0, 354525.0, 29977.0, 266.0, 150.0]
+PredictionFor: 5
+PredictionByIndex: 9
+[45424.0, 178141.0, 354797.0, 448908.0, 35900.0, 117238.0, 39403.0, 45786.0]
+PredictionFor: 5
+PredictionByIndex: 10
+[164.0, 99399.0, 387907.0, 333999.0, 167292.0, 515233.0, 13622.0, 91000.0]
+PredictionFor: 5
+PredictionByIndex: 11
+[299.0, 193981.0, 472770.0, 456011.0, 148996.0, 448447.0, 5999.0, 53472.0, 129913.0]
+PredictionFor: 5
+PredictionByIndex: 12
+[165.0, 188110.0, 457628.0, 436921.0, 97047.0, 500963.0, 9.0, 75886.0, 137399.0]
+PredictionFor: 5
+PredictionByIndex: 13
+[177238.0, 477865.0, 125994.0, 470417.0, 60512.0]
+PredictionFor: 6
+PredictionByIndex: 6
+[284.0, 14574.0, 399.0, 2396.0, 35048.0, 483.0, 4289.0, 13.0, 22330.0]
+PredictionFor: 6
+PredictionByIndex: 7
+[16.0, 133327.0, 72234.0, 103441.0, 41347.0, 381394.0, 12785.0, 10525.0, 38288.0]
+PredictionFor: 6
+PredictionByIndex: 8
+[419.0, 68790.0, 39983.0, 188710.0, 61703.0, 392981.0, 324.0, 187.0, 18502.0]
+PredictionFor: 6
+PredictionByIndex: 9
+[98401.0, 167056.0, 235718.0, 318654.0, 70989.0, 33957.0, 57264.0, 69388.0]
+PredictionFor: 6
+PredictionByIndex: 10
+[31272.0, 89668.0, 268199.0, 205245.0, 200023.0, 551198.0, 16005.0, 113813.0]
+PredictionFor: 6
+PredictionByIndex: 11
+[29422.0, 183464.0, 352324.0, 325496.0, 181885.0, 484886.0, 23570.0, 71221.0, 152406.0]
+PredictionFor: 6
+PredictionByIndex: 12
+[47224.0, 177617.0, 337241.0, 306457.0, 130137.0, 537234.0, 89544.0, 93553.0, 159865.0]
+PredictionFor: 6
+PredictionByIndex: 13
+[166760.0, 347359.0, 159042.0, 506725.0, 78200.0]
+PredictionFor: 7
+PredictionByIndex: 7
+[154.0, 40632.0, 42855.0, 11865.0, 41163.0, 303320.0, 141.0, 191.0, 47414.0]
+PredictionFor: 7
+PredictionByIndex: 8
+[425.0, 261.0, 14146.0, 97723.0, 59200.0, 316308.0, 372.0, 340.0, 36.85009765625]
+PredictionFor: 7
+PredictionByIndex: 9
+[73086.0, 75772.0, 198325.0, 226810.0, 67941.0, 118.0, 13371.0, 314.0]
+PredictionFor: 7
+PredictionByIndex: 10
+[6000.0, 824.0, 229853.0, 114371.0, 193087.0, 472825.0, 231.0, 35460.0]
+PredictionFor: 7
+PredictionByIndex: 11
+[4176.0, 93205.0, 312862.0, 234114.0, 175208.0, 407217.0, 3225.0, 27128.0, 73534.0]
+PredictionFor: 7
+PredictionByIndex: 12
+[21863.0, 87397.0, 297868.0, 215177.0, 123793.0, 459315.0, 69136.0, 49316.0, 80948.0]
+PredictionFor: 7
+PredictionByIndex: 13
+[76569.0, 255996.0, 152627.0, 428861.0, 34000.0]
+PredictionFor: 8
+PredictionByIndex: 8
+[242.0, 7667.0, 315.0, 16668.0, 159.0, 18352.0, 258.0, 4400.0, 22937.0]
+PredictionFor: 8
+PredictionByIndex: 9
+[71563.0, 21858.0, 104230.0, 109866.0, 125.0, 44829.0, 60769.0, 57102.0]
+PredictionFor: 8
+PredictionByIndex: 10
+[15279.0, 4646.0, 131370.0, 12806.0, 102737.0, 155862.0, 1106.0, 93989.0]
+PredictionFor: 8
+PredictionByIndex: 11
+[13571.0, 44099.0, 209233.0, 124756.0, 86027.0, 92868.0, 8069.0, 73636.0, 129528.0]
+PredictionFor: 8
+PredictionByIndex: 12
+[30764.0, 38480.0, 194649.0, 106278.0, 36112.0, 143684.0, 73695.0, 95182.0, 136723.0]
+PredictionFor: 8
+PredictionByIndex: 13
+[27782.0, 146724.0, 64630.0, 113512.0, 80031.0]
+PredictionFor: 9
+PredictionByIndex: 9
+[25306.0, 10158.0, 63899.0, 35320.0, 221.0, 8314.0, 18223.0, 108.0]
+PredictionFor: 9
+PredictionByIndex: 10
+[292.0, 206.0, 87113.0, 411.0, 62202.0, 234.0, 21286.0]
+PredictionFor: 9
+PredictionByIndex: 11
+[308.0, 36658.0, 160373.0, 54684.0, 46572.0, 4275.0, 30254.0, 54602.0]
+PredictionFor: 9
+PredictionByIndex: 12
+[419.0, 31207.0, 146157.0, 36658.0, 41.0, 69638.0, 51195.0, 61605.0]
+PredictionFor: 9
+PredictionByIndex: 13
+[20625.0, 76736.0, 26268.0, 36200.0]
+PredictionFor: 10
+PredictionByIndex: 10
+[171.0, 3.0, 155.0, 15285.0, 24243.0, 46440.0, 10305.0, 213.0]
+PredictionFor: 10
+PredictionByIndex: 11
+[177.0, 231.0, 41723.0, 2.0, 11065.0, 52.0, 15785.0, 11313.0]
+PredictionFor: 10
+PredictionByIndex: 12
+[470.0, 309.0, 28359.0, 120.0, 320.0, 40394.0, 80551.0, 17865.0]
+PredictionFor: 10
+PredictionByIndex: 13
+[367.0, 20263.0, 244.0, 11205.0]
+PredictionFor: 11
+PredictionByIndex: 11
+[343.0, 19749.0, 16537.0, 37139.0, 216.0, 5396.0, 142.0, 263.0, 119.0]
+PredictionFor: 11
+PredictionByIndex: 12
+[28.0, 15315.0, 4858.0, 21368.0, 20616.0, 6.0, 37523.0, 296.0, 165.0]
+PredictionFor: 11
+PredictionByIndex: 13
+[5440.0, 58796.0, 314.0, 123.0, 308.0]
+PredictionFor: 12
+PredictionByIndex: 12
+[411.0, 235.0, 115.0, 442.0, 15843.0, 16159.0, 47091.0, 422.0, 258.0]
+PredictionFor: 12
+PredictionByIndex: 13
+[358.0, 9343.0, 154.0, 154.0, 7.0]
+PredictionFor: 13
+PredictionByIndex: 13
+[19.0, 16879.0, 5671.0, 6671.0, 408.0]
+ErrorDictList [{&#39;id&#39;: 0, &#39;PredictionByIndexList&#39;: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], &#39;0&#39;: (11307.375, 14712.639293626926), &#39;1&#39;: (56142.75, 88464.99861491832), &#39;2&#39;: (78915.875, 124658.95565144678), &#39;3&#39;: (167447.25, 198082.2620388749), &#39;4&#39;: (208888.25, 172643.02133140946), &#39;5&#39;: (216207.25, 159406.72984126955), &#39;6&#39;: (254679.375, 178123.36641492147), &#39;7&#39;: (302622.625, 200190.54996736077), &#39;8&#39;: (314931.75, 147599.9984576135), &#39;9&#39;: (349801.14285714284, 178151.76465941983), &#39;10&#39;: (351798.5714285714, 152852.1052276697), &#39;11&#39;: (373557.5, 167109.23586385045), &#39;12&#39;: (358111.75, 181866.63190628868), &#39;13&#39;: (451100.8, 151968.02713386787), &#39;PredictionErrorAggregateMean&#39;: 242142.01869158878, &#39;PredictionErrorAggregateSTD&#39;: 201849.45645106016, &#39;PredictionErrorAggregateMax&#39;: 760038.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 476583.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 1, &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], &#39;1&#39;: (25202.333333333332, 42906.48583968525), &#39;2&#39;: (57198.555555555555, 70735.1225553019), &#39;3&#39;: (168226.44444444444, 209308.72134991366), &#39;4&#39;: (206055.55555555556, 170949.03727466793), &#39;5&#39;: (248566.55555555556, 171698.37397412365), &#39;6&#39;: (278244.8888888889, 176482.15431812202), &#39;7&#39;: (350561.22222222225, 185992.42371474154), &#39;8&#39;: (357284.22222222225, 129443.38096186882), &#39;9&#39;: (410132.125, 170490.21206761218), &#39;10&#39;: (417226.75, 154358.17815048705), &#39;11&#39;: (446406.55555555556, 170726.50336925243), &#39;12&#39;: (430986.6666666667, 183016.3385578214), &#39;13&#39;: (472448.0, 117091.48389528591), &#39;PredictionErrorAggregateMean&#39;: 289186.5585585586, &#39;PredictionErrorAggregateSTD&#39;: 212210.33776190388, &#39;PredictionErrorAggregateMax&#39;: 778944.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 572492.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 2, &#39;PredictionByIndexList&#39;: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], &#39;2&#39;: (7962.666666666667, 11374.475724181752), &#39;3&#39;: (156769.44444444444, 213156.4589920387), &#39;4&#39;: (194968.0, 195802.67910322372), &#39;5&#39;: (226936.44444444444, 181941.0239574664), &#39;6&#39;: (258643.33333333334, 196830.0882058206), &#39;7&#39;: (331393.6666666667, 208422.3338810993), &#39;8&#39;: (338098.44444444444, 154570.88355768195), &#39;9&#39;: (382977.125, 177913.63300801144), &#39;10&#39;: (391440.25, 159409.98647571457), &#39;11&#39;: (427201.22222222225, 170511.4419098403), &#39;12&#39;: (411782.55555555556, 187108.42194781738), &#39;13&#39;: (462077.0, 150498.68838099553), &#39;PredictionErrorAggregateMean&#39;: 291073.7843137255, &#39;PredictionErrorAggregateSTD&#39;: 216803.38030356335, &#39;PredictionErrorAggregateMax&#39;: 738707.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 604708.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 3, &#39;PredictionByIndexList&#39;: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], &#39;3&#39;: (69142.77777777778, 195039.2862515298), &#39;4&#39;: (106318.88888888889, 153377.7468455972), &#39;5&#39;: (119952.88888888889, 141647.62664791688), &#39;6&#39;: (144688.55555555556, 162846.37387571495), &#39;7&#39;: (198821.44444444444, 178705.1820569977), &#39;8&#39;: (189962.0, 144914.5719710601), &#39;9&#39;: (233602.75, 168602.2987341439), &#39;10&#39;: (224700.0, 149263.7976712706), &#39;11&#39;: (266019.1111111111, 164479.43804854585), &#39;12&#39;: (252173.22222222222, 177746.32789629517), &#39;13&#39;: (299934.8, 161255.67047319608), &#39;PredictionErrorAggregateMean&#39;: 185911.8924731183, &#39;PredictionErrorAggregateSTD&#39;: 177848.03304104626, &#39;PredictionErrorAggregateMax&#39;: 620797.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 461372.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 4, &#39;PredictionByIndexList&#39;: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13], &#39;4&#39;: (50515.333333333336, 80913.60679006824), &#39;5&#39;: (67905.22222222222, 95212.68578150915), &#39;6&#39;: (101525.55555555556, 136072.52422481764), &#39;7&#39;: (162556.33333333334, 154290.23924553505), &#39;8&#39;: (165123.88888888888, 142390.50552808362), &#39;9&#39;: (204826.125, 181047.2100699411), &#39;10&#39;: (230745.0, 165118.72262859836), &#39;11&#39;: (245323.11111111112, 175984.5824872448), &#39;12&#39;: (240725.77777777778, 179474.82418110766), &#39;13&#39;: (295802.8, 198098.42818498082), &#39;PredictionErrorAggregateMean&#39;: 169841.19047619047, &#39;PredictionErrorAggregateSTD&#39;: 170038.93574333386, &#39;PredictionErrorAggregateMax&#39;: 520135.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 424811.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 5, &#39;PredictionByIndexList&#39;: [5, 6, 7, 8, 9, 10, 11, 12, 13], &#39;5&#39;: (20683.333333333332, 31785.065133731532), &#39;6&#39;: (34804.666666666664, 41019.408585042605), &#39;7&#39;: (104678.66666666667, 119339.6176725157), &#39;8&#39;: (106240.88888888889, 131095.85791866994), &#39;9&#39;: (158199.625, 149859.2678890244), &#39;10&#39;: (201077.0, 176907.42556207188), &#39;11&#39;: (212209.77777777778, 184651.76380947628), &#39;12&#39;: (210458.66666666666, 189177.25680488715), &#39;13&#39;: (262405.2, 176812.9893434303), &#39;PredictionErrorAggregateMean&#39;: 138505.64, &#39;PredictionErrorAggregateSTD&#39;: 162088.48456425604, &#39;PredictionErrorAggregateMax&#39;: 515233.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 448908.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 6, &#39;PredictionByIndexList&#39;: [6, 7, 8, 9, 10, 11, 12, 13], &#39;6&#39;: (8868.444444444445, 11814.109127189227), &#39;7&#39;: (88150.77777777778, 111887.8427789561), &#39;8&#39;: (85733.22222222222, 122190.40971439959), &#39;9&#39;: (131428.375, 94069.68517133655), &#39;10&#39;: (184427.875, 161246.4604049012), &#39;11&#39;: (200519.33333333334, 148990.9258258517), &#39;12&#39;: (208763.55555555556, 147974.62625442175), &#39;13&#39;: (251617.2, 154978.01082140653), &#39;PredictionErrorAggregateMean&#39;: 138079.60606060605, &#39;PredictionErrorAggregateSTD&#39;: 145822.9226997364, &#39;PredictionErrorAggregateMax&#39;: 551198.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 352324.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 7, &#39;PredictionByIndexList&#39;: [7, 8, 9, 10, 11, 12, 13], &#39;7&#39;: (54192.77777777778, 90149.35548395694), &#39;8&#39;: (54312.42778862847, 98181.93468492554), &#39;9&#39;: (81967.125, 81320.76925736362), &#39;10&#39;: (131581.375, 153925.3371792129), &#39;11&#39;: (147852.11111111112, 136353.9074609765), &#39;12&#39;: (156090.33333333334, 134958.59151771126), &#39;13&#39;: (189610.6, 141427.4542408227), &#39;PredictionErrorAggregateMean&#39;: 111727.54122978344, &#39;PredictionErrorAggregateSTD&#39;: 129986.38920256708, &#39;PredictionErrorAggregateMax&#39;: 472825.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 312862.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 8, &#39;PredictionByIndexList&#39;: [8, 9, 10, 11, 12, 13], &#39;8&#39;: (7888.666666666667, 8557.239066687598), &#39;9&#39;: (58792.75, 35078.360493864304), &#39;10&#39;: (64724.375, 58998.04605861431), &#39;11&#39;: (86865.22222222222, 59489.75857289832), &#39;12&#39;: (95063.0, 53135.60026322591), &#39;13&#39;: (86535.8, 40803.23589324749), &#39;PredictionErrorAggregateMean&#39;: 65191.0, &#39;PredictionErrorAggregateSTD&#39;: 55594.08145207545, &#39;PredictionErrorAggregateMax&#39;: 209233.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 143684.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 9, &#39;PredictionByIndexList&#39;: [9, 10, 11, 12, 13], &#39;9&#39;: (20193.625, 20041.095609631102), &#39;10&#39;: (24534.85714285714, 33160.850930097724), &#39;11&#39;: (48465.75, 46564.76827696558), &#39;12&#39;: (49615.0, 43663.630457739084), &#39;13&#39;: (39957.25, 21954.070435513775), &#39;PredictionErrorAggregateMean&#39;: 36507.65714285714, &#39;PredictionErrorAggregateSTD&#39;: 38223.21964830343, &#39;PredictionErrorAggregateMax&#39;: 160373.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 76736.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 10, &#39;PredictionByIndexList&#39;: [10, 11, 12, 13], &#39;10&#39;: (12101.875, 15462.359598695633), &#39;11&#39;: (10043.5, 13386.118780288782), &#39;12&#39;: (21048.5, 26691.872138349532), &#39;13&#39;: (8019.75, 8352.69206229345), &#39;PredictionErrorAggregateMean&#39;: 13486.785714285714, &#39;PredictionErrorAggregateSTD&#39;: 18909.63826683771, &#39;PredictionErrorAggregateMax&#39;: 80551.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 41723.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 11, &#39;PredictionByIndexList&#39;: [11, 12, 13], &#39;11&#39;: (8878.222222222223, 12305.282684709737), &#39;12&#39;: (11130.555555555555, 12617.659829788046), &#39;13&#39;: (12996.2, 22988.108807816272), &#39;PredictionErrorAggregateMean&#39;: 10654.782608695652, &#39;PredictionErrorAggregateSTD&#39;: 15457.86354537792, &#39;PredictionErrorAggregateMax&#39;: 58796.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 37139.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 12, &#39;PredictionByIndexList&#39;: [12, 13], &#39;12&#39;: (8997.333333333334, 14913.77264291113), &#39;13&#39;: (2003.2, 3671.6002723608135), &#39;PredictionErrorAggregateMean&#39;: 6499.428571428572, &#39;PredictionErrorAggregateSTD&#39;: 12610.723564345011, &#39;PredictionErrorAggregateMax&#39;: 47091.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 16159.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 13, &#39;PredictionByIndexList&#39;: [13], &#39;13&#39;: (5929.6, 6098.018812696465), &#39;PredictionErrorAggregateMean&#39;: 5929.6, &#39;PredictionErrorAggregateSTD&#39;: 6098.018812696465, &#39;PredictionErrorAggregateMax&#39;: 16879.0, &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 16879.0, &#39;PredictionAvailable&#39;: True}, {&#39;id&#39;: 14, &#39;PredictionByIndexList&#39;: [], &#39;PredictionAvailable&#39;: False}]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">ErrorDictList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[{&#39;0&#39;: (11307.375, 14712.639293626926),
+  &#39;1&#39;: (56142.75, 88464.99861491832),
+  &#39;10&#39;: (351798.5714285714, 152852.1052276697),
+  &#39;11&#39;: (373557.5, 167109.23586385045),
+  &#39;12&#39;: (358111.75, 181866.63190628868),
+  &#39;13&#39;: (451100.8, 151968.02713386787),
+  &#39;2&#39;: (78915.875, 124658.95565144678),
+  &#39;3&#39;: (167447.25, 198082.2620388749),
+  &#39;4&#39;: (208888.25, 172643.02133140946),
+  &#39;5&#39;: (216207.25, 159406.72984126955),
+  &#39;6&#39;: (254679.375, 178123.36641492147),
+  &#39;7&#39;: (302622.625, 200190.54996736077),
+  &#39;8&#39;: (314931.75, 147599.9984576135),
+  &#39;9&#39;: (349801.14285714284, 178151.76465941983),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 760038.0,
+  &#39;PredictionErrorAggregateMean&#39;: 242142.01869158878,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 476583.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 201849.45645106016,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be44e&#39;),
+  &#39;id&#39;: 0},
+ {&#39;1&#39;: (25202.333333333332, 42906.48583968525),
+  &#39;10&#39;: (417226.75, 154358.17815048705),
+  &#39;11&#39;: (446406.55555555556, 170726.50336925243),
+  &#39;12&#39;: (430986.6666666667, 183016.3385578214),
+  &#39;13&#39;: (472448.0, 117091.48389528591),
+  &#39;2&#39;: (57198.555555555555, 70735.1225553019),
+  &#39;3&#39;: (168226.44444444444, 209308.72134991366),
+  &#39;4&#39;: (206055.55555555556, 170949.03727466793),
+  &#39;5&#39;: (248566.55555555556, 171698.37397412365),
+  &#39;6&#39;: (278244.8888888889, 176482.15431812202),
+  &#39;7&#39;: (350561.22222222225, 185992.42371474154),
+  &#39;8&#39;: (357284.22222222225, 129443.38096186882),
+  &#39;9&#39;: (410132.125, 170490.21206761218),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 778944.0,
+  &#39;PredictionErrorAggregateMean&#39;: 289186.5585585586,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 572492.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 212210.33776190388,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be44f&#39;),
+  &#39;id&#39;: 1},
+ {&#39;10&#39;: (391440.25, 159409.98647571457),
+  &#39;11&#39;: (427201.22222222225, 170511.4419098403),
+  &#39;12&#39;: (411782.55555555556, 187108.42194781738),
+  &#39;13&#39;: (462077.0, 150498.68838099553),
+  &#39;2&#39;: (7962.666666666667, 11374.475724181752),
+  &#39;3&#39;: (156769.44444444444, 213156.4589920387),
+  &#39;4&#39;: (194968.0, 195802.67910322372),
+  &#39;5&#39;: (226936.44444444444, 181941.0239574664),
+  &#39;6&#39;: (258643.33333333334, 196830.0882058206),
+  &#39;7&#39;: (331393.6666666667, 208422.3338810993),
+  &#39;8&#39;: (338098.44444444444, 154570.88355768195),
+  &#39;9&#39;: (382977.125, 177913.63300801144),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 738707.0,
+  &#39;PredictionErrorAggregateMean&#39;: 291073.7843137255,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 604708.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 216803.38030356335,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be450&#39;),
+  &#39;id&#39;: 2},
+ {&#39;10&#39;: (224700.0, 149263.7976712706),
+  &#39;11&#39;: (266019.1111111111, 164479.43804854585),
+  &#39;12&#39;: (252173.22222222222, 177746.32789629517),
+  &#39;13&#39;: (299934.8, 161255.67047319608),
+  &#39;3&#39;: (69142.77777777778, 195039.2862515298),
+  &#39;4&#39;: (106318.88888888889, 153377.7468455972),
+  &#39;5&#39;: (119952.88888888889, 141647.62664791688),
+  &#39;6&#39;: (144688.55555555556, 162846.37387571495),
+  &#39;7&#39;: (198821.44444444444, 178705.1820569977),
+  &#39;8&#39;: (189962.0, 144914.5719710601),
+  &#39;9&#39;: (233602.75, 168602.2987341439),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 620797.0,
+  &#39;PredictionErrorAggregateMean&#39;: 185911.8924731183,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 461372.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 177848.03304104626,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be451&#39;),
+  &#39;id&#39;: 3},
+ {&#39;10&#39;: (230745.0, 165118.72262859836),
+  &#39;11&#39;: (245323.11111111112, 175984.5824872448),
+  &#39;12&#39;: (240725.77777777778, 179474.82418110766),
+  &#39;13&#39;: (295802.8, 198098.42818498082),
+  &#39;4&#39;: (50515.333333333336, 80913.60679006824),
+  &#39;5&#39;: (67905.22222222222, 95212.68578150915),
+  &#39;6&#39;: (101525.55555555556, 136072.52422481764),
+  &#39;7&#39;: (162556.33333333334, 154290.23924553505),
+  &#39;8&#39;: (165123.88888888888, 142390.50552808362),
+  &#39;9&#39;: (204826.125, 181047.2100699411),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 520135.0,
+  &#39;PredictionErrorAggregateMean&#39;: 169841.19047619047,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 424811.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 170038.93574333386,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be452&#39;),
+  &#39;id&#39;: 4},
+ {&#39;10&#39;: (201077.0, 176907.42556207188),
+  &#39;11&#39;: (212209.77777777778, 184651.76380947628),
+  &#39;12&#39;: (210458.66666666666, 189177.25680488715),
+  &#39;13&#39;: (262405.2, 176812.9893434303),
+  &#39;5&#39;: (20683.333333333332, 31785.065133731532),
+  &#39;6&#39;: (34804.666666666664, 41019.408585042605),
+  &#39;7&#39;: (104678.66666666667, 119339.6176725157),
+  &#39;8&#39;: (106240.88888888889, 131095.85791866994),
+  &#39;9&#39;: (158199.625, 149859.2678890244),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [5, 6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 515233.0,
+  &#39;PredictionErrorAggregateMean&#39;: 138505.64,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 448908.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 162088.48456425604,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be453&#39;),
+  &#39;id&#39;: 5},
+ {&#39;10&#39;: (184427.875, 161246.4604049012),
+  &#39;11&#39;: (200519.33333333334, 148990.9258258517),
+  &#39;12&#39;: (208763.55555555556, 147974.62625442175),
+  &#39;13&#39;: (251617.2, 154978.01082140653),
+  &#39;6&#39;: (8868.444444444445, 11814.109127189227),
+  &#39;7&#39;: (88150.77777777778, 111887.8427789561),
+  &#39;8&#39;: (85733.22222222222, 122190.40971439959),
+  &#39;9&#39;: (131428.375, 94069.68517133655),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [6, 7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 551198.0,
+  &#39;PredictionErrorAggregateMean&#39;: 138079.60606060605,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 352324.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 145822.9226997364,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be454&#39;),
+  &#39;id&#39;: 6},
+ {&#39;10&#39;: (131581.375, 153925.3371792129),
+  &#39;11&#39;: (147852.11111111112, 136353.9074609765),
+  &#39;12&#39;: (156090.33333333334, 134958.59151771126),
+  &#39;13&#39;: (189610.6, 141427.4542408227),
+  &#39;7&#39;: (54192.77777777778, 90149.35548395694),
+  &#39;8&#39;: (54312.42778862847, 98181.93468492554),
+  &#39;9&#39;: (81967.125, 81320.76925736362),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [7, 8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 472825.0,
+  &#39;PredictionErrorAggregateMean&#39;: 111727.54122978344,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 312862.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 129986.38920256708,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be455&#39;),
+  &#39;id&#39;: 7},
+ {&#39;10&#39;: (64724.375, 58998.04605861431),
+  &#39;11&#39;: (86865.22222222222, 59489.75857289832),
+  &#39;12&#39;: (95063.0, 53135.60026322591),
+  &#39;13&#39;: (86535.8, 40803.23589324749),
+  &#39;8&#39;: (7888.666666666667, 8557.239066687598),
+  &#39;9&#39;: (58792.75, 35078.360493864304),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [8, 9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 209233.0,
+  &#39;PredictionErrorAggregateMean&#39;: 65191.0,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 143684.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 55594.08145207545,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be456&#39;),
+  &#39;id&#39;: 8},
+ {&#39;10&#39;: (24534.85714285714, 33160.850930097724),
+  &#39;11&#39;: (48465.75, 46564.76827696558),
+  &#39;12&#39;: (49615.0, 43663.630457739084),
+  &#39;13&#39;: (39957.25, 21954.070435513775),
+  &#39;9&#39;: (20193.625, 20041.095609631102),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [9, 10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 160373.0,
+  &#39;PredictionErrorAggregateMean&#39;: 36507.65714285714,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 76736.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 38223.21964830343,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be457&#39;),
+  &#39;id&#39;: 9},
+ {&#39;10&#39;: (12101.875, 15462.359598695633),
+  &#39;11&#39;: (10043.5, 13386.118780288782),
+  &#39;12&#39;: (21048.5, 26691.872138349532),
+  &#39;13&#39;: (8019.75, 8352.69206229345),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [10, 11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 80551.0,
+  &#39;PredictionErrorAggregateMean&#39;: 13486.785714285714,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 41723.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 18909.63826683771,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be458&#39;),
+  &#39;id&#39;: 10},
+ {&#39;11&#39;: (8878.222222222223, 12305.282684709737),
+  &#39;12&#39;: (11130.555555555555, 12617.659829788046),
+  &#39;13&#39;: (12996.2, 22988.108807816272),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [11, 12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 58796.0,
+  &#39;PredictionErrorAggregateMean&#39;: 10654.782608695652,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 37139.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 15457.86354537792,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be459&#39;),
+  &#39;id&#39;: 11},
+ {&#39;12&#39;: (8997.333333333334, 14913.77264291113),
+  &#39;13&#39;: (2003.2, 3671.6002723608135),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [12, 13],
+  &#39;PredictionErrorAggregateMax&#39;: 47091.0,
+  &#39;PredictionErrorAggregateMean&#39;: 6499.428571428572,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 16159.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 12610.723564345011,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be45a&#39;),
+  &#39;id&#39;: 12},
+ {&#39;13&#39;: (5929.6, 6098.018812696465),
+  &#39;PredictionAvailable&#39;: True,
+  &#39;PredictionByIndexList&#39;: [13],
+  &#39;PredictionErrorAggregateMax&#39;: 16879.0,
+  &#39;PredictionErrorAggregateMean&#39;: 5929.6,
+  &#39;PredictionErrorAggregateNinetyPercentileValue&#39;: 16879.0,
+  &#39;PredictionErrorAggregateSTD&#39;: 6098.018812696465,
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be45b&#39;),
+  &#39;id&#39;: 13},
+ {&#39;PredictionAvailable&#39;: False,
+  &#39;PredictionByIndexList&#39;: [],
+  &#39;_id&#39;: ObjectId(&#39;6340cc616c4c1752704be45c&#39;),
+  &#39;id&#39;: 14}]
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Module_6_ArrivalTimePrediction.html" class="btn btn-neutral float-left" title="Weight and estimate computation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_8_PredictionError.html" class="btn btn-neutral float-right" title="Description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Pruthvish Rajput, Manish Chaturvedi, and Vivek Patel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

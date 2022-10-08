@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Execution of code &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="System Model" href="Module_10_OverviewOfCrowdednessDetectionSolution.html" />
+    <link rel="prev" title="Description" href="Module_8_PredictionError.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Advanced Public Transportation System Implementation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Execution of code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html">Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Observations-from-accelerometer-data">Observations from accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Feature-Extraction">Feature Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-Activation-of-GPS">Opportunistic Activation of GPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-procedure-for-commuter-activity-detection">Opportunistic procedure for commuter activity detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#References:">References:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Features-Extraction">Features Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_12_SteppingDetector.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Feature-extraction">Feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html">Library imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Processing:-For-entire-trip">Processing: For entire trip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html">Penetration Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Library-Imports-and-penetration-variable">Library Imports and penetration variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-1">Penetration Considering Feature set-1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-4">Penetration Considering Feature set-4</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html">Battery Consumption Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#Code">Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#References">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Advanced Public Transportation System Implementation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Execution of code</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Module_9_PredictionErrorForDistantStop.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Import libraries</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span>     <span class="n">MongoClient</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="c1">#import geocoder</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">pydoc</span> <span class="kn">import</span> <span class="n">help</span>
+<span class="kn">from</span> <span class="nn">scipy.stats.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">PredictionErrorAtIDSouth</span> <span class="p">(</span><span class="n">id_value</span><span class="p">,</span><span class="n">TripStartTime</span><span class="p">,</span><span class="n">Bound</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: the id of the bus-stop, trip start time and bound value</span>
+<span class="sd">    output: the prediction for the provided bus-stop id for the trips with the trip start time</span>
+<span class="sd">    and direction of the bound value</span>
+<span class="sd">    function: it computes the prediction for the provided bus-stop id for the trips with the trip start time</span>
+<span class="sd">    and direction of the bound value</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">PredictionErrorLists</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span>
+                               <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;PredictionErrorForSubStopsV2.&#39;</span><span class="o">+</span><span class="n">TripStartTime</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">Bound</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()]</span>
+
+        <span class="n">BusStopRecords</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span>
+                         <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;BusStops.SouthBound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">PredictionErrorLists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ResultPathDir_Np</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/PredictionErrorForSubStopsV2.</span><span class="si">{</span><span class="n">TripStartTime</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span>
+                                       <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">BusStopRecords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/BusStops.SouthBound.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="n">PredictionErrorList</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">PredictionErrorLists</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">id_value</span><span class="p">]</span>
+    <span class="n">BusStopRecord</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">BusStopRecords</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">id_value</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">BusStopRecord</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1">#StopDistFromOrigin=BusStopRecord[0][&#39;normalizedDistanceFromOrigin&#39;]</span>
+        <span class="n">StopDistFromOrigin</span><span class="o">=</span><span class="n">BusStopRecord</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;distanceFromOrigin&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">PredictionErrorList</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">PredictionErrorList</span><span class="o">=</span><span class="n">PredictionErrorList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">PredictionErrorMeanList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">PredictionErrorSTDList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">NormalizedDistForStopList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">PredictionByIndexList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#pprint.pprint(PredictionErrorList)</span>
+
+
+        <span class="k">for</span> <span class="n">PredictionByIndex</span> <span class="ow">in</span> <span class="n">PredictionErrorList</span><span class="p">[</span><span class="s1">&#39;PredictionByIndexList&#39;</span><span class="p">]:</span>
+
+            <span class="c1">#BusStopRecord = [rec for rec in con[RouteName][&#39;BusStops.SouthBound&#39;].find({&#39;id&#39;:PredictionByIndex+1}).limit(1)]</span>
+            <span class="n">BusStopRecord</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">BusStopRecords</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">PredictionByIndex</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1">#For NorthBound</span>
+            <span class="c1">#BusStopRecord = [rec for rec in con[RouteName][&#39;BusStops.SouthBound&#39;].find({&#39;id&#39;:PredictionByIndex-1}).limit(1)]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">BusStopRecord</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1">#NormalizedDistForStopList.append(abs(BusStopRecord[0][&#39;normalizedDistanceFromOrigin&#39;]-StopDistFromOrigin))</span>
+                <span class="n">NormalizedDistForStopList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">BusStopRecord</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;distanceFromOrigin&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">StopDistFromOrigin</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+                <span class="c1">#For NorthBound</span>
+                <span class="c1">#PredictionByIndex.append(PredictionByIndex-1)</span>
+                <span class="n">PredictionByIndexList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">PredictionErrorMeanList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PredictionErrorList</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+                <span class="n">PredictionErrorSTDList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PredictionErrorList</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+
+        <span class="k">return</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">,</span><span class="n">PredictionByIndexList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">PredictionErrorAtIDNorth</span> <span class="p">(</span><span class="n">id_value</span><span class="p">,</span><span class="n">TripStartTime</span><span class="p">,</span><span class="n">Bound</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span>  <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: the id of the bus-stop, trip start time and bound value</span>
+<span class="sd">    output: the prediction for the provided bus-stop id for the trips with the trip start time</span>
+<span class="sd">    and direction of the bound value</span>
+<span class="sd">    function: it computes the prediction for the provided bus-stop id for the trips with the trip start time</span>
+<span class="sd">    and direction of the bound value</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="n">PredictionErrorLists</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span>
+                               <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;PredictionErrorForSubStopsV2.&#39;</span><span class="o">+</span><span class="n">TripStartTime</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="n">Bound</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()]</span>
+
+        <span class="n">BusStopRecords</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span>
+                         <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="sa">f</span><span class="s1">&#39;BusStops.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">Bound&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">PredictionErrorLists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ResultPathDir_Np</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/PredictionErrorForSubStopsV2.</span><span class="si">{</span><span class="n">TripStartTime</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">,</span>
+                                       <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">BusStopRecords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/BusStops.</span><span class="si">{</span><span class="n">Bound</span><span class="si">}</span><span class="s1">Bound.npy&#39;</span><span class="p">,</span><span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">PredictionErrorList</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">PredictionErrorLists</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">id_value</span><span class="p">]</span>
+    <span class="n">BusStopRecord</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">BusStopRecords</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">id_value</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">BusStopRecord</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1">#StopDistFromOrigin=BusStopRecord[0][&#39;normalizedDistanceFromOrigin&#39;]</span>
+        <span class="n">StopDistFromOrigin</span><span class="o">=</span><span class="n">BusStopRecord</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;distanceFromOrigin&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">PredictionErrorList</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">PredictionErrorList</span><span class="o">=</span><span class="n">PredictionErrorList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">PredictionErrorMeanList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">PredictionErrorSTDList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">NormalizedDistForStopList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">PredictionByIndexList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#pprint.pprint(PredictionErrorList)</span>
+
+
+        <span class="k">for</span> <span class="n">PredictionByIndex</span> <span class="ow">in</span> <span class="n">PredictionErrorList</span><span class="p">[</span><span class="s1">&#39;PredictionByIndexList&#39;</span><span class="p">]:</span>
+
+            <span class="c1">#BusStopRecord = [rec for rec in con[RouteName][&#39;BusStops.SouthBound&#39;].find({&#39;id&#39;:PredictionByIndex+1}).limit(1)]</span>
+            <span class="c1">#For NorthBound</span>
+            <span class="c1">#BusStopRecord = [rec for rec in con[RouteName][f&#39;BusStops.{Bound}Bound&#39;].find({&#39;id&#39;:PredictionByIndex-1}).limit(1)]</span>
+            <span class="n">BusStopRecord</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">BusStopRecords</span> <span class="k">if</span> <span class="n">rec</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">PredictionByIndex</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">BusStopRecord</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1">#NormalizedDistForStopList.append(abs(BusStopRecord[0][&#39;normalizedDistanceFromOrigin&#39;]-StopDistFromOrigin))</span>
+                <span class="n">NormalizedDistForStopList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">BusStopRecord</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;distanceFromOrigin&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">StopDistFromOrigin</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+                <span class="c1">#For NorthBound</span>
+                <span class="n">PredictionByIndexList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="c1">#PredictionByIndexList.append(PredictionByIndex+1)</span>
+
+                <span class="n">PredictionErrorMeanList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PredictionErrorList</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+                <span class="n">PredictionErrorSTDList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PredictionErrorList</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">PredictionByIndex</span><span class="p">)][</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+
+        <span class="k">return</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">,</span><span class="n">PredictionByIndexList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Extract_and_Plot_PredictionError_SouthBound</span><span class="p">(</span><span class="n">TripStartTimeAggregate</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: Trip start time</span>
+<span class="sd">    output: None</span>
+<span class="sd">    function: It extracts the prediction records from the MongoDB database and computes the prediction error</span>
+<span class="sd">    for the farthest bus-stop of the route on the south bound direction.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1">#TActualList =[0,  234,  506,  793, 1052, 1367, 1665, 2273, 2415, 2692, 3263, 3454, 3521, 3653, 3970]</span>
+    <span class="n">TActualList</span> <span class="o">=</span><span class="p">[</span><span class="mi">234</span><span class="p">,</span>  <span class="mi">506</span><span class="p">,</span>  <span class="mi">793</span><span class="p">,</span> <span class="mi">1052</span><span class="p">,</span> <span class="mi">1367</span><span class="p">,</span> <span class="mi">1665</span><span class="p">,</span> <span class="mi">2273</span><span class="p">,</span> <span class="mi">2415</span><span class="p">,</span> <span class="mi">2692</span><span class="p">,</span> <span class="mi">3263</span><span class="p">,</span> <span class="mi">3454</span><span class="p">,</span> <span class="mi">3521</span><span class="p">,</span> <span class="mi">3653</span><span class="p">,</span> <span class="mi">3970</span><span class="p">]</span>
+
+
+
+    <span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">,</span><span class="n">PredictionByIndexList</span> <span class="o">=</span> <span class="n">PredictionErrorAtIDSouth</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">TripStartTimeAggregate</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">TripStartTimeAggregate</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                                                                                                               <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                                                                                                                              <span class="p">)</span>
+    <span class="c1">#                                                                                                       18                              South</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">PredictionErrorMeanList</span><span class="p">))</span>
+
+    <span class="n">PearsonrCorrelationCoefficeintMean</span><span class="p">,</span><span class="n">PValueMean</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">)</span>
+    <span class="n">PearsonrCorrelationCoefficeintSTD</span><span class="p">,</span><span class="n">PValueSTD</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">)</span>
+
+    <span class="n">PearsonrCorrelationCoefficeintMeanTActual</span><span class="p">,</span><span class="n">PValueMeanTActual</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">TActualList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">)</span>
+    <span class="n">PearsonrCorrelationCoefficeintSTDTActual</span><span class="p">,</span><span class="n">PValueSTDTActual</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">TActualList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintMean: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintMean</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintSTD: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintSTD</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintMeanTActual: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintMeanTActual</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintSTDTActual: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintSTDTActual</span><span class="p">)</span>
+
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;SouthBound&#39;</span><span class="p">,</span><span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">capsize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">XLimitDistance</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+
+    <span class="k">global</span> <span class="n">yLimit</span>
+    <span class="n">yLimit</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="k">global</span> <span class="n">xLimit</span>
+    <span class="n">xLimit</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Distance (km) from bus stop&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Prediction error (seconds)&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="c1">#plt.title(&#39;Prediction error v/s Distance from bus stop&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="c1">#PearsonrCorrelationCoefficeintMean</span>
+    <span class="c1">#plt.text(2,570,&#39;Correlation between distance and mean error: &#39;+&quot;%.4f&quot; %round(PearsonrCorrelationCoefficeintMean,4)+&#39;\nCorrelation between distance and variation in error: &#39;+&quot;%.4f&quot; %round(PearsonrCorrelationCoefficeintSTD,4),va=&#39;center&#39;, size=11 )</span>
+
+    <span class="n">ax2</span><span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twiny</span><span class="p">()</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="n">NormalizedDistForStopList</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="n">TActualList</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TActualList</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xLimit</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Travel time (seconds) from bus stop&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ResultPathDir</span><span class="si">}</span><span class="s1">EndStopPredictionError_SouthBound.png&#39;</span><span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Extract_and_Plot_PredictionError_NorthBound</span><span class="p">(</span><span class="n">TripStartTimeAggregate</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: Trip start time</span>
+<span class="sd">    output: None</span>
+<span class="sd">    function: It extracts the prediction records from the MongoDB database and computes the prediction error</span>
+<span class="sd">    for the farthest bus-stop of the route on the north bound direction.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">TActualList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2605</span><span class="p">,</span> <span class="mi">2598</span><span class="p">,</span> <span class="mi">2452</span><span class="p">,</span> <span class="mi">2392</span><span class="p">,</span> <span class="mi">2301</span><span class="p">,</span> <span class="mi">2111</span><span class="p">,</span> <span class="mi">1925</span><span class="p">,</span> <span class="mi">1791</span><span class="p">,</span> <span class="mi">1453</span><span class="p">,</span><span class="mi">1194</span><span class="p">,</span>  <span class="mi">974</span><span class="p">,</span>  <span class="mi">728</span><span class="p">,</span>  <span class="mi">494</span><span class="p">,</span>  <span class="mi">292</span><span class="p">]</span> <span class="c1">#, 0]</span>
+    <span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">,</span><span class="n">PredictionByIndexList</span> <span class="o">=</span> <span class="n">PredictionErrorAtIDNorth</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="n">TripStartTimeAggregate</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">TripStartTimeAggregate</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                                                                                                               <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span>
+                                                                                                                              <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">PredictionErrorMeanList</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TActualList</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">PredictionErrorMeanList</span><span class="p">))</span>
+
+    <span class="n">PearsonrCorrelationCoefficeintMean</span><span class="p">,</span><span class="n">PValueMean</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">)</span>
+    <span class="n">PearsonrCorrelationCoefficeintSTD</span><span class="p">,</span><span class="n">PValueSTD</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">)</span>
+
+    <span class="n">PearsonrCorrelationCoefficeintMeanTActual</span><span class="p">,</span><span class="n">PValueMeanTActual</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">TActualList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">)</span>
+    <span class="n">PearsonrCorrelationCoefficeintSTDTActual</span><span class="p">,</span><span class="n">PValueSTDTActual</span> <span class="o">=</span>  <span class="n">pearsonr</span><span class="p">(</span><span class="n">TActualList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintMean: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintMean</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintSTD: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintSTD</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintMeanTActual: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintMeanTActual</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PearsonrCorrelationCoefficeintSTDTActual: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintSTDTActual</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">yLimit</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xLimit</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">,</span><span class="n">PredictionErrorMeanList</span><span class="p">,</span><span class="n">PredictionErrorSTDList</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;NorthBound: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintMean</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;, &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">PearsonrCorrelationCoefficeintSTD</span><span class="p">),</span><span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">capsize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Distance (km) from bus stop&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Prediction error (seconds)&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">ax2</span><span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twiny</span><span class="p">()</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xLimit</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="n">NormalizedDistForStopList</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">NormalizedDistForStopList</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="n">TActualList</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">TActualList</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">]])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Travel time (seconds) from bus stop&quot;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ResultPathDir</span><span class="si">}</span><span class="s1">EndStopPredictionError_NorthBound.png&#39;</span><span class="p">,</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<section id="Execution-of-code">
+<h1>Execution of code<a class="headerlink" href="#Execution-of-code" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="sd">&#39;&#39;&#39;For directory management&#39;&#39;&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+
+<span class="n">OneLevelUpPath</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Limits for plots&#39;&#39;&#39;</span>
+<span class="n">xLimit</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">yLimit</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">con</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">()</span>
+
+<span class="n">RouteName</span><span class="o">=</span><span class="s1">&#39;Git_ISCON_PDPU&#39;</span>
+
+<span class="c1">#ResultPathDir = os.path.join(os.getcwd(), &#39;Result&#39;,&#39;PredictionError&#39;,&#39;&#39;)</span>
+<span class="n">ResultPathDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;PredictionError&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">ResultPathDir_Np</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span><span class="s1">&#39;NpData&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">NpPathDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">OneLevelUpPath</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span><span class="s1">&#39;NpData&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#&#39;&#39;&#39;</span>
+<span class="n">ProjectDataUsed</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">UsedPreTrained</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">UseMongoDB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1">#&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">ProjectDataUsed = True</span>
+<span class="sd">UsedPreTrained = True</span>
+<span class="sd">UseMongoDB = False</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;\nProjectDataUsed = True\nUsedPreTrained = True\nUseMongoDB = False\n&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+    <span class="n">TripStartTimeAggregate</span><span class="o">=</span> <span class="p">[</span><span class="n">Tr</span><span class="p">[</span><span class="s1">&#39;TripStartTimeBound&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">Tr</span> <span class="ow">in</span>
+                             <span class="n">con</span> <span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="s1">&#39;TripStartTimeAggregate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()]</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">TripStartTimeAggregate_Record</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/TripStartTimeAggregate.npy&#39;</span><span class="p">,</span>
+                                            <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">TripStartTimeAggregate</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span><span class="p">[</span><span class="s1">&#39;TripStartTimeBound&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">TripStartTimeAggregate_Record</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Extract_and_Plot_PredictionError_SouthBound</span><span class="p">(</span><span class="n">TripStartTimeAggregate</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">)</span>
+<span class="n">Extract_and_Plot_PredictionError_NorthBound</span><span class="p">(</span><span class="n">TripStartTimeAggregate</span><span class="p">,</span> <span class="n">ResultPathDir</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">,</span> <span class="n">ResultPathDir_Np</span><span class="p">,</span> <span class="n">UseMongoDB</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+14 14
+PearsonrCorrelationCoefficeintMean:
+0.918975223361703
+PearsonrCorrelationCoefficeintSTD:
+0.39390106016603077
+PearsonrCorrelationCoefficeintMeanTActual:
+0.9772182984737138
+PearsonrCorrelationCoefficeintSTDTActual:
+0.5501624254277958
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Module_9_PredictionErrorForDistantStop_11_1.png" src="_images/Module_9_PredictionErrorForDistantStop_11_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+14 14
+14 14
+PearsonrCorrelationCoefficeintMean:
+0.9289620609194672
+PearsonrCorrelationCoefficeintSTD:
+0.7119881075563027
+PearsonrCorrelationCoefficeintMeanTActual:
+0.9303267279052778
+PearsonrCorrelationCoefficeintSTDTActual:
+0.7155176551269204
+(-0.2530742780170834, 33.24133377279121)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:35: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Module_9_PredictionErrorForDistantStop_11_4.png" src="_images/Module_9_PredictionErrorForDistantStop_11_4.png" />
+</div>
+</div>
+</section>
+<section id="MongoDB-Save/Load">
+<h1>MongoDB Save/Load<a class="headerlink" href="#MongoDB-Save/Load" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">LoadInMongoFromNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The route name and numpy directory path</span>
+<span class="sd">    output: The MongoDB database collections from the Numpy files</span>
+<span class="sd">    function: It creates the MongoDB database from the Numpy files.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">CollectionNames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1">#print(CollectionNames)</span>
+
+    <span class="n">CollectionNames_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">CollectionNames</span> <span class="k">if</span> <span class="s1">&#39;</span><span class="se">\&#39;</span><span class="s1">.&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">]</span> <span class="c1"># To address the error</span>
+
+    <span class="c1">#print(&#39;Saving data in mongoDB&#39;)</span>
+    <span class="k">for</span> <span class="n">Collection</span> <span class="ow">in</span> <span class="n">CollectionNames_1</span><span class="p">:</span>
+        <span class="n">RecordsList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">NpPathDir</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">RouteName</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">Collection</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">allow_pickle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1">#print(Collection)</span>
+        <span class="c1">#pprint.pprint(RecordsList[0:3])</span>
+
+        <span class="n">CollectionName</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">CollectionName</span><span class="p">)</span>
+        <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">CollectionName</span><span class="p">]</span><span class="o">.</span><span class="n">insert_many</span><span class="p">(</span><span class="n">RecordsList</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+
+
+<span class="k">def</span> <span class="nf">SaveInNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    input: The route name and numpy directory path</span>
+<span class="sd">    output: Numpy files of the MongoDB database</span>
+<span class="sd">    function: It stores the Numpy files for the MongoDB database in the specified directory path</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+
+    <span class="n">CollectionNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">Collection</span> <span class="k">for</span> <span class="n">Collection</span> <span class="ow">in</span>
+                        <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">]</span><span class="o">.</span><span class="n">list_collection_names</span><span class="p">()</span> <span class="k">if</span> <span class="n">Collection</span><span class="o">!=</span><span class="s1">&#39;system.indexes&#39;</span><span class="p">]</span>
+
+    <span class="n">CollectionNames_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">Collection</span> <span class="k">for</span> <span class="n">Collection</span> <span class="ow">in</span>
+                         <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">]</span><span class="o">.</span><span class="n">list_collection_names</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;Prediction&#39;</span> <span class="ow">not</span> <span class="ow">in</span>  <span class="n">Collection</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">CollectionName</span> <span class="ow">in</span> <span class="n">CollectionNames_1</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CollectionName&#39;</span><span class="p">,</span> <span class="n">CollectionName</span><span class="p">)</span>
+        <span class="n">RecordsList</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">][</span><span class="n">CollectionName</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">([(</span><span class="s1">&#39;_id&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)])]</span>
+
+        <span class="k">for</span> <span class="n">RecordDict</span> <span class="ow">in</span> <span class="n">RecordsList</span><span class="p">:</span>
+            <span class="k">del</span><span class="p">[</span><span class="n">RecordDict</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]]</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">))</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">))</span>
+
+
+        <span class="c1">#np.save(f&#39;{Path}/{Database}/{CollectionName}.npy&#39;, RecordsList)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">NpPathDir</span><span class="p">,</span> <span class="n">RouteName</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">CollectionName</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">),</span> <span class="n">RecordsList</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Unsaved collection&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">Collection</span> <span class="k">for</span> <span class="n">Collection</span> <span class="ow">in</span>
+           <span class="n">con</span><span class="p">[</span><span class="n">RouteName</span><span class="p">]</span><span class="o">.</span><span class="n">list_collection_names</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;Prediction&#39;</span> <span class="ow">in</span>  <span class="n">Collection</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">UsedPreTrained</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="n">SaveInNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">)</span>
+
+<span class="k">elif</span> <span class="n">UseMongoDB</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+
+    <span class="n">RouteNamesList</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">list_database_names</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">RouteName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">RouteNamesList</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;Load the data for RouteName, if RouteName is not in RouteNamesList&#39;&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Loading MongoData from Np files&#39;</span><span class="p">)</span>
+        <span class="n">LoadInMongoFromNp</span><span class="p">(</span><span class="n">RouteName</span><span class="p">,</span> <span class="n">NpPathDir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CollectionName 14_02_2018__18_30_22.BusStopsRecord
+CollectionName 02_02_2018__07_38_50.Filtered
+CollectionName H.18.South.21_02_2018__18_28_29
+CollectionName 20_03_2018__07_28_45.Filtered
+CollectionName 03_04_2018__07_38_31.RawRecords
+CollectionName TripStartTimeAggregate
+CollectionName H.07.North.08_01_2018__07_41_43
+CollectionName 19_02_2018__07_46_19.RawRecords
+CollectionName 14_02_2018__07_41_04.Filtered
+CollectionName H.18.South.20_02_2018__18_31_07
+CollectionName 01_02_2018__07_39_12.RawRecords
+CollectionName 30_01_2018__07_42_30.BusStopsRecord
+CollectionName 15_02_2018__16_08_22.RawRecords
+CollectionName H.18.South.22_12_2017__07_38_21
+CollectionName 20_02_2018__18_31_07.Filtered
+CollectionName 21_02_2018__07_42_42.BusStopsRecord
+CollectionName 21_02_2018__07_42_42.RawRecords
+CollectionName H.07.North.28_03_2018__18_30_02
+CollectionName 13_03_2018__07_29_52.RawRecords
+CollectionName H.07.North.21_02_2018__18_28_29
+CollectionName 14_03_2018__07_35_46.Filtered
+CollectionName 18_01_2018__07_38_10.RawRecords
+CollectionName 29_01_2018__07_39_47.RawRecords
+CollectionName 26_12_2017__07_32_35.Filtered
+CollectionName 22_02_2018__07_42_45.RawRecords
+CollectionName 20_03_2018__07_28_45.RawRecords
+CollectionName 21_02_2018__18_28_29.RawRecords
+CollectionName 03_04_2018__07_38_31.Filtered
+CollectionName BusStops.SouthBound
+CollectionName H.07.North.19_01_2018__07_38_47
+CollectionName H.18.South.02_02_2018__07_38_50
+CollectionName 14_02_2018__18_30_22.RawRecords
+CollectionName 21_02_2018__07_42_42.Filtered
+CollectionName H.07.North.20_02_2018__18_31_07
+CollectionName 13_03_2018__07_29_52.Filtered
+CollectionName 21_12_2017__07_52_59.Filtered
+CollectionName H.07.North.15_02_2018__18_33_19
+CollectionName H.07.North.20_12_2017__07_38_14
+CollectionName 19_01_2018__07_38_47.BusStopsRecord
+CollectionName 22_01_2018__07_41_04.BusStopsRecord
+CollectionName 03_04_2018__18_32_45.Filtered
+CollectionName 20_02_2018__07_41_48.Filtered
+CollectionName 15_02_2018__07_45_52.Filtered
+CollectionName 30_01_2018__07_42_30.Filtered
+CollectionName 29_01_2018__07_39_47.BusStopsRecord
+CollectionName 08_01_2018__18_37_49.BusStopsRecord
+CollectionName 08_01_2018__07_41_43.Filtered
+CollectionName 15_02_2018__18_33_19.BusStopsRecord
+CollectionName 22_01_2018__07_41_04.RawRecords
+CollectionName H.18.South.22_02_2018__07_42_45
+CollectionName H.18.South.08_01_2018__07_41_43
+CollectionName H.18.South.29_12_2017__07_37_27
+CollectionName 28_03_2018__18_30_02.RawRecords
+CollectionName 28_03_2018__18_30_02.BusStopsRecord
+CollectionName H.07.North.14_02_2018__07_41_04
+CollectionName 22_01_2018__07_41_04.Filtered
+CollectionName 27_12_2017__07_55_48.RawRecords
+CollectionName 20_12_2017__18_31_19.LocationRecordsWithDistanceFromOrigin
+CollectionName 22_12_2017__07_38_21.BusStopsRecord
+CollectionName 27_12_2017__07_55_48.Filtered
+CollectionName 29_12_2017__07_37_27.BusStopsRecord
+CollectionName 15_02_2018__18_33_19.Filtered
+CollectionName 18_01_2018__07_38_10.LocationRecordsWithDistanceFromOrigin
+CollectionName H.07.North.18_01_2018__07_38_10
+CollectionName H.07.North.20_12_2017__18_31_19
+CollectionName H.18.South.29_01_2018__07_39_47
+CollectionName H.18.South.20_12_2017__07_38_14
+CollectionName 15_02_2018__18_33_19.RawRecords
+CollectionName 22_12_2017__07_38_21.Filtered
+CollectionName 15_02_2018__07_45_52.BusStopsRecord
+CollectionName 01_01_2018__07_38_27.BusStopsRecord
+CollectionName 21_02_2018__18_28_29.BusStopsRecord
+CollectionName 21_03_2018__18_32_40.Filtered
+CollectionName 20_12_2017__07_38_14.BusStopsRecord
+CollectionName 15_02_2018__16_08_22.Filtered
+CollectionName H.18.South.19_01_2018__07_38_47
+CollectionName 04_04_2018__18_34_54.BusStopsRecord
+CollectionName 09_01_2018__07_40_01.RawRecords
+CollectionName 21_03_2018__07_32_39.Filtered
+CollectionName H.07.North.30_01_2018__07_42_30
+CollectionName 20_12_2017__18_31_19.Filtered
+CollectionName 20_02_2018__18_31_07.BusStopsRecord
+CollectionName 19_02_2018__07_46_19.Filtered
+CollectionName H.18.South.28_03_2018__18_30_02
+CollectionName 08_01_2018__18_37_49.Filtered
+CollectionName 09_01_2018__07_40_01.Filtered
+CollectionName 01_01_2018__07_38_27.Filtered
+CollectionName 02_02_2018__07_38_50.RawRecords
+CollectionName H.07.North.16_02_2018__07_45_41
+CollectionName 19_12_2017__18_41_16.BusStopsRecord
+CollectionName 18_01_2018__07_38_10.Filtered
+CollectionName H.18.South.04_04_2018__18_34_54
+CollectionName 22_02_2018__07_42_45.BusStopsRecord
+CollectionName H.18.South.18_01_2018__07_38_10
+CollectionName 14_02_2018__07_41_04.RawRecords
+CollectionName 12_02_2018__07_40_14.BusStopsRecord
+CollectionName 14_02_2018__07_41_04.BusStopsRecord
+CollectionName 05_04_2018__07_38_07.RawRecords
+CollectionName H.07.North.29_01_2018__07_39_47
+CollectionName 14_02_2018__18_30_22.Filtered
+CollectionName 30_01_2018__07_42_30.RawRecords
+CollectionName 26_12_2017__07_32_35.BusStopsRecord
+CollectionName 05_04_2018__07_38_07.BusStopsRecord
+CollectionName H.18.South.20_12_2017__18_31_19
+CollectionName 19_01_2018__07_38_47.RawRecords
+CollectionName 19_12_2017__18_41_16.Filtered
+CollectionName 14_03_2018__07_35_46.BusStopsRecord
+CollectionName 22_03_2018__07_38_43.Filtered
+CollectionName H.18.South.09_01_2018__07_40_01
+CollectionName 14_03_2018__07_35_46.RawRecords
+CollectionName 18_01_2018__07_38_10.BusStopsRecord
+CollectionName 08_01_2018__18_37_49.RawRecords
+CollectionName H.18.South.16_02_2018__07_45_41
+CollectionName H.18.South.15_02_2018__18_33_19
+CollectionName 16_02_2018__07_45_41.BusStopsRecord
+CollectionName H.07.North.22_12_2017__18_38_34
+CollectionName 20_12_2017__18_31_19.BusStopsRecord
+CollectionName 01_01_2018__07_38_27.RawRecords
+CollectionName 02_02_2018__07_38_50.BusStopsRecord
+CollectionName 19_01_2018__07_38_47.Filtered
+CollectionName 28_03_2018__18_30_02.Filtered
+CollectionName 12_02_2018__07_40_14.RawRecords
+CollectionName 21_12_2017__07_52_59.RawRecords
+CollectionName 13_03_2018__07_29_52.BusStopsRecord
+CollectionName H.18.South.22_12_2017__18_38_34
+CollectionName 04_04_2018__18_34_54.Filtered
+CollectionName H.07.North.14_02_2018__18_30_22
+CollectionName 08_01_2018__07_41_43.BusStopsRecord
+CollectionName 03_04_2018__18_32_45.RawRecords
+CollectionName 22_12_2017__07_38_21.RawRecords
+CollectionName 01_02_2018__07_39_12.Filtered
+CollectionName 19_12_2017__18_41_16.RawRecords
+CollectionName 20_12_2017__18_31_19.RawRecords
+CollectionName H.18.South.08_01_2018__18_37_49
+CollectionName 22_02_2018__07_42_45.Filtered
+CollectionName 16_02_2018__07_45_41.Filtered
+CollectionName H.07.North.08_01_2018__18_37_49
+CollectionName 22_03_2018__07_38_43.RawRecords
+CollectionName H.07.North.22_12_2017__07_38_21
+CollectionName TripInfo
+CollectionName 22_12_2017__18_38_34.BusStopsRecord
+CollectionName 12_02_2018__07_40_14.Filtered
+CollectionName 29_12_2017__07_37_27.Filtered
+CollectionName H.07.North.09_01_2018__07_40_01
+CollectionName H.07.North.29_12_2017__07_37_27
+CollectionName 26_12_2017__07_32_35.RawRecords
+CollectionName H.18.South.14_02_2018__18_30_22
+CollectionName 29_01_2018__07_39_47.Filtered
+CollectionName 08_01_2018__07_41_43.RawRecords
+CollectionName 20_02_2018__18_31_07.RawRecords
+CollectionName 22_12_2017__18_38_34.RawRecords
+CollectionName 21_03_2018__18_32_40.RawRecords
+CollectionName 16_02_2018__07_45_41.RawRecords
+CollectionName H.18.South.14_02_2018__07_41_04
+CollectionName 21_03_2018__07_32_39.RawRecords
+CollectionName 29_12_2017__07_37_27.RawRecords
+CollectionName BusStops.NorthBound
+CollectionName 21_03_2018__07_32_39.BusStopsRecord
+CollectionName 15_02_2018__07_45_52.RawRecords
+CollectionName 22_12_2017__18_38_34.Filtered
+CollectionName H.07.North.02_02_2018__07_38_50
+CollectionName 20_02_2018__07_41_48.RawRecords
+CollectionName 20_03_2018__07_28_45.BusStopsRecord
+CollectionName 03_04_2018__07_38_31.BusStopsRecord
+CollectionName 21_02_2018__18_28_29.Filtered
+CollectionName H.07.North.22_02_2018__07_42_45
+CollectionName H.07.North.12_02_2018__07_40_14
+CollectionName 09_01_2018__07_40_01.BusStopsRecord
+CollectionName 20_12_2017__07_38_14.RawRecords
+CollectionName H.18.South.30_01_2018__07_42_30
+CollectionName 04_04_2018__18_34_54.RawRecords
+CollectionName H.07.North.04_04_2018__18_34_54
+CollectionName 05_04_2018__07_38_07.Filtered
+CollectionName H.18.South.12_02_2018__07_40_14
+CollectionName 03_04_2018__18_32_45.BusStopsRecord
+CollectionName 20_12_2017__07_38_14.Filtered
+Unsaved collection
+[&#39;21_02_2018__18_28_29.PredictionResult_Dist_th_50&#39;, &#39;14_02_2018__07_41_04.PredictionResult_Dist_th_50&#39;, &#39;22_12_2017__07_38_21.PredictionResult_Dist_th_50&#39;, &#39;16_02_2018__07_45_41.PredictionResult_Dist_th_50&#39;, &#39;30_01_2018__07_42_30.PredictionResult_Dist_th_50&#39;, &#39;22_02_2018__07_42_45.PredictionResult_Dist_th_50&#39;, &#39;28_03_2018__18_30_02.PredictionResult_Dist_th_50&#39;, &#39;09_01_2018__07_40_01.PredictionResult_Dist_th_50&#39;, &#39;15_02_2018__18_33_19.PredictionResult_Dist_th_50&#39;, &#39;20_02_2018__18_31_07.PredictionResult_Dist_th_50&#39;, &#39;20_12_2017__07_38_14.PredictionResult_Dist_th_50&#39;, &#39;29_01_2018__07_39_47.PredictionResult_Dist_th_50&#39;, &#39;19_01_2018__07_38_47.PredictionResult_Dist_th_50&#39;, &#39;20_12_2017__18_31_19.PredictionResult_Dist_th_50&#39;, &#39;18_01_2018__07_38_10.PredictionResult_Dist_th_50&#39;, &#39;02_02_2018__07_38_50.PredictionResult_Dist_th_50&#39;, &#39;14_02_2018__18_30_22.PredictionResult_Dist_th_50&#39;, &#39;08_01_2018__07_41_43.PredictionResult_Dist_th_50&#39;, &#39;PredictionErrorForSubStopsV2.07.North&#39;, &#39;08_01_2018__18_37_49.PredictionResult_Dist_th_50&#39;, &#39;12_02_2018__07_40_14.PredictionResult_Dist_th_50&#39;, &#39;22_12_2017__18_38_34.PredictionResult_Dist_th_50&#39;, &#39;PredictionErrorForSubStopsV2.18.South&#39;, &#39;04_04_2018__18_34_54.PredictionResult_Dist_th_50&#39;, &#39;29_12_2017__07_37_27.PredictionResult_Dist_th_50&#39;]
+</pre></div></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Module_8_PredictionError.html" class="btn btn-neutral float-left" title="Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_10_OverviewOfCrowdednessDetectionSolution.html" class="btn btn-neutral float-right" title="System Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Pruthvish Rajput, Manish Chaturvedi, and Vivek Patel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
