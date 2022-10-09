@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Library imports &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+  <title>Stepping detector &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -24,8 +24,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Library imports" href="Module_13_CommuterActivityClassifier.html" />
-    <link rel="prev" title="Preprocessing" href="Module_11_PreprocessingAndObservation_AcclRecords.html" /> 
+    <link rel="next" title="Commuter activity classifier" href="Module_13_CommuterActivityClassifier.html" />
+    <link rel="prev" title="Preprocessing of accelerometer data" href="Module_11_PreprocessingAndObservation_AcclRecords.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,58 +45,34 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Preprocessing of the location records</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Normalized distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Arrival time prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Predicion error dictionary prepartion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Prediction error for different bus-stops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Prediction error for last bus-stop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">Overview of crowdedness detection solution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html">Preprocessing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Observations-from-accelerometer-data">Observations from accelerometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html">Preprocessing of accelerometer data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Feature-Extraction">Feature Extraction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-Activation-of-GPS">Opportunistic Activation of GPS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#Opportunistic-procedure-for-commuter-activity-detection">Opportunistic procedure for commuter activity detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_11_PreprocessingAndObservation_AcclRecords.html#References:">References:</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Library imports</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Save-in-MongoDB">Save in MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Features-Extraction">Features Extraction</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stepping detector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Save-in-MongoDB">Save in MongoDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Features-Extraction">Features Extraction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Classification">Classification</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#Classification">Classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html">Library imports</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Save-in-MongoDB">Save in MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Decomposition-of-accelerometer-data">Decomposition of accelerometer data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Feature-extraction">Feature extraction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html#Classification">Classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html">Library imports</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Save-in-MongoDB">Save in MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Processing:-For-entire-trip">Processing: For entire trip</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Processing:-For-Records-other-than-Stoppage-Segment">Processing: For Records other than Stoppage Segment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html#Classification">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_13_CommuterActivityClassifier.html">Commuter activity classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_14_TransportModeClassifier.html">Transport mode classifier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html">Penetration Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Library-Imports-and-penetration-variable">Library Imports and penetration variable</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-1">Penetration Considering Feature set-1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#Penetration-Considering-Feature-set-4">Penetration Considering Feature set-4</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_15_PenetrationAnalysis.html#References">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html">Battery Consumption Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#Code">Code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_16_BatteryConsumptionAnalysis.html#References">References</a></li>
 </ul>
 
         </div>
@@ -113,7 +89,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Library imports</li>
+      <li>Stepping detector</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Module_12_SteppingDetector.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -402,8 +378,8 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <p>In this unit, we describe the procedure for training the stepping detector. Further, we present the classification result for stepping detector.</p>
-<section id="Library-imports">
-<h1>Library imports<a class="headerlink" href="#Library-imports" title="Permalink to this heading"></a></h1>
+<section id="Stepping-detector">
+<h1>Stepping detector<a class="headerlink" href="#Stepping-detector" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -458,13 +434,12 @@ div.rendered_html tbody tr:hover {
 &lt;module &#39;FeaturesExtraction&#39; from &#39;/home/pruthvish/JRF/GitVersion_APTS_Software_Np/code/LibCode/FeaturesExtraction.py&#39;&gt;
 </pre></div></div>
 </div>
-</section>
 <section id="Save-in-MongoDB">
-<h1>Save in MongoDB<a class="headerlink" href="#Save-in-MongoDB" title="Permalink to this heading"></a></h1>
+<h2>Save in MongoDB<a class="headerlink" href="#Save-in-MongoDB" title="Permalink to this heading"></a></h2>
 <p>The stepping detector is trained and validated on the Human Activity Recognition (HAR) data-set record [50]. The accelerometer record is stored in the <code class="docutils literal notranslate"><span class="pre">RouteName</span> <span class="pre">=</span> <span class="pre">HAR_DATASET_Preprocessing_And_HV</span></code> database of MongoDB.</p>
 </section>
 <section id="Decomposition-of-accelerometer-data">
-<h1>Decomposition of accelerometer data<a class="headerlink" href="#Decomposition-of-accelerometer-data" title="Permalink to this heading"></a></h1>
+<h2>Decomposition of accelerometer data<a class="headerlink" href="#Decomposition-of-accelerometer-data" title="Permalink to this heading"></a></h2>
 <p>The accelerometer record data is decomposed to <code class="docutils literal notranslate"><span class="pre">horizontal</span> <span class="pre">and</span> <span class="pre">vertical</span> <span class="pre">components</span></code> with the <code class="docutils literal notranslate"><span class="pre">IntervalLength</span></code> of <code class="docutils literal notranslate"><span class="pre">140</span> <span class="pre">points.</span></code></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -510,7 +485,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Features-Extraction">
-<h1>Features Extraction<a class="headerlink" href="#Features-Extraction" title="Permalink to this heading"></a></h1>
+<h2>Features Extraction<a class="headerlink" href="#Features-Extraction" title="Permalink to this heading"></a></h2>
 <p>The feature <code class="docutils literal notranslate"><span class="pre">set-1</span> <span class="pre">to</span> <span class="pre">set-4</span></code> are computed using the orientation independent horizontal and vertical components of accelerometer records for the window of <code class="docutils literal notranslate"><span class="pre">128</span> <span class="pre">samples</span> <span class="pre">and</span> <span class="pre">50%</span> <span class="pre">overlap</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -555,14 +530,6 @@ div.rendered_html tbody tr:hover {
         <span class="c1">#pprint.pprint(AcclMagRecordsListStoppages)</span>
         <span class="c1">#input()</span>
 <br/></pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -650,6 +617,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+</section>
 <section id="Variables">
 <h2>Variables<a class="headerlink" href="#Variables" title="Permalink to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ProjectDataUsed</span></code>: determines whether the project data or the user’s own data is used for execution.</p>
@@ -714,14 +682,6 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
@@ -749,22 +709,6 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
@@ -772,18 +716,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 <section id="Classification">
-<h1>Classification<a class="headerlink" href="#Classification" title="Permalink to this heading"></a></h1>
+<h2>Classification<a class="headerlink" href="#Classification" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -827,22 +762,6 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
@@ -870,14 +789,6 @@ div.rendered_html tbody tr:hover {
 
 <span class="n">Classifier</span> <span class="o">=</span> <span class="n">ClassifierList</span><span class="p">[</span><span class="n">Index</span><span class="p">]</span>
 <span class="n">ClassifierName</span> <span class="o">=</span> <span class="n">ClassifierNameList</span><span class="p">[</span><span class="n">Index</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -960,7 +871,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Classes</span> <span class="o">=</span> <span class="mi">5</span>
-<br/></pre></div>
+</pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -2838,22 +2749,6 @@ Feature set-4
   _warn_prf(average, &#34;true nor predicted&#34;, &#34;F-score is&#34;, len(true_sum))
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
@@ -3033,22 +2928,15 @@ AccuracyValue
 
 </pre></div></div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Module_11_PreprocessingAndObservation_AcclRecords.html" class="btn btn-neutral float-left" title="Preprocessing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Module_13_CommuterActivityClassifier.html" class="btn btn-neutral float-right" title="Library imports" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Module_11_PreprocessingAndObservation_AcclRecords.html" class="btn btn-neutral float-left" title="Preprocessing of accelerometer data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_13_CommuterActivityClassifier.html" class="btn btn-neutral float-right" title="Commuter activity classifier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

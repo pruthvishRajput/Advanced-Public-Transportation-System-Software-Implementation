@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Description &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+  <title>Predicion error dictionary prepartion &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -24,8 +24,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Description" href="Module_8_PredictionError.html" />
-    <link rel="prev" title="Weight and estimate computation" href="Module_6_ArrivalTimePrediction.html" /> 
+    <link rel="next" title="Prediction error for different bus-stops" href="Module_8_PredictionError.html" />
+    <link rel="prev" title="Arrival time prediction" href="Module_6_ArrivalTimePrediction.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,25 +45,18 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Preprocessing of the location records</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Description</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Normalized distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Arrival time prediction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Predicion error dictionary prepartion</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Considered-Trips-for-prediction">Considered Trips for prediction</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Prediction error for different bus-stops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Prediction error for last bus-stop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
@@ -113,7 +106,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Description</li>
+      <li>Predicion error dictionary prepartion</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Module_7_PredictionErrorDict.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -401,8 +394,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<section id="Description">
-<h1>Description<a class="headerlink" href="#Description" title="Permalink to this heading"></a></h1>
+<section id="Predicion-error-dictionary-prepartion">
+<h1>Predicion error dictionary prepartion<a class="headerlink" href="#Predicion-error-dictionary-prepartion" title="Permalink to this heading"></a></h1>
 <p>In this module, the prediction error dictionary is formed based on the arrival time predictions computed in the previous module.</p>
 <p>The dictionary contains the actual time of arrival, predicted arrival time, error in arrival time prediction for all the bus-stops of the routes.</p>
 <div class="nbinput nblast docutils container">
@@ -1949,8 +1942,8 @@ ErrorDictList [{&#39;id&#39;: 0, &#39;PredictionByIndexList&#39;: [0, 1, 2, 3, 4
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Module_6_ArrivalTimePrediction.html" class="btn btn-neutral float-left" title="Weight and estimate computation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Module_8_PredictionError.html" class="btn btn-neutral float-right" title="Description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Module_6_ArrivalTimePrediction.html" class="btn btn-neutral float-left" title="Arrival time prediction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_8_PredictionError.html" class="btn btn-neutral float-right" title="Prediction error for different bus-stops" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

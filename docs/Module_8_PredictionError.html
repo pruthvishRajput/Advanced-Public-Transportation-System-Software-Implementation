@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Description &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+  <title>Prediction error for different bus-stops &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -24,8 +24,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Execution of code" href="Module_9_PredictionErrorForDistantStop.html" />
-    <link rel="prev" title="Description" href="Module_7_PredictionErrorDict.html" /> 
+    <link rel="next" title="Prediction error for last bus-stop" href="Module_9_PredictionErrorForDistantStop.html" />
+    <link rel="prev" title="Predicion error dictionary prepartion" href="Module_7_PredictionErrorDict.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,22 +45,18 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Preprocessing of the location records</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Description</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Execution-of-the-code">Execution of the code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Normalized distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Arrival time prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Predicion error dictionary prepartion</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Prediction error for different bus-stops</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Execution-of-the-code">Execution of the code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Prediction error for last bus-stop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
@@ -110,7 +106,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Description</li>
+      <li>Prediction error for different bus-stops</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Module_8_PredictionError.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -398,8 +394,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<section id="Description">
-<h1>Description<a class="headerlink" href="#Description" title="Permalink to this heading"></a></h1>
+<section id="Prediction-error-for-different-bus-stops">
+<h1>Prediction error for different bus-stops<a class="headerlink" href="#Prediction-error-for-different-bus-stops" title="Permalink to this heading"></a></h1>
 <p>In this module, the plot of error in prediction is obtained for the north bound as well as the south bound direction.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -558,9 +554,8 @@ div.rendered_html tbody tr:hover {
 <br/></pre></div>
 </div>
 </div>
-</section>
 <section id="Execution-of-the-code">
-<h1>Execution of the code<a class="headerlink" href="#Execution-of-the-code" title="Permalink to this heading"></a></h1>
+<h2>Execution of the code<a class="headerlink" href="#Execution-of-the-code" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -704,13 +699,14 @@ StartHour, Bound, BusStopsCount 18 South 15
 </div>
 </div>
 </section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Module_7_PredictionErrorDict.html" class="btn btn-neutral float-left" title="Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Module_9_PredictionErrorForDistantStop.html" class="btn btn-neutral float-right" title="Execution of code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Module_7_PredictionErrorDict.html" class="btn btn-neutral float-left" title="Predicion error dictionary prepartion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_9_PredictionErrorForDistantStop.html" class="btn btn-neutral float-right" title="Prediction error for last bus-stop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Travel time information &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+  <title>Travel time information extraction &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -24,8 +24,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Description:" href="Module_5_NormalizedDistanceWrapper.html" />
-    <link rel="prev" title="Description" href="Module_3_DistanceWrapperScript.html" /> 
+    <link rel="next" title="Normalized distance wrapper script" href="Module_5_NormalizedDistanceWrapper.html" />
+    <link rel="prev" title="Distance wrapper script" href="Module_3_DistanceWrapperScript.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,22 +45,15 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Preprocessing of the location records</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Travel time information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Distance wrapper script</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Travel time information extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Normalized distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Arrival time prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Predicion error dictionary prepartion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Prediction error for different bus-stops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Prediction error for last bus-stop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
@@ -110,7 +103,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Travel time information</li>
+      <li>Travel time information extraction</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Module_4_TravelTimeExtraction.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -399,8 +392,8 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <p>In the bus-stop detection section, we have applied the Density-Based Spatial Clustering of Applications with Noise (DBSCAN) based clustering algorithm to detect the bus-stops on a route. Now for developing the arrival time predictor scheme, we will need the travel time information of a bus at different bus-stops or junctions / crossroads. These travel time information will be used in the subsequent unit to built the arrival time predictor based on historical bus trajectories.</p>
-<section id="Travel-time-information">
-<h1>Travel time information<a class="headerlink" href="#Travel-time-information" title="Permalink to this heading"></a></h1>
+<section id="Travel-time-information-extraction">
+<h1>Travel time information extraction<a class="headerlink" href="#Travel-time-information-extraction" title="Permalink to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -959,8 +952,8 @@ Extracting travel time for trip: 21_03_2018__18_32_40
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Module_3_DistanceWrapperScript.html" class="btn btn-neutral float-left" title="Description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Module_5_NormalizedDistanceWrapper.html" class="btn btn-neutral float-right" title="Description:" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Module_3_DistanceWrapperScript.html" class="btn btn-neutral float-left" title="Distance wrapper script" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_5_NormalizedDistanceWrapper.html" class="btn btn-neutral float-right" title="Normalized distance wrapper script" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

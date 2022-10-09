@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weight and estimate computation &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+  <title>Arrival time prediction &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -24,8 +24,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Description" href="Module_7_PredictionErrorDict.html" />
-    <link rel="prev" title="Description:" href="Module_5_NormalizedDistanceWrapper.html" /> 
+    <link rel="next" title="Predicion error dictionary prepartion" href="Module_7_PredictionErrorDict.html" />
+    <link rel="prev" title="Normalized distance wrapper script" href="Module_5_NormalizedDistanceWrapper.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,22 +45,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#Filtering">Filtering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html#References">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_1_Preprocessing.html">Preprocessing of the location records</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Weight and estimate computation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Arrival-time-prediction">Arrival time prediction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Normalized distance wrapper script</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Arrival time prediction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Weight-and-estimate-computation">Weight and estimate computation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Arrival-time-prediction-algorithm">Arrival time prediction algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Predicion error dictionary prepartion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Prediction error for different bus-stops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Prediction error for last bus-stop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
@@ -110,7 +107,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Weight and estimate computation</li>
+      <li>Arrival time prediction</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Module_6_ArrivalTimePrediction.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -406,10 +403,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<section id="Arrival-time-prediction">
+<h1>Arrival time prediction<a class="headerlink" href="#Arrival-time-prediction" title="Permalink to this heading"></a></h1>
 <p>In this unit, we will use the travel time information computed in the previous unit for arrival time prediction. The arrival time prediction is computed using the travel time estimates between the pair of bus-stop <span class="math notranslate nohighlight">\((i,i+1)\)</span>. The travel time estimation is based on the weights and estimates pre-computed using historical trips. Concretely, we compute the mean of the bus travel time between the pair of bus-stop <span class="math notranslate nohighlight">\((i,i+1)\)</span> in the historical trips. As these are the historical trips, the
 weights and estimates can be computed in off-load time of the server, when the load on the server is relatively less. We will discuss the weight and estimation computation followed by the discussion about the arrival time prediction.</p>
 <section id="Weight-and-estimate-computation">
-<h1>Weight and estimate computation<a class="headerlink" href="#Weight-and-estimate-computation" title="Permalink to this heading"></a></h1>
+<h2>Weight and estimate computation<a class="headerlink" href="#Weight-and-estimate-computation" title="Permalink to this heading"></a></h2>
 <p>In our application, we select one of the trips from the available location records as the ongoing trip and compute the arrival time prediction for it. In this case, the weights and estimates are computed using remaining trips for every pair of bus-stops <span class="math notranslate nohighlight">\((i,i+1)\)</span> on a route.</p>
 <p>For a pair of bus-stop, the temporal estimate is computed as the mean of travel time of the recorded trips in the same <code class="docutils literal notranslate"><span class="pre">TripStartHour</span></code>. The weights and estimates are computed for the trips starting at different <code class="docutils literal notranslate"><span class="pre">TripStartHour</span></code> separately. The reason for separate computation is that the traffic dynamics throughout the day would be different and at the same time it would not change rapidly. We consider the trips that have the same <code class="docutils literal notranslate"><span class="pre">TripStartHour</span></code> would be plying on a route with the same
 traffic dynamics and hence, by computing weights and estimates at different <code class="docutils literal notranslate"><span class="pre">TripStartHour</span></code> separately, we cater for time-varying traffic dynamics.</p>
@@ -429,7 +428,7 @@ traffic dynamics and hence, by computing weights and estimates at different <cod
 \[STD = \sqrt{w^{pt}(i,i+1)^2 \times \frac{\sigma^{pt} (i,i+1)^2}{T^{pt}(i, i+1)} \times 100 + w^{ps}(i,i+1)^2 \times  \frac{\sigma^{ps} (i,i+1)^2}{T^{ps}(i, i+1)^2} \times 100 }\]</div>
 <p>In the following, we will select one of the trips as ongoing and compute the weights and estimates using remaining trips.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;Imports&#39;&#39;&#39;</span>
@@ -807,8 +806,8 @@ traffic dynamics and hence, by computing weights and estimates at different <cod
 bus-stop. - <code class="docutils literal notranslate"><span class="pre">w_ps</span></code>, <code class="docutils literal notranslate"><span class="pre">w_pt</span></code>: weights of temporal and spatial estimate.</p>
 <p>Kindly note that the spatial estimate is not available for <code class="docutils literal notranslate"><span class="pre">id:</span> <span class="pre">0</span></code>. Because, the travel time of previous pair of bus-stop is not available. In this case, the weight of temporal estimate <code class="docutils literal notranslate"><span class="pre">w_pt</span></code> is 1.</p>
 </section>
-<section id="Arrival-time-prediction">
-<h1>Arrival time prediction<a class="headerlink" href="#Arrival-time-prediction" title="Permalink to this heading"></a></h1>
+<section id="Arrival-time-prediction-algorithm">
+<h2>Arrival time prediction algorithm<a class="headerlink" href="#Arrival-time-prediction-algorithm" title="Permalink to this heading"></a></h2>
 <p>Aforementioned, to develop the arrival time predictor scheme, we select one of the trips from the available location records as the ongoing trip and compute the arrival time prediction for it. We will use the <code class="docutils literal notranslate"><span class="pre">RawRecords</span></code> for prediction, as our scheme applies prediction algorithm on receiving the real-time location updates. The preprocessing steps, DBSCAN based bus-stop detection, and historical weights and estimates computation are applied on location records during the off-load time of the
 server, when load on the server is relatively less.</p>
 <p>The arrival time prediction scheme applies the following steps on receiving the real-time location update 1. Extract bound and compute the arrival status of bus <span class="math notranslate nohighlight">\((i,i+1)\)</span>. The bus-stop i where the bus has arrived and i+1 where the bus would be arriving. 2. Extract historical estimates <span class="math notranslate nohighlight">\(T^{pt}(i,i+1), F^{ps}(i,i+1)\)</span> and weights <span class="math notranslate nohighlight">\(w^{pt},w^{ps}\)</span> for pair of bus-stops <span class="math notranslate nohighlight">\((i,i+1)\)</span>. 3. Predict arrival time for downstream bus-stops.</p>
@@ -1370,13 +1369,14 @@ in our prediction scheme. Now, we shall look at an interactive demo of arrival t
 different trip start hours.</p>
 <p>Let us look at the arrival time prediction for one of the evening trips. The trip will start from B8 and progress towards B1. For consistency in the plot, we mark the y-axis bus-stops in the same way as for <em>North bound</em> trips. And hence the arrival time prediction progresses from right to left as against <em>North bound</em>, where arrival time prediction progresses from left to right.</p>
 </section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Module_5_NormalizedDistanceWrapper.html" class="btn btn-neutral float-left" title="Description:" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Module_7_PredictionErrorDict.html" class="btn btn-neutral float-right" title="Description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Module_5_NormalizedDistanceWrapper.html" class="btn btn-neutral float-left" title="Normalized distance wrapper script" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Module_7_PredictionErrorDict.html" class="btn btn-neutral float-right" title="Predicion error dictionary prepartion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

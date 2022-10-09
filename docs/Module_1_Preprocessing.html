@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
+  <title>Preprocessing of the location records &mdash; Advanced Public Transportation System Implementation V1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -45,34 +45,26 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Preprocessing of the location records</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#System-model">System model</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Store-raw-location-records-into-MongoDB">Store raw location records into MongoDB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Bound-definition">Bound definition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Variables">Variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#MongoDB-Collection-record-and-it’s-representation">MongoDB Collection record and it’s representation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#Filtering">Filtering</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Filtering">Filtering</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Outlier-removal">Outlier removal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Segmentation-and-interpolation">Segmentation and interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#References">References</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#References">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html">DBSCAN algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_2_BusStopDetection.html#DBCAN-based-bus-stop-detection">DBCAN based bus-stop detection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Description:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Weight and estimate computation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html#Arrival-time-prediction">Arrival time prediction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Description</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html#Execution-of-the-code">Execution of the code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Execution of code</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html#MongoDB-Save/Load">MongoDB Save/Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_3_DistanceWrapperScript.html">Distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_4_TravelTimeExtraction.html">Travel time information extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_5_NormalizedDistanceWrapper.html">Normalized distance wrapper script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_6_ArrivalTimePrediction.html">Arrival time prediction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_7_PredictionErrorDict.html">Predicion error dictionary prepartion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_8_PredictionError.html">Prediction error for different bus-stops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Module_9_PredictionErrorForDistantStop.html">Prediction error for last bus-stop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html">System Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Opportunistic-sensing-of-commuters’-data">Opportunistic sensing of commuters’ data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Module_10_OverviewOfCrowdednessDetectionSolution.html#Reference">Reference</a></li>
@@ -122,7 +114,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Introduction</li>
+      <li>Preprocessing of the location records</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Module_1_Preprocessing.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -410,8 +402,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<section id="Introduction">
-<h1>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this heading"></a></h1>
+<section id="Preprocessing-of-the-location-records">
+<h1>Preprocessing of the location records<a class="headerlink" href="#Preprocessing-of-the-location-records" title="Permalink to this heading"></a></h1>
 <p>In this project, we present the demonstration of Advanced Urban Public Transportation System with two applications - automatic bus-stop detection and bus arrival time prediction. It includes the implementation of preprocessing steps to address the problem of GPS outage and unavailability of GPS. Further, we present an interactive implementation and demonstration of automatic bus-stop detection and bus arrival time prediction. The demonstration is based upon our work “Advanced Urban Public
 Transportation System for Indian Scenarios” [1].</p>
 <section id="System-model">
@@ -423,9 +415,8 @@ Transportation System for Indian Scenarios” [1].</p>
 <p><strong>Commuter module</strong> The commuter module permits a commuter to subscribe for the real-time updates from one or more ongoing trips. The <a class="reference external" href="http://mqtt.org/">MQTT messaging protocol</a> is used for all the interactions among commuter and server modules.</p>
 <p>In this project, we shall begin by preprocessing the bus location records collected using the bus module. Further, we will apply automatic bus-stop detection, travel time estimation, and bus arrival time prediction and develop an interactive demonstration of bus-stop detector and arrival time predictor.</p>
 </section>
-</section>
 <section id="Store-raw-location-records-into-MongoDB">
-<h1>Store raw location records into MongoDB<a class="headerlink" href="#Store-raw-location-records-into-MongoDB" title="Permalink to this heading"></a></h1>
+<h2>Store raw location records into MongoDB<a class="headerlink" href="#Store-raw-location-records-into-MongoDB" title="Permalink to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -436,6 +427,7 @@ Transportation System for Indian Scenarios” [1].</p>
 </pre></div>
 </div>
 </div>
+</section>
 <section id="Bound-definition">
 <h2>Bound definition<a class="headerlink" href="#Bound-definition" title="Permalink to this heading"></a></h2>
 <p>The data collection was performed on the college shuttle bus plying between ISCON, Ahmedabad and PDPU, Gandhinagar for morning and evening trips. The morning trip usually begins at <em>7:15 - 7:30</em> from ISCON towards PDPU. This direction is termed as <strong>North bound</strong> for our application. Likewise, the evening trip usually begins at <em>18:15 - 18:30</em> from PDPU towards ISCON and is termed as <strong>South bound</strong> direction for our application.</p>
@@ -491,14 +483,6 @@ location records into different trip records using the above-mentioned logic.</p
 <div class="highlight"><pre>
 &#39;\npath = os.path.join(str(OneLevelUpPath),\&#39;data\&#39;, \&#39;LocationRecords\&#39;, \&#39;RawRecordEpochSpeedProcessed\&#39;)\nfor file in [f for f in os.listdir(path)]:\n    os.remove(path+&#34;/&#34;+file)\n&#39;
 </pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -820,10 +804,10 @@ querying the MongoDB collection <em>TripInfo</em> with the <em>status flag</em> 
 </div>
 <p>Here, <code class="docutils literal notranslate"><span class="pre">_id</span></code> is the unique object id assigned by MongoDB, <code class="docutils literal notranslate"><span class="pre">Longitude</span></code>, <code class="docutils literal notranslate"><span class="pre">Latitude</span></code> corresponds to the location attributes and <code class="docutils literal notranslate"><span class="pre">Accuracy</span></code> is the accuracy of location record in meters</p>
 </section>
-</section>
 <section id="Filtering">
-<h1>Filtering<a class="headerlink" href="#Filtering" title="Permalink to this heading"></a></h1>
+<h2>Filtering<a class="headerlink" href="#Filtering" title="Permalink to this heading"></a></h2>
 <p>We have stored the location records in MongoDB collections, let us now look at the filtering preprocessing steps. We will remove the outlier location record from the trip records, and then apply segmentation and interpolation procedures to detect and handle GPS outage and unavailability. Concretely, we will interpolate the location records if the unavailability is for the smaller duration and smaller interval, else will separate the location records into different segments.</p>
+</section>
 <section id="Outlier-removal">
 <h2>Outlier removal<a class="headerlink" href="#Outlier-removal" title="Permalink to this heading"></a></h2>
 <p>A given location record is considered as an outlier and removed if</p>
@@ -986,10 +970,10 @@ earlier.</p>
 <p>One may change the trip (i.e. <em>29_12_2017__07_37_27</em>) and replace it with any of the other trips of the <code class="docutils literal notranslate"><span class="pre">SingleTripsInfo</span></code> for displaying the corresponding status of the selected trip.</p>
 <p>We would like to draw the attention of readers to the fields of the <em>TripInfo</em> collection record. The <code class="docutils literal notranslate"><span class="pre">Preprocessing.ApplyFiltering</span></code> has updated the field <code class="docutils literal notranslate"><span class="pre">filteredLocationRecord</span></code> to <strong>True</strong>, as it has applied the filtering process on a trip. Likewise, the other fields have also updated with the computed values.</p>
 </section>
-</section>
 <section id="References">
-<h1>References<a class="headerlink" href="#References" title="Permalink to this heading"></a></h1>
+<h2>References<a class="headerlink" href="#References" title="Permalink to this heading"></a></h2>
 <p>[1] P. Rajput, M. Chaturvedi, and P. Patel, “Advanced urban public transportation system for indian scenarios,” in Proceedings of the 20th International Conference on Distributed Computing and Networking, ICDCN , India, January 04-07, 2019, 2019, pp. 327–336. doi: <a class="reference external" href="https://dl.acm.org/citation.cfm?id=3288624">10.1145/3288599.3288624</a>.</p>
+</section>
 </section>
 
 
