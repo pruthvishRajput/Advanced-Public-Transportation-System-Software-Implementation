@@ -4,7 +4,8 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Description\n",
+    "# Distance wrapper script\n",
+    "## Description\n",
     "This notebook computes the distance for the records with respect to the origin point for the selected trips of the route."
    ]
   },
@@ -119,41 +120,6 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
    "execution_count": 7,
    "metadata": {},
    "outputs": [],
@@ -199,13 +165,6 @@
     "        con[RouteName]['TripInfo'].update_one({'SingleTripInfo':TripsInfo[TripIndex]},{'$set':{'totalDistance':totalDistance}})\n",
     "        con[RouteName][TripsInfo[TripIndex]+'.LocationRecordsWithDistanceFromOrigin'].insert_many(LocationRecords)\n"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {

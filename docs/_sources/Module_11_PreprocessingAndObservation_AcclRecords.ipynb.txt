@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Preprocessing\n",
+    "# Preprocessing of accelerometer data\n",
     "\n",
     "The model learning and validation sub-module decompose the three-dimensional accelerometer signal into `horizontal and vertical components` to make them orientation independent [1]. Further, it applies the `windowing` function on the orientation independent signals for analysis of accelerometer signal, and feature extraction and selection. We have used the windows of different lengths and overlaps, and found that the window of `128 samples and 50% overlap` gives better results among all. In the following, we describe the procedure of decomposition of accelerometer data into `horizontal and vertical components`."
    ]
@@ -31,7 +31,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Observations from accelerometer data\n",
+    "## Observations from accelerometer data\n",
     "We have compared the recorded trip data with the Human Activity Recognition (HAR) data-set record [2]. Following Figure shows the horizontal and vertical accelerometer components for the recorded trip data and HAR records. It also depicts the Short Term Fourier Transform (STFT) plot to describe the time–frequency characteristics for the window of 128 samples and 50% overlap. We observed that the accelerometer signals for recorded trips are not comparable with the HAR data-set that was recorded in-lab environment. Instead, the signals for sitting and standing inside the bus are comparable with the HAR walking signal. We also observed that the vibration (magnitude) of accelerometer signal for standing inside the bus were significantly lower than sitting inside the bus. Moreover, Anguita et al. [2] concluded that sitting and standing are static postures and hence difficult to classify. In the case of commuter activity classifier, vibration feature aids to distinguish them accurately. \n",
     "\n",
     "Further, we have observed that unwanted acceleration can hinder the classification of transport mode classifier and commuter activity classifier. This is because the accelerometer senses all kinds of acceleration, and in several scenarios, certain extraneous acceleration may result in misclassification. We have designed the segment extraction stage that fetches the meaningful segment from orientation independent acceleration signal and discards the extraneous acceleration segments. It processes the windowed acceleration signal to identify the `Triggers` for transport mode classifier and commuter activity classifier. `Triggers` act as an enabling signal, which decides if a particular accelerometer segment would be used for classification. In the following, we describe the user movement trigger and stoppage segment trigger.\n",
@@ -117,7 +117,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# References:\n",
+    "## References:\n",
     "1. S. Wang, C. Chen, J. Ma, Accelerometer based transportation mode recognition on mobile phones, in: 2010 Asia-Pacific Conf. Wearable Comput. Syst., IEEE, 2010, pp. 44–46.\n",
     "2. D. Anguita, A. Ghio, L. Oneto, X. Parra, J.L. Reyes-Ortiz, A public domain dataset for human activity recognition using smartphones, in: Esann,2013.\n",
     "3. H. Lu, J. Yang, Z. Liu, N.D. Lane, T. Choudhury, A.T. Campbell, The Jigsaw continuous sensing engine for mobile phone applications, in: Proc. 8th ACM Conf. Embed. Networked Sens. Syst., SenSys 2010, ACM, 2010, pp. 71–84.\n",
@@ -146,7 +146,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.10"
+   "version": "3.6.9"
   }
  },
  "nbformat": 4,

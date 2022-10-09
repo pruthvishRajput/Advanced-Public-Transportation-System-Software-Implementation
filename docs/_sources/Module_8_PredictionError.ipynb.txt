@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Description\n",
+    "# Prediction error for different bus-stops\n",
     "\n",
     "In this module, the plot of error in prediction is obtained for the north bound as well as the south bound direction. "
    ]
@@ -173,7 +173,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Execution of the code"
+    "## Execution of the code"
    ]
   },
   {

@@ -10,6 +10,7 @@ Welcome to Advanced Public Transportation System Implementation's documentation!
    :maxdepth: 1
    :caption: Contents:
    
+   ReadMe.ipynb
    Module_1_Preprocessing.ipynb
    Module_2_BusStopDetection.ipynb
    Module_3_DistanceWrapperScript.ipynb

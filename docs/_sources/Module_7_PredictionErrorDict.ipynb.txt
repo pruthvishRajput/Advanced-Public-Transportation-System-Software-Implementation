@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Description\n",
+    "# Predicion error dictionary prepartion\n",
     "In this module, the prediction error dictionary is formed based on the arrival time predictions computed in the previous module. \n",
     "\n",
     "The dictionary contains the actual time of arrival, predicted arrival time, error in arrival time prediction for all the bus-stops of the routes. "

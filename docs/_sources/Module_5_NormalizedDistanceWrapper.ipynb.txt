@@ -4,7 +4,8 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Description:\n",
+    "# Normalized distance wrapper script\n",
+    "## Description\n",
     "This notebook computes the normalized distance of the bus-stop on the route for both the directions (i.e., North bound and south bound). "
    ]
   },
@@ -92,13 +93,6 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
    "execution_count": 7,
    "metadata": {},
    "outputs": [],
@@ -119,20 +113,6 @@
     "                #input()\n",
     "                con[RouteName]['BusStops.SouthBound'].update_one({'id':BusStopIndex},{'$set':{'normalizedDistanceFromOrigin':LocationRecordForBusStop[0]['normalizedDistanceFromOrigin'],'distanceFromOrigin':LocationRecordForBusStop[0]['distanceFromOrigin']}})"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   },
   {
    "cell_type": "code",
@@ -165,13 +145,6 @@
     "                #input()\n",
     "                con[RouteName]['BusStops.NorthBound'].update_one({'id':BusStopIndex},{'$set':{'normalizedDistanceFromOrigin':LocationRecordForBusStop[0]['normalizedDistanceFromOrigin'],'distanceFromOrigin':LocationRecordForBusStop[0]['distanceFromOrigin']}})"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   },
   {
    "cell_type": "code",
@@ -299,13 +272,6 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
    "execution_count": 12,
    "metadata": {
     "scrolled": true
@@ -427,20 +393,6 @@
     "if UseMongoDB==True:\n",
     "    pprint.pprint([BusStop for BusStop in con[RouteName]['BusStops.SouthBound'].find().sort([('id',1)])])"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {

@@ -13,6 +13,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "# Arrival time prediction\n",
     "In this unit, we will use the travel time information computed in the previous unit for arrival time prediction. The arrival time prediction is computed using the travel time estimates between the pair of bus-stop $(i,i+1)$. The travel time estimation is based on the weights and estimates pre-computed using historical trips. Concretely, we compute the mean of the bus travel time between the pair of bus-stop $(i,i+1)$ in the historical trips. As these are the historical trips, the weights and estimates can be computed in off-load time of the server, when the load on the server is relatively less. We will discuss the weight and estimation computation followed by the discussion about the arrival time prediction."
    ]
   },
@@ -20,7 +21,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Weight and estimate computation\n",
+    "## Weight and estimate computation\n",
     "In our application, we select one of the trips from the available location records as the ongoing trip and compute the arrival time prediction for it. In this case, the weights and estimates are computed using remaining trips for every pair of bus-stops $(i,i+1)$ on a route. \n",
     "\n",
     "For a pair of bus-stop, the temporal estimate is computed as the mean of travel time of the recorded trips in the same  `TripStartHour`. The weights and estimates are computed for the trips starting at different `TripStartHour` separately. The reason for separate computation is that the traffic dynamics throughout the day would be different and at the same time it would not change rapidly. We consider the trips that have the same `TripStartHour` would be plying on a route with the same traffic dynamics and hence, by computing weights and estimates at different `TripStartHour` separately, we cater for time-varying traffic dynamics. \n",
@@ -48,7 +49,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -514,7 +515,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Arrival time prediction\n"
+    "## Arrival time prediction algorithm\n"
    ]
   },
   {
