@@ -17,7 +17,7 @@ This repository contains the code for scalable implementation of the advanced ur
 ### Reproducible capsule
 The reproducible capsule contains all the codes, dataset, and computation environment dependencies (or libraries) in a docker. It guarantees the reproducibility of the code. 
 
-Click [here](https://codeocean.com/capsule/9953786/tree). to execute the reproducible capsule.
+Click [here](https://codeocean.com/capsule/9953786/tree) to execute the reproducible capsule.
 
 ### Downloading the file on the local system.
 The user can download/clone the source code repository in the local system to execute the APTS solution in their system. The user must download the following software (and libraries) before running the code.
