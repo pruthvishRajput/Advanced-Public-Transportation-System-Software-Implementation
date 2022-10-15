@@ -35,6 +35,14 @@
     "3. Python libraries: astropy ≥ 5.1, folium ≥ 0.12.1.post1, ipywidgets ≥ 8.0.2, matplotlib ≥ 3.6.0, notebook ≥ 6.4.12, numpy ≥ 1.23.3, openpyxl ≥ 3.0.10, pandas ≥ 1.5.0, pymongo ≥ 4.2.0 (and xfs file system), scikit-learn ≥ 1.1.2, scipy ≥ 1.9.1, sklearn≥ 0.0\n",
     "\n",
     "\n",
+    "### Executing your own data records \n",
+    "\n",
+    "- The users can execute the APTS solutions using the project dataset. \n",
+    "- Alternatively,  the users can use their own compatible datasets by placing them in the appropriate subfolder of `UserData` folder and selecting the variable `ProjectDataUsed` value as `False`. \n",
+    "- The `UserData` folder can contain the empty folders `LocationRecords`, `TransportMode`, and `SitStandRecord` folders where the users can place their trip data with the above-mentioned record and file name format. \n",
+    "\n",
+    "\n",
+    "\n",
     "In the following pages, the various components of the software are discussed."
    ]
   }
